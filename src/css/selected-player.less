@@ -1,0 +1,113 @@
+@labelLeft: 85px;
+
+#selected-player {
+	width: 100%;
+	height: 125px;
+	margin-bottom: @module-margin;
+	padding: 10px;
+}
+
+#selected-player .title {
+	font-size: 16px;
+}
+
+#selected-player .mugshot {
+	position: absolute;
+	top: 38px;
+}
+
+#selected-player span {
+	position: absolute;
+	color: #585858;
+ 	font-family: 'helvetica_neue_lt_w1g55_roman';
+ 	font-size: 14px;
+}
+
+#selected-player .player-name {
+	font-weight: bold;
+	left: @labelLeft;
+	top: 36px;
+}
+
+#selected-player .team-name {
+	left: @labelLeft;
+	top: 56px;
+}
+
+#selected-player .positions {
+	left: @labelLeft;
+	top: 76px;
+}
+
+#selected-player .playercard-link {
+	display: none;
+	color: #990000;
+	cursor: pointer;
+	text-decoration: underline;
+	font-weight: bold;
+	left: @labelLeft;
+	top: 96px;
+}
+
+#selected-player table {
+	border: 1px solid #B2B2B2;
+	border-collapse: collapse;
+	left: 226px;
+	position: absolute;
+	top: 38px;
+
+	th {
+		background-color: #EEE;
+		border-right: 1px solid #b2b2b2;
+		font-family: 'helvetica_neue_lt_w1g55_roman';
+		font-weight: bold;
+		font-size: 12px;
+		padding: 4px;
+		color: #6b6b6b;
+	}
+
+	td {
+		text-align: center;
+		font-family: 'helvetica_neue_lt_w1g55_roman';
+		font-size: 12px;
+		padding: 4px;
+		color: #6b6b6b;
+	}
+
+	td.last, td.proj {
+		border-right: 1px solid #b2b2b2;
+	}
+}
+
+#selected-player div.button {
+	border: 1px solid #C2C2C2;
+	border-radius: 4px;
+	font-family: 'mlb_secondary';
+	font-size: 13px;
+	height: 30px;
+	line-height: 30px;
+	position: absolute;
+	text-align: center;
+	width: 100px;
+	cursor: pointer;
+}
+
+#selected-player div.button.disabled {
+	cursor: auto;
+	background-color: #EEE !important;
+	color: #CCC !important;
+}
+
+#selected-player #draft-btn {
+	right: 10px;
+	top: 22px;
+	background-color: #ac1600;
+	color: #FFF;
+}
+
+#selected-player #add-to-queue-btn {
+	background-color: #EEE;
+	color: #6F6F6F;
+	right: 10px;
+	top: 69px;
+}

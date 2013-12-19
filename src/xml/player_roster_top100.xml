@@ -1,0 +1,782 @@
+<roster>
+   <player id="545361" first="Mike" last="Trout" age="22" pos="OF" q_pos="OF|U" team="laa" rank="1"> 
+      <stats s_type="curr" pts="72" ab="75" doubles="7" hr="2" h="23" rbi="11" bb="5" avg=".307" r="12" sb="3"/>
+      <stats s_type="last" pts="687" ab="559" doubles="27" hr="30" h="182" rbi="83" bb="67" avg=".326" r="129" sb="49"/>
+      <stats s_type="proj" pts="671" ab="620" doubles="27" hr="28" h="190" rbi="80" bb="67" avg=".306" r="118" sb="47"/>
+      <stats s_type="avg" pts="177" ab="152" doubles="7" hr="8" h="47" rbi="22" bb="17" avg=".309" r="33" sb="12"/>
+   </player>
+   <player id="408234" first="Miguel" last="Cabrera" age="30" pos="3B" q_pos="3B|U" team="det" rank="2"> 
+      <stats s_type="curr" pts="80" ab="76" doubles="3" hr="2" h="27" rbi="18" bb="9" avg=".355" r="13" sb="1"/>
+      <stats s_type="last" pts="698" ab="622" doubles="40" hr="44" h="205" rbi="139" bb="66" avg=".330" r="109" sb="4"/>
+      <stats s_type="proj" pts="668" ab="599" doubles="44" hr="39" h="195" rbi="116" bb="80" avg=".326" r="110" sb="3"/>
+      <stats s_type="avg" pts="673" ab="581" doubles="44" hr="37" h="193" rbi="123" bb="88" avg=".332" r="110" sb="3"/>
+   </player>
+   <player id="460075" first="Ryan" last="Braun" age="29" pos="OF" q_pos="OF|U" team="mil" rank="3"> 
+      <stats s_type="curr" pts="67" ab="50" doubles="3" hr="5" h="14" rbi="16" bb="10" avg=".280" r="9" sb="1"/>
+      <stats s_type="last" pts="692" ab="598" doubles="36" hr="41" h="191" rbi="112" bb="63" avg=".319" r="108" sb="30"/>
+      <stats s_type="proj" pts="641" ab="574" doubles="34" hr="36" h="180" rbi="105" bb="59" avg=".314" r="102" sb="27"/>
+      <stats s_type="avg" pts="655" ab="593" doubles="40" hr="33" h="189" rbi="109" bb="59" avg=".319" r="106" sb="26"/>
+   </player>
+   <player id="461314" first="Matt" last="Kemp" age="29" pos="OF" q_pos="OF|U" team="lad" rank="4"> 
+      <stats s_type="curr" pts="43" ab="68" doubles="4" hr="0" h="16" rbi="6" bb="4" avg=".235" r="7" sb="3"/>
+      <stats s_type="last" pts="414" ab="403" doubles="22" hr="23" h="122" rbi="69" bb="40" avg=".303" r="74" sb="9"/>
+      <stats s_type="proj" pts="616" ab="554" doubles="32" hr="32" h="176" rbi="100" bb="63" avg=".318" r="100" sb="26"/>
+      <stats s_type="avg" pts="558" ab="536" doubles="27" hr="30" h="156" rbi="95" bb="56" avg=".291" r="90" sb="23"/>
+   </player>
+   <player id="429664" first="Robinson" last="Cano" age="31" pos="2B" q_pos="2B|U" team="nyy" rank="5"> 
+      <stats s_type="curr" pts="76" ab="71" doubles="6" hr="5" h="23" rbi="13" bb="7" avg=".324" r="12" sb="0"/>
+      <stats s_type="last" pts="609" ab="627" doubles="48" hr="33" h="196" rbi="94" bb="61" avg=".313" r="105" sb="3"/>
+      <stats s_type="proj" pts="581" ab="612" doubles="42" hr="29" h="188" rbi="100" bb="59" avg=".307" r="101" sb="2"/>
+      <stats s_type="avg" pts="609" ab="625" doubles="45" hr="30" h="195" rbi="107" bb="52" avg=".312" r="104" sb="5"/>
+   </player>
+   <player id="405395" first="Albert" last="Pujols" age="33" pos="1B" q_pos="1B|U" team="laa" rank="6"> 
+      <stats s_type="curr" pts="65" ab="63" doubles="6" hr="2" h="20" rbi="13" bb="13" avg=".317" r="8" sb="0"/>
+      <stats s_type="last" pts="570" ab="607" doubles="50" hr="30" h="173" rbi="105" bb="52" avg=".285" r="85" sb="8"/>
+      <stats s_type="proj" pts="613" ab="580" doubles="42" hr="35" h="177" rbi="116" bb="60" avg=".305" r="100" sb="7"/>
+      <stats s_type="avg" pts="621" ab="591" doubles="39" hr="36" h="175" rbi="107" bb="72" avg=".296" r="102" sb="10"/>
+   </player>
+   <player id="471865" first="Carlos" last="Gonzalez" age="28" pos="OF" q_pos="OF|U" team="col" rank="7"> 
+      <stats s_type="curr" pts="93" ab="66" doubles="6" hr="4" h="24" rbi="12" bb="10" avg=".364" r="19" sb="4"/>
+      <stats s_type="last" pts="529" ab="518" doubles="31" hr="22" h="157" rbi="85" bb="56" avg=".303" r="89" sb="20"/>
+      <stats s_type="proj" pts="613" ab="550" doubles="36" hr="28" h="169" rbi="99" bb="67" avg=".307" r="103" sb="25"/>
+      <stats s_type="avg" pts="571" ab="529" doubles="31" hr="27" h="166" rbi="98" bb="48" avg=".314" r="97" sb="22"/>
+   </player>
+   <player id="457705" first="Andrew" last="McCutchen" age="27" pos="OF" q_pos="OF|U" team="pit" rank="8"> 
+      <stats s_type="curr" pts="74" ab="66" doubles="8" hr="2" h="18" rbi="12" bb="5" avg=".273" r="14" sb="6"/>
+      <stats s_type="last" pts="629" ab="593" doubles="29" hr="31" h="194" rbi="96" bb="70" avg=".327" r="107" sb="20"/>
+      <stats s_type="proj" pts="606" ab="599" doubles="32" hr="26" h="186" rbi="92" bb="67" avg=".311" r="103" sb="23"/>
+      <stats s_type="avg" pts="571" ab="578" doubles="33" hr="23" h="168" rbi="80" bb="76" avg=".291" r="96" sb="25"/>
+   </player>
+   <player id="458015" first="Joey" last="Votto" age="30" pos="1B" q_pos="1B|U" team="cin" rank="9"> 
+      <stats s_type="curr" pts="81" ab="64" doubles="1" hr="3" h="21" rbi="7" bb="25" avg=".328" r="14" sb="1"/>
+      <stats s_type="last" pts="428" ab="374" doubles="44" hr="14" h="126" rbi="56" bb="94" avg=".337" r="59" sb="5"/>
+      <stats s_type="proj" pts="645" ab="558" doubles="43" hr="28" h="183" rbi="108" bb="112" avg=".328" r="98" sb="9"/>
+      <stats s_type="avg" pts="581" ab="507" doubles="40" hr="27" h="163" rbi="91" bb="98" avg=".321" r="89" sb="10"/>
+   </player>
+   <player id="453064" first="Troy" last="Tulowitzki" age="29" pos="SS" q_pos="SS|U" team="col" rank="10"> 
+      <stats s_type="curr" pts="77" ab="58" doubles="3" hr="6" h="19" rbi="17" bb="8" avg=".328" r="12" sb="0"/>
+      <stats s_type="last" pts="169" ab="181" doubles="8" hr="8" h="52" rbi="27" bb="19" avg=".287" r="33" sb="2"/>
+      <stats s_type="proj" pts="522" ab="533" doubles="30" hr="26" h="161" rbi="91" bb="55" avg=".302" r="89" sb="8"/>
+      <stats s_type="avg" pts="413" ab="396" doubles="25" hr="22" h="120" rbi="76" bb="42" avg=".303" r="68" sb="7"/>
+   </player>
+   <player id="425902" first="Prince" last="Fielder" age="29" pos="1B" q_pos="1B|U" team="det" rank="11"> 
+      <stats s_type="curr" pts="86" ab="69" doubles="6" hr="5" h="23" rbi="21" bb="12" avg=".333" r="10" sb="0"/>
+      <stats s_type="last" pts="585" ab="581" doubles="33" hr="30" h="182" rbi="108" bb="85" avg=".313" r="83" sb="1"/>
+      <stats s_type="proj" pts="594" ab="570" doubles="33" hr="33" h="170" rbi="110" bb="89" avg=".298" r="90" sb="1"/>
+      <stats s_type="avg" pts="598" ab="576" doubles="31" hr="33" h="167" rbi="104" bb="102" avg=".290" r="91" sb="1"/>
+   </player>
+   <player id="430832" first="Jose" last="Bautista" age="33" pos="OF" q_pos="OF|U" team="tor" rank="12"> 
+      <stats s_type="curr" pts="45" ab="46" doubles="2" hr="4" h="10" rbi="8" bb="7" avg=".217" r="6" sb="0"/>
+      <stats s_type="last" pts="371" ab="332" doubles="14" hr="27" h="80" rbi="65" bb="59" avg=".241" r="64" sb="5"/>
+      <stats s_type="proj" pts="625" ab="545" doubles="30" hr="43" h="145" rbi="106" bb="96" avg=".266" r="104" sb="8"/>
+      <stats s_type="avg" pts="578" ab="471" doubles="24" hr="41" h="127" rbi="97" bb="97" avg=".270" r="93" sb="8"/>
+   </player>
+   <player id="519317" first="Giancarlo" last="Stanton" age="23" pos="OF" q_pos="OF|U" team="mia" rank="13"> 
+      <stats s_type="curr" pts="25" ab="48" doubles="2" hr="0" h="9" rbi="1" bb="9" avg=".188" r="2" sb="1"/>
+      <stats s_type="last" pts="490" ab="449" doubles="30" hr="37" h="130" rbi="86" bb="46" avg=".290" r="75" sb="6"/>
+      <stats s_type="proj" pts="561" ab="545" doubles="36" hr="39" h="150" rbi="100" bb="56" avg=".275" r="88" sb="7"/>
+      <stats s_type="avg" pts="443" ab="441" doubles="27" hr="31" h="119" rbi="77" bb="50" avg=".270" r="66" sb="5"/>
+   </player>
+   <player id="457708" first="Justin" last="Upton" age="26" pos="OF" q_pos="OF|U" team="atl" rank="14"> 
+      <stats s_type="curr" pts="95" ab="67" doubles="4" hr="9" h="20" rbi="13" bb="10" avg=".299" r="15" sb="3"/>
+      <stats s_type="last" pts="503" ab="554" doubles="24" hr="17" h="155" rbi="67" bb="63" avg=".280" r="107" sb="18"/>
+      <stats s_type="proj" pts="578" ab="582" doubles="30" hr="27" h="171" rbi="88" bb="69" avg=".294" r="98" sb="20"/>
+      <stats s_type="avg" pts="520" ab="547" doubles="30" hr="22" h="154" rbi="75" bb="62" avg=".282" r="95" sb="19"/>
+   </player>
+   <player id="518792" first="Jason" last="Heyward" age="24" pos="OF" q_pos="OF|U" team="atl" rank="15"> 
+      <stats s_type="curr" pts="37" ab="58" doubles="2" hr="2" h="7" rbi="5" bb="8" avg=".121" r="8" sb="1"/>
+      <stats s_type="last" pts="548" ab="587" doubles="30" hr="27" h="158" rbi="82" bb="58" avg=".269" r="93" sb="21"/>
+      <stats s_type="proj" pts="586" ab="569" doubles="31" hr="30" h="164" rbi="89" bb="65" avg=".288" r="95" sb="23"/>
+      <stats s_type="avg" pts="455" ab="501" doubles="26" hr="20" h="131" rbi="65" bb="67" avg=".261" r="75" sb="14"/>
+   </player>
+   <player id="285078" first="Josh" last="Hamilton" age="32" pos="OF" q_pos="OF|U" team="laa" rank="16"> 
+      <stats s_type="curr" pts="42" ab="68" doubles="2" hr="2" h="12" rbi="8" bb="5" avg=".176" r="7" sb="0"/>
+      <stats s_type="last" pts="625" ab="562" doubles="31" hr="43" h="160" rbi="128" bb="60" avg=".285" r="103" sb="7"/>
+      <stats s_type="proj" pts="566" ab="580" doubles="40" hr="31" h="167" rbi="105" bb="59" avg=".288" r="88" sb="6"/>
+      <stats s_type="avg" pts="563" ab="522" doubles="34" hr="33" h="163" rbi="107" bb="47" avg=".312" r="93" sb="8"/>
+   </player>
+   <player id="431151" first="David" last="Wright" age="30" pos="3B" q_pos="3B|U" team="nym" rank="17"> 
+      <stats s_type="curr" pts="86" ab="61" doubles="3" hr="2" h="19" rbi="14" bb="15" avg=".311" r="13" sb="5"/>
+      <stats s_type="last" pts="571" ab="581" doubles="41" hr="21" h="178" rbi="93" bb="81" avg=".306" r="91" sb="15"/>
+      <stats s_type="proj" pts="567" ab="577" doubles="39" hr="22" h="171" rbi="89" bb="82" avg=".296" r="92" sb="17"/>
+      <stats s_type="avg" pts="503" ab="519" doubles="33" hr="21" h="147" rbi="86" bb="67" avg=".283" r="79" sb="16"/>
+   </player>
+   <player id="134181" first="Adrian" last="Beltre" age="34" pos="3B" q_pos="3B|U" team="tex" rank="18"> 
+      <stats s_type="curr" pts="46" ab="67" doubles="3" hr="3" h="15" rbi="8" bb="5" avg=".224" r="6" sb="0"/>
+      <stats s_type="last" pts="574" ab="604" doubles="33" hr="36" h="194" rbi="102" bb="36" avg=".321" r="95" sb="1"/>
+      <stats s_type="proj" pts="520" ab="567" doubles="36" hr="28" h="166" rbi="98" bb="42" avg=".293" r="89" sb="2"/>
+      <stats s_type="avg" pts="536" ab="560" doubles="38" hr="32" h="175" rbi="103" bb="34" avg=".313" r="87" sb="1"/>
+   </player>
+   <player id="547180" first="Bryce" last="Harper" age="21" pos="OF" q_pos="OF|U" team="wsh" rank="19"> 
+      <stats s_type="curr" pts="83" ab="65" doubles="3" hr="7" h="24" rbi="14" bb="7" avg=".369" r="13" sb="1"/>
+      <stats s_type="last" pts="497" ab="533" doubles="26" hr="22" h="144" rbi="59" bb="56" avg=".270" r="98" sb="18"/>
+      <stats s_type="proj" pts="577" ab="590" doubles="34" hr="25" h="164" rbi="89" bb="65" avg=".278" r="105" sb="21"/>
+      <stats s_type="avg" pts="54" ab="59" doubles="3" hr="2" h="16" rbi="7" bb="6" avg=".271" r="11" sb="2"/>
+   </player>
+   <player id="434670" first="Hanley" last="Ramirez" age="29" pos="SS" q_pos="3B|SS|U" team="lad" rank="20"> 
+      <stats s_type="curr" pts="0" ab="0" doubles="0" hr="0" h="0" rbi="0" bb="0" avg=".000" r="0" sb="0"/>
+      <stats s_type="last" pts="524" ab="604" doubles="29" hr="24" h="155" rbi="92" bb="54" avg=".257" r="79" sb="21"/>
+      <stats s_type="proj" pts="539" ab="592" doubles="33" hr="22" h="165" rbi="89" bb="59" avg=".279" r="92" sb="20"/>
+      <stats s_type="avg" pts="454" ab="495" doubles="24" hr="18" h="133" rbi="71" bb="54" avg=".269" r="75" sb="24"/>
+   </player>
+   <player id="408314" first="Jose" last="Reyes" age="30" pos="SS" q_pos="SS|U" team="tor" rank="21"> 
+      <stats s_type="curr" pts="45" ab="38" doubles="2" hr="1" h="15" rbi="5" bb="5" avg=".395" r="5" sb="5"/>
+      <stats s_type="last" pts="553" ab="642" doubles="37" hr="11" h="184" rbi="57" bb="63" avg=".287" r="86" sb="40"/>
+      <stats s_type="proj" pts="516" ab="562" doubles="29" hr="10" h="160" rbi="62" bb="50" avg=".285" r="101" sb="33"/>
+      <stats s_type="avg" pts="514" ab="581" doubles="32" hr="10" h="175" rbi="52" bb="46" avg=".301" r="90" sb="36"/>
+   </player>
+   <player id="456030" first="Dustin" last="Pedroia" age="30" pos="2B" q_pos="2B|U" team="bos" rank="22"> 
+      <stats s_type="curr" pts="61" ab="67" doubles="2" hr="0" h="21" rbi="7" bb="14" avg=".313" r="10" sb="4"/>
+      <stats s_type="last" pts="481" ab="563" doubles="39" hr="15" h="163" rbi="65" bb="48" avg=".290" r="81" sb="20"/>
+      <stats s_type="proj" pts="559" ab="628" doubles="40" hr="17" h="186" rbi="70" bb="62" avg=".296" r="102" sb="24"/>
+      <stats s_type="avg" pts="466" ab="500" doubles="33" hr="16" h="148" rbi="66" bb="57" avg=".296" r="79" sb="18"/>
+   </player>
+   <player id="457763" first="Buster" last="Posey" age="26" pos="C" q_pos="C|1B|U" team="sf" rank="23"> 
+      <stats s_type="curr" pts="42" ab="56" doubles="4" hr="1" h="13" rbi="8" bb="6" avg=".232" r="6" sb="0"/>
+      <stats s_type="last" pts="542" ab="530" doubles="39" hr="24" h="178" rbi="103" bb="69" avg=".336" r="78" sb="1"/>
+      <stats s_type="proj" pts="496" ab="517" doubles="35" hr="23" h="160" rbi="95" bb="61" avg=".309" r="73" sb="1"/>
+      <stats s_type="avg" pts="339" ab="366" doubles="22" hr="15" h="115" rbi="64" bb="39" avg=".314" r="51" sb="1"/>
+   </player>
+   <player id="475582" first="Ryan" last="Zimmerman" age="29" pos="3B" q_pos="3B|U" team="wsh" rank="24"> 
+      <stats s_type="curr" pts="40" ab="53" doubles="2" hr="1" h="12" rbi="11" bb="7" avg=".226" r="3" sb="0"/>
+      <stats s_type="last" pts="529" ab="578" doubles="36" hr="25" h="163" rbi="95" bb="57" avg=".282" r="93" sb="5"/>
+      <stats s_type="proj" pts="552" ab="589" doubles="38" hr="27" h="169" rbi="98" bb="65" avg=".287" r="91" sb="4"/>
+      <stats s_type="avg" pts="458" ab="499" doubles="30" hr="21" h="147" rbi="76" bb="56" avg=".295" r="77" sb="4"/>
+   </player>
+   <player id="430945" first="Adam" last="Jones" age="28" pos="OF" q_pos="OF|U" team="bal" rank="25"> 
+      <stats s_type="curr" pts="79" ab="74" doubles="7" hr="3" h="27" rbi="15" bb="2" avg=".365" r="17" sb="1"/>
+      <stats s_type="last" pts="571" ab="648" doubles="39" hr="32" h="186" rbi="82" bb="34" avg=".287" r="103" sb="16"/>
+      <stats s_type="proj" pts="530" ab="627" doubles="38" hr="27" h="179" rbi="81" bb="34" avg=".285" r="90" sb="14"/>
+      <stats s_type="avg" pts="487" ab="599" doubles="30" hr="25" h="169" rbi="78" bb="29" avg=".282" r="82" sb="12"/>
+   </player>
+   <player id="435079" first="Ian" last="Kinsler" age="31" pos="2B" q_pos="2B|U" team="tex" rank="26"> 
+      <stats s_type="curr" pts="72" ab="66" doubles="1" hr="5" h="20" rbi="12" bb="8" avg=".303" r="13" sb="2"/>
+      <stats s_type="last" pts="547" ab="655" doubles="42" hr="19" h="168" rbi="72" bb="60" avg=".256" r="105" sb="21"/>
+      <stats s_type="proj" pts="548" ab="614" doubles="38" hr="23" h="162" rbi="74" bb="57" avg=".264" r="103" sb="24"/>
+      <stats s_type="avg" pts="515" ab="555" doubles="32" hr="20" h="146" rbi="65" bb="68" avg=".263" r="100" sb="22"/>
+   </player>
+   <player id="453056" first="Jacoby" last="Ellsbury" age="30" pos="OF" q_pos="OF|U" team="bos" rank="27"> 
+      <stats s_type="curr" pts="80" ab="82" doubles="4" hr="1" h="24" rbi="9" bb="3" avg=".293" r="15" sb="8"/>
+      <stats s_type="last" pts="225" ab="303" doubles="18" hr="4" h="82" rbi="26" bb="19" avg=".271" r="43" sb="14"/>
+      <stats s_type="proj" pts="563" ab="609" doubles="40" hr="15" h="184" rbi="68" bb="46" avg=".302" r="103" sb="37"/>
+      <stats s_type="avg" pts="328" ab="347" doubles="23" hr="12" h="104" rbi="45" bb="25" avg=".300" r="57" sb="20"/>
+   </player>
+   <player id="516770" first="Starlin" last="Castro" age="23" pos="SS" q_pos="SS|U" team="chc" rank="28"> 
+      <stats s_type="curr" pts="55" ab="73" doubles="4" hr="2" h="22" rbi="6" bb="2" avg=".301" r="9" sb="2"/>
+      <stats s_type="last" pts="507" ab="646" doubles="29" hr="14" h="183" rbi="78" bb="36" avg=".283" r="78" sb="25"/>
+      <stats s_type="proj" pts="537" ab="622" doubles="33" hr="16" h="187" rbi="79" bb="52" avg=".301" r="89" sb="25"/>
+      <stats s_type="avg" pts="451" ab="594" doubles="32" hr="9" h="177" rbi="62" bb="33" avg=".298" r="74" sb="19"/>
+   </player>
+   <player id="446334" first="Evan" last="Longoria" age="28" pos="3B" q_pos="3B|U" team="tb" rank="29"> 
+      <stats s_type="curr" pts="58" ab="64" doubles="2" hr="4" h="18" rbi="9" bb="7" avg=".281" r="10" sb="0"/>
+      <stats s_type="last" pts="272" ab="273" doubles="14" hr="17" h="79" rbi="55" bb="33" avg=".289" r="39" sb="2"/>
+      <stats s_type="proj" pts="579" ab="569" doubles="38" hr="30" h="161" rbi="103" bb="79" avg=".283" r="95" sb="7"/>
+      <stats s_type="avg" pts="454" ab="443" doubles="29" hr="23" h="122" rbi="86" bb="62" avg=".275" r="71" sb="7"/>
+   </player>
+   <player id="493316" first="Yoenis" last="Cespedes" age="28" pos="OF" q_pos="OF|U" team="oak" rank="30"> 
+      <stats s_type="curr" pts="37" ab="40" doubles="1" hr="3" h="8" rbi="7" bb="6" avg=".200" r="7" sb="0"/>
+      <stats s_type="last" pts="469" ab="487" doubles="25" hr="23" h="142" rbi="82" bb="43" avg=".292" r="70" sb="16"/>
+      <stats s_type="proj" pts="554" ab="557" doubles="31" hr="28" h="166" rbi="96" bb="50" avg=".298" r="82" sb="19"/>
+      <stats s_type="avg" pts="57" ab="54" doubles="3" hr="3" h="17" rbi="9" bb="5" avg=".315" r="8" sb="2"/>
+   </player>
+   <player id="429665" first="Edwin" last="Encarnacion" age="30" pos="U" q_pos="1B|U" team="tor" rank="31"> 
+      <stats s_type="curr" pts="47" ab="71" doubles="2" hr="2" h="14" rbi="8" bb="8" avg=".197" r="7" sb="1"/>
+      <stats s_type="last" pts="612" ab="542" doubles="24" hr="42" h="152" rbi="110" bb="84" avg=".280" r="93" sb="13"/>
+      <stats s_type="proj" pts="545" ab="535" doubles="28" hr="35" h="145" rbi="98" bb="69" avg=".271" r="86" sb="9"/>
+      <stats s_type="avg" pts="433" ab="452" doubles="25" hr="27" h="121" rbi="72" bb="52" avg=".268" r="70" sb="7"/>
+   </player>
+   <player id="408252" first="Brandon" last="Phillips" age="32" pos="2B" q_pos="2B|U" team="cin" rank="32"> 
+      <stats s_type="curr" pts="81" ab="75" doubles="5" hr="4" h="23" rbi="21" bb="7" avg=".307" r="13" sb="0"/>
+      <stats s_type="last" pts="468" ab="580" doubles="30" hr="18" h="163" rbi="77" bb="28" avg=".281" r="86" sb="15"/>
+      <stats s_type="proj" pts="491" ab="588" doubles="32" hr="19" h="169" rbi="81" bb="30" avg=".287" r="90" sb="16"/>
+      <stats s_type="avg" pts="494" ab="605" doubles="34" hr="18" h="173" rbi="73" bb="39" avg=".286" r="93" sb="15"/>
+   </player>
+   <player id="407812" first="Matt" last="Holliday" age="33" pos="OF" q_pos="OF|U" team="stl" rank="33"> 
+      <stats s_type="curr" pts="58" ab="57" doubles="4" hr="2" h="14" rbi="12" bb="10" avg=".246" r="12" sb="0"/>
+      <stats s_type="last" pts="574" ab="599" doubles="36" hr="27" h="177" rbi="102" bb="75" avg=".295" r="95" sb="4"/>
+      <stats s_type="proj" pts="549" ab="560" doubles="34" hr="25" h="170" rbi="100" bb="70" avg=".304" r="92" sb="4"/>
+      <stats s_type="avg" pts="543" ab="547" doubles="39" hr="26" h="165" rbi="93" bb="68" avg=".302" r="91" sb="5"/>
+   </player>
+   <player id="408236" first="Adrian" last="Gonzalez" age="31" pos="1B" q_pos="1B|OF|U" team="lad" rank="34"> 
+      <stats s_type="curr" pts="63" ab="65" doubles="5" hr="2" h="25" rbi="14" bb="9" avg=".385" r="4" sb="0"/>
+      <stats s_type="last" pts="520" ab="629" doubles="47" hr="18" h="188" rbi="108" bb="42" avg=".299" r="75" sb="2"/>
+      <stats s_type="proj" pts="557" ab="611" doubles="40" hr="28" h="181" rbi="104" bb="60" avg=".296" r="84" sb="1"/>
+      <stats s_type="avg" pts="582" ab="617" doubles="42" hr="25" h="192" rbi="109" bb="70" avg=".311" r="90" sb="1"/>
+   </player>
+   <player id="435622" first="Ian" last="Desmond" age="28" pos="SS" q_pos="SS|U" team="wsh" rank="35"> 
+      <stats s_type="curr" pts="57" ab="69" doubles="7" hr="3" h="20" rbi="4" bb="2" avg=".290" r="9" sb="2"/>
+      <stats s_type="last" pts="473" ab="513" doubles="33" hr="25" h="150" rbi="73" bb="30" avg=".292" r="72" sb="21"/>
+      <stats s_type="proj" pts="488" ab="573" doubles="36" hr="21" h="163" rbi="71" bb="37" avg=".284" r="76" sb="22"/>
+      <stats s_type="avg" pts="418" ab="541" doubles="29" hr="14" h="146" rbi="62" bb="31" avg=".270" r="65" sb="21"/>
+   </player>
+   <player id="502671" first="Paul" last="Goldschmidt" age="26" pos="1B" q_pos="1B|U" team="ari" rank="36"> 
+      <stats s_type="curr" pts="72" ab="70" doubles="5" hr="3" h="23" rbi="13" bb="9" avg=".329" r="13" sb="0"/>
+      <stats s_type="last" pts="509" ab="514" doubles="43" hr="20" h="147" rbi="82" bb="60" avg=".286" r="82" sb="18"/>
+      <stats s_type="proj" pts="537" ab="540" doubles="38" hr="26" h="150" rbi="88" bb="68" avg=".278" r="86" sb="15"/>
+      <stats s_type="avg" pts="146" ab="149" doubles="12" hr="6" h="41" rbi="24" bb="18" avg=".275" r="24" sb="5"/>
+   </player>
+   <player id="425834" first="B.J." last="Upton" age="29" pos="OF" q_pos="OF|U" team="atl" rank="37"> 
+      <stats s_type="curr" pts="39" ab="66" doubles="3" hr="2" h="11" rbi="3" bb="6" avg=".167" r="5" sb="3"/>
+      <stats s_type="last" pts="518" ab="573" doubles="29" hr="28" h="141" rbi="78" bb="45" avg=".246" r="79" sb="31"/>
+      <stats s_type="proj" pts="528" ab="570" doubles="30" hr="26" h="146" rbi="81" bb="47" avg=".256" r="82" sb="32"/>
+      <stats s_type="avg" pts="524" ab="556" doubles="31" hr="23" h="135" rbi="74" bb="61" avg=".243" r="83" sb="36"/>
+   </player>
+   <player id="456422" first="Michael" last="Bourn" age="30" pos="OF" q_pos="OF|U" team="cle" rank="38"> 
+      <stats s_type="curr" pts="40" ab="45" doubles="4" hr="2" h="15" rbi="2" bb="2" avg=".333" r="7" sb="1"/>
+      <stats s_type="last" pts="538" ab="624" doubles="26" hr="9" h="171" rbi="57" bb="70" avg=".274" r="96" sb="42"/>
+      <stats s_type="proj" pts="538" ab="631" doubles="27" hr="5" h="178" rbi="57" bb="73" avg=".282" r="90" sb="45"/>
+      <stats s_type="avg" pts="517" ab="605" doubles="28" hr="4" h="168" rbi="48" bb="61" avg=".278" r="91" sb="52"/>
+   </player>
+   <player id="457803" first="Jay" last="Bruce" age="26" pos="OF" q_pos="OF|U" team="cin" rank="39"> 
+      <stats s_type="curr" pts="53" ab="80" doubles="6" hr="0" h="22" rbi="8" bb="8" avg=".275" r="11" sb="0"/>
+      <stats s_type="last" pts="553" ab="560" doubles="35" hr="34" h="141" rbi="99" bb="62" avg=".252" r="89" sb="9"/>
+      <stats s_type="proj" pts="563" ab="582" doubles="38" hr="32" h="151" rbi="103" bb="64" avg=".259" r="92" sb="9"/>
+      <stats s_type="avg" pts="516" ab="551" doubles="28" hr="30" h="144" rbi="89" bb="64" avg=".261" r="84" sb="7"/>
+   </player>
+   <player id="425877" first="Yadier" last="Molina" age="31" pos="C" q_pos="C|U" team="stl" rank="40"> 
+      <stats s_type="curr" pts="57" ab="68" doubles="5" hr="2" h="22" rbi="11" bb="3" avg=".324" r="8" sb="1"/>
+      <stats s_type="last" pts="460" ab="505" doubles="28" hr="22" h="159" rbi="76" bb="45" avg=".315" r="65" sb="12"/>
+      <stats s_type="proj" pts="414" ab="498" doubles="26" hr="18" h="147" rbi="70" bb="42" avg=".295" r="60" sb="9"/>
+      <stats s_type="avg" pts="380" ab="482" doubles="26" hr="14" h="141" rbi="68" bb="40" avg=".293" r="51" sb="8"/>
+   </player>
+   <player id="456714" first="Billy" last="Butler" age="27" pos="U" q_pos="1B|U" team="kc" rank="41"> 
+      <stats s_type="curr" pts="53" ab="51" doubles="1" hr="3" h="11" rbi="12" bb="12" avg=".216" r="8" sb="0"/>
+      <stats s_type="last" pts="549" ab="614" doubles="32" hr="29" h="192" rbi="107" bb="54" avg=".313" r="72" sb="2"/>
+      <stats s_type="proj" pts="539" ab="595" doubles="37" hr="26" h="184" rbi="102" bb="60" avg=".309" r="75" sb="2"/>
+      <stats s_type="avg" pts="518" ab="602" doubles="40" hr="21" h="184" rbi="93" bb="63" avg=".306" r="74" sb="1"/>
+   </player>
+   <player id="452104" first="Chase" last="Headley" age="29" pos="3B" q_pos="3B|U" team="sd" rank="42"> 
+      <stats s_type="curr" pts="15" ab="14" doubles="0" hr="1" h="3" rbi="3" bb="2" avg=".214" r="2" sb="1"/>
+      <stats s_type="last" pts="625" ab="604" doubles="31" hr="31" h="173" rbi="115" bb="86" avg=".286" r="95" sb="17"/>
+      <stats s_type="proj" pts="562" ab="597" doubles="36" hr="24" h="168" rbi="91" bb="80" avg=".281" r="86" sb="15"/>
+      <stats s_type="avg" pts="462" ab="532" doubles="29" hr="15" h="147" rbi="72" bb="65" avg=".276" r="72" sb="16"/>
+   </player>
+   <player id="543434" first="Brett" last="Lawrie" age="23" pos="3B" q_pos="3B|U" team="tor" rank="43"> 
+      <stats s_type="curr" pts="9" ab="23" doubles="1" hr="0" h="4" rbi="3" bb="0" avg=".174" r="1" sb="0"/>
+      <stats s_type="last" pts="372" ab="494" doubles="26" hr="11" h="135" rbi="48" bb="33" avg=".273" r="73" sb="13"/>
+      <stats s_type="proj" pts="514" ab="584" doubles="35" hr="18" h="165" rbi="81" bb="46" avg=".283" r="89" sb="19"/>
+      <stats s_type="avg" pts="119" ab="143" doubles="8" hr="4" h="40" rbi="16" bb="11" avg=".280" r="22" sb="4"/>
+   </player>
+   <player id="467055" first="Pablo" last="Sandoval" age="27" pos="3B" q_pos="3B|U" team="sf" rank="44"> 
+      <stats s_type="curr" pts="59" ab="69" doubles="2" hr="3" h="20" rbi="17" bb="5" avg=".290" r="6" sb="0"/>
+      <stats s_type="last" pts="338" ab="396" doubles="25" hr="12" h="112" rbi="63" bb="38" avg=".283" r="59" sb="1"/>
+      <stats s_type="proj" pts="515" ab="556" doubles="37" hr="25" h="169" rbi="94" bb="51" avg=".304" r="82" sb="2"/>
+      <stats s_type="avg" pts="378" ab="462" doubles="28" hr="16" h="132" rbi="65" bb="39" avg=".286" r="58" sb="2"/>
+   </player>
+   <player id="450314" first="Ben" last="Zobrist" age="32" pos="OF" q_pos="2B|SS|OF|U" team="tb" rank="45"> 
+      <stats s_type="curr" pts="59" ab="64" doubles="4" hr="1" h="18" rbi="12" bb="10" avg=".281" r="8" sb="2"/>
+      <stats s_type="last" pts="542" ab="560" doubles="39" hr="20" h="151" rbi="74" bb="97" avg=".270" r="88" sb="14"/>
+      <stats s_type="proj" pts="548" ab="572" doubles="42" hr="17" h="154" rbi="76" bb="99" avg=".269" r="90" sb="17"/>
+      <stats s_type="avg" pts="535" ab="563" doubles="38" hr="17" h="147" rbi="80" bb="89" avg=".261" r="88" sb="19"/>
+   </player>
+   <player id="434158" first="Curtis" last="Granderson" age="32" pos="OF" q_pos="OF|U" team="nyy" rank="46"> 
+      <stats s_type="curr" pts="0" ab="0" doubles="0" hr="0" h="0" rbi="0" bb="0" avg=".000" r="0" sb="0"/>
+      <stats s_type="last" pts="593" ab="596" doubles="18" hr="43" h="138" rbi="106" bb="75" avg=".232" r="102" sb="10"/>
+      <stats s_type="proj" pts="459" ab="467" doubles="15" hr="27" h="117" rbi="76" bb="65" avg=".251" r="80" sb="12"/>
+      <stats s_type="avg" pts="577" ab="548" doubles="20" hr="36" h="135" rbi="97" bb="71" avg=".246" r="105" sb="16"/>
+   </player>
+   <player id="467793" first="Carlos" last="Santana" age="27" pos="C" q_pos="C|1B|U" team="cle" rank="47"> 
+      <stats s_type="curr" pts="66" ab="50" doubles="7" hr="4" h="19" rbi="9" bb="8" avg=".380" r="11" sb="0"/>
+      <stats s_type="last" pts="453" ab="507" doubles="27" hr="18" h="128" rbi="76" bb="91" avg=".252" r="72" sb="3"/>
+      <stats s_type="proj" pts="496" ab="524" doubles="32" hr="22" h="135" rbi="85" bb="94" avg=".258" r="76" sb="3"/>
+      <stats s_type="avg" pts="376" ab="403" doubles="25" hr="17" h="99" rbi="59" bb="75" avg=".246" r="60" sb="4"/>
+   </player>
+   <player id="446308" first="Matt" last="Wieters" age="27" pos="C" q_pos="C|U" team="bal" rank="48"> 
+      <stats s_type="curr" pts="48" ab="58" doubles="2" hr="3" h="13" rbi="8" bb="8" avg=".224" r="8" sb="0"/>
+      <stats s_type="last" pts="445" ab="526" doubles="27" hr="23" h="131" rbi="83" bb="60" avg=".249" r="67" sb="3"/>
+      <stats s_type="proj" pts="444" ab="519" doubles="22" hr="23" h="137" rbi="85" bb="57" avg=".264" r="71" sb="1"/>
+      <stats s_type="avg" pts="392" ab="491" doubles="26" hr="19" h="125" rbi="69" bb="52" avg=".255" r="59" sb="1"/>
+   </player>
+   <player id="457706" first="Austin" last="Jackson" age="26" pos="OF" q_pos="OF|U" team="det" rank="49"> 
+      <stats s_type="curr" pts="77" ab="86" doubles="3" hr="1" h="25" rbi="7" bb="8" avg=".291" r="19" sb="5"/>
+      <stats s_type="last" pts="511" ab="543" doubles="29" hr="16" h="163" rbi="66" bb="67" avg=".300" r="103" sb="12"/>
+      <stats s_type="proj" pts="553" ab="619" doubles="30" hr="18" h="167" rbi="75" bb="70" avg=".270" r="110" sb="21"/>
+      <stats s_type="avg" pts="481" ab="584" doubles="28" hr="10" h="163" rbi="51" bb="57" avg=".279" r="99" sb="20"/>
+   </player>
+   <player id="425783" first="Shin-Soo" last="Choo" age="31" pos="OF" q_pos="OF|U" team="cin" rank="50"> 
+      <stats s_type="curr" pts="84" ab="68" doubles="6" hr="3" h="26" rbi="9" bb="11" avg=".382" r="17" sb="2"/>
+      <stats s_type="last" pts="527" ab="598" doubles="43" hr="16" h="169" rbi="67" bb="73" avg=".283" r="88" sb="21"/>
+      <stats s_type="proj" pts="529" ab="565" doubles="36" hr="20" h="163" rbi="66" bb="69" avg=".288" r="96" sb="19"/>
+      <stats s_type="avg" pts="441" ab="487" doubles="28" hr="15" h="137" rbi="64" bb="64" avg=".281" r="69" sb="18"/>
+   </player>
+   <player id="471083" first="Miguel" last="Montero" age="30" pos="C" q_pos="C|U" team="ari" rank="51"> 
+      <stats s_type="curr" pts="44" ab="59" doubles="2" hr="1" h="12" rbi="9" bb="10" avg=".203" r="8" sb="0"/>
+      <stats s_type="last" pts="439" ab="486" doubles="25" hr="15" h="139" rbi="88" bb="73" avg=".286" r="65" sb="0"/>
+      <stats s_type="proj" pts="426" ab="481" doubles="29" hr="16" h="135" rbi="79" bb="70" avg=".281" r="62" sb="1"/>
+      <stats s_type="avg" pts="368" ab="425" doubles="27" hr="14" h="119" rbi="72" bb="50" avg=".280" r="55" sb="0"/>
+   </player>
+   <player id="133380" first="Aramis" last="Ramirez" age="35" pos="3B" q_pos="3B|U" team="mil" rank="52"> 
+      <stats s_type="curr" pts="13" ab="13" doubles="3" hr="0" h="5" rbi="2" bb="2" avg=".385" r="1" sb="0"/>
+      <stats s_type="last" pts="565" ab="570" doubles="50" hr="27" h="171" rbi="105" bb="44" avg=".300" r="92" sb="9"/>
+      <stats s_type="proj" pts="492" ab="559" doubles="25" hr="25" h="160" rbi="92" bb="48" avg=".286" r="83" sb="5"/>
+      <stats s_type="avg" pts="486" ab="533" doubles="35" hr="26" h="152" rbi="94" bb="40" avg=".285" r="78" sb="3"/>
+   </player>
+   <player id="452678" first="Asdrubal" last="Cabrera" age="27" pos="SS" q_pos="SS|U" team="cle" rank="53"> 
+      <stats s_type="curr" pts="32" ab="60" doubles="2" hr="2" h="9" rbi="3" bb="6" avg=".150" r="7" sb="0"/>
+      <stats s_type="last" pts="439" ab="555" doubles="35" hr="16" h="150" rbi="68" bb="52" avg=".270" r="70" sb="9"/>
+      <stats s_type="proj" pts="472" ab="572" doubles="37" hr="18" h="158" rbi="70" bb="50" avg=".276" r="80" sb="13"/>
+      <stats s_type="avg" pts="404" ab="513" doubles="28" hr="15" h="141" rbi="63" bb="40" avg=".275" r="65" sb="11"/>
+   </player>
+   <player id="514888" first="Jose" last="Altuve" age="23" pos="2B" q_pos="2B|U" team="hou" rank="54"> 
+      <stats s_type="curr" pts="62" ab="73" doubles="3" hr="1" h="27" rbi="9" bb="7" avg=".370" r="8" sb="2"/>
+      <stats s_type="last" pts="442" ab="576" doubles="34" hr="7" h="167" rbi="37" bb="40" avg=".290" r="80" sb="33"/>
+      <stats s_type="proj" pts="476" ab="588" doubles="32" hr="8" h="177" rbi="42" bb="37" avg=".301" r="92" sb="36"/>
+      <stats s_type="avg" pts="129" ab="177" doubles="10" hr="2" h="51" rbi="11" bb="10" avg=".288" r="24" sb="9"/>
+   </player>
+   <player id="408045" first="Joe" last="Mauer" age="30" pos="C" q_pos="C|1B|U" team="min" rank="55"> 
+      <stats s_type="curr" pts="59" ab="64" doubles="5" hr="2" h="23" rbi="7" bb="7" avg=".359" r="11" sb="0"/>
+      <stats s_type="last" pts="511" ab="545" doubles="31" hr="10" h="174" rbi="85" bb="90" avg=".319" r="81" sb="8"/>
+      <stats s_type="proj" pts="452" ab="520" doubles="27" hr="8" h="158" rbi="75" bb="80" avg=".304" r="74" sb="7"/>
+      <stats s_type="avg" pts="394" ab="450" doubles="30" hr="7" h="142" rbi="63" bb="62" avg=".316" r="69" sb="3"/>
+   </player>
+   <player id="501800" first="Allen" last="Craig" age="29" pos="1B" q_pos="1B|OF|U" team="stl" rank="56"> 
+      <stats s_type="curr" pts="42" ab="64" doubles="5" hr="0" h="15" rbi="12" bb="3" avg=".234" r="7" sb="0"/>
+      <stats s_type="last" pts="453" ab="469" doubles="35" hr="22" h="144" rbi="92" bb="37" avg=".307" r="76" sb="2"/>
+      <stats s_type="proj" pts="502" ab="525" doubles="37" hr="26" h="155" rbi="97" bb="45" avg=".295" r="85" sb="2"/>
+      <stats s_type="avg" pts="246" ab="261" doubles="19" hr="12" h="78" rbi="50" bb="20" avg=".299" r="40" sb="2"/>
+   </player>
+   <player id="501647" first="Wilin" last="Rosario" age="24" pos="C" q_pos="C|U" team="col" rank="57"> 
+      <stats s_type="curr" pts="56" ab="53" doubles="1" hr="4" h="16" rbi="13" bb="2" avg=".302" r="6" sb="3"/>
+      <stats s_type="last" pts="376" ab="396" doubles="19" hr="28" h="107" rbi="71" bb="25" avg=".270" r="67" sb="4"/>
+      <stats s_type="proj" pts="390" ab="445" doubles="21" hr="25" h="119" rbi="70" bb="32" avg=".267" r="68" sb="3"/>
+      <stats s_type="avg" pts="93" ab="100" doubles="5" hr="7" h="26" rbi="18" bb="6" avg=".260" r="16" sb="1"/>
+   </player>
+   <player id="543401" first="Jason" last="Kipnis" age="26" pos="2B" q_pos="2B|U" team="cle" rank="58"> 
+      <stats s_type="curr" pts="22" ab="46" doubles="3" hr="0" h="8" rbi="2" bb="4" avg=".174" r="3" sb="1"/>
+      <stats s_type="last" pts="508" ab="591" doubles="22" hr="14" h="152" rbi="76" bb="67" avg=".257" r="86" sb="31"/>
+      <stats s_type="proj" pts="528" ab="600" doubles="25" hr="15" h="161" rbi="79" bb="66" avg=".268" r="98" sb="26"/>
+      <stats s_type="avg" pts="142" ab="162" doubles="7" hr="5" h="42" rbi="21" bb="17" avg=".259" r="24" sb="8"/>
+   </player>
+   <player id="431094" first="Aaron" last="Hill" age="31" pos="2B" q_pos="2B|U" team="ari" rank="59"> 
+      <stats s_type="curr" pts="35" ab="36" doubles="3" hr="2" h="11" rbi="6" bb="5" avg=".306" r="5" sb="0"/>
+      <stats s_type="last" pts="571" ab="609" doubles="44" hr="26" h="184" rbi="85" bb="52" avg=".302" r="93" sb="14"/>
+      <stats s_type="proj" pts="510" ab="574" doubles="39" hr="23" h="162" rbi="80" bb="48" avg=".282" r="87" sb="12"/>
+      <stats s_type="avg" pts="445" ab="552" doubles="31" hr="20" h="140" rbi="71" bb="43" avg=".254" r="75" sb="12"/>
+   </player>
+   <player id="425567" first="Alex" last="Rios" age="32" pos="OF" q_pos="OF|U" team="cws" rank="60"> 
+      <stats s_type="curr" pts="70" ab="67" doubles="4" hr="5" h="21" rbi="9" bb="8" avg=".313" r="9" sb="3"/>
+      <stats s_type="last" pts="562" ab="605" doubles="37" hr="25" h="184" rbi="91" bb="26" avg=".304" r="93" sb="23"/>
+      <stats s_type="proj" pts="504" ab="605" doubles="31" hr="19" h="169" rbi="79" bb="37" avg=".279" r="81" sb="25"/>
+      <stats s_type="avg" pts="475" ab="570" doubles="29" hr="20" h="155" rbi="74" bb="30" avg=".272" r="82" sb="23"/>
+   </player>
+   <player id="435063" first="Mike" last="Napoli" age="31" pos="1B" q_pos="C|1B|U" team="bos" rank="61"> 
+      <stats s_type="curr" pts="73" ab="75" doubles="8" hr="3" h="20" rbi="20" bb="4" avg=".267" r="10" sb="0"/>
+      <stats s_type="last" pts="332" ab="352" doubles="9" hr="24" h="80" rbi="56" bb="56" avg=".227" r="53" sb="1"/>
+      <stats s_type="proj" pts="460" ab="451" doubles="25" hr="26" h="121" rbi="80" bb="75" avg=".268" r="78" sb="2"/>
+      <stats s_type="avg" pts="389" ab="391" doubles="19" hr="27" h="102" rbi="66" bb="52" avg=".261" r="62" sb="3"/>
+   </player>
+   <player id="457775" first="Desmond" last="Jennings" age="26" pos="OF" q_pos="OF|U" team="tb" rank="62"> 
+      <stats s_type="curr" pts="64" ab="71" doubles="6" hr="2" h="17" rbi="4" bb="7" avg=".239" r="15" sb="5"/>
+      <stats s_type="last" pts="434" ab="505" doubles="19" hr="13" h="124" rbi="47" bb="46" avg=".246" r="85" sb="31"/>
+      <stats s_type="proj" pts="506" ab="551" doubles="22" hr="15" h="149" rbi="54" bb="53" avg=".270" r="97" sb="36"/>
+      <stats s_type="avg" pts="236" ab="258" doubles="10" hr="8" h="65" rbi="25" bb="26" avg=".252" r="45" sb="18"/>
+   </player>
+   <player id="400121" first="Victor" last="Martinez" age="34" pos="U" q_pos="U" team="det" rank="63"> 
+      <stats s_type="curr" pts="28" ab="66" doubles="1" hr="0" h="11" rbi="4" bb="10" avg=".167" r="2" sb="0"/>
+      <stats s_type="last" pts="0" ab="0" doubles="0" hr="0" h="0" rbi="0" bb="0" avg=".000" r="0" sb="0"/>
+      <stats s_type="proj" pts="411" ab="496" doubles="37" hr="10" h="152" rbi="84" bb="42" avg=".306" r="66" sb="0"/>
+      <stats s_type="avg" pts="199" ab="230" doubles="16" hr="7" h="72" rbi="40" bb="19" avg=".313" r="31" sb="0"/>
+   </player>
+   <player id="518692" first="Freddie" last="Freeman" age="24" pos="1B" q_pos="1B|U" team="atl" rank="64"> 
+      <stats s_type="curr" pts="23" ab="17" doubles="1" hr="1" h="7" rbi="7" bb="2" avg=".412" r="3" sb="0"/>
+      <stats s_type="last" pts="499" ab="540" doubles="33" hr="23" h="140" rbi="94" bb="64" avg=".259" r="91" sb="2"/>
+      <stats s_type="proj" pts="520" ab="555" doubles="34" hr="25" h="154" rbi="95" bb="68" avg=".277" r="88" sb="2"/>
+      <stats s_type="avg" pts="324" ab="378" doubles="22" hr="15" h="102" rbi="57" bb="39" avg=".270" r="54" sb="2"/>
+   </player>
+   <player id="276519" first="Jimmy" last="Rollins" age="34" pos="SS" q_pos="SS|U" team="phi" rank="65"> 
+      <stats s_type="curr" pts="54" ab="74" doubles="7" hr="1" h="19" rbi="5" bb="4" avg=".257" r="8" sb="3"/>
+      <stats s_type="last" pts="557" ab="632" doubles="33" hr="23" h="158" rbi="68" bb="62" avg=".250" r="102" sb="30"/>
+      <stats s_type="proj" pts="485" ab="582" doubles="30" hr="16" h="150" rbi="60" bb="51" avg=".258" r="93" sb="26"/>
+      <stats s_type="avg" pts="446" ab="516" doubles="24" hr="16" h="132" rbi="57" bb="53" avg=".256" r="79" sb="26"/>
+   </player>
+   <player id="120074" first="David" last="Ortiz" age="37" pos="U" q_pos="1B|U" team="bos" rank="66"> 
+      <stats s_type="curr" pts="8" ab="8" doubles="1" hr="0" h="5" rbi="2" bb="0" avg=".625" r="0" sb="0"/>
+      <stats s_type="last" pts="378" ab="324" doubles="26" hr="23" h="103" rbi="60" bb="56" avg=".318" r="65" sb="0"/>
+      <stats s_type="proj" pts="506" ab="500" doubles="33" hr="28" h="149" rbi="90" bb="71" avg=".298" r="78" sb="0"/>
+      <stats s_type="avg" pts="490" ab="456" doubles="34" hr="28" h="135" rbi="86" bb="72" avg=".296" r="78" sb="0"/>
+   </player>
+   <player id="445988" first="Martin" last="Prado" age="29" pos="3B" q_pos="2B|3B|SS|OF|U" team="ari" rank="67"> 
+      <stats s_type="curr" pts="56" ab="79" doubles="3" hr="3" h="19" rbi="7" bb="6" avg=".241" r="13" sb="0"/>
+      <stats s_type="last" pts="509" ab="617" doubles="42" hr="10" h="186" rbi="70" bb="58" avg=".301" r="81" sb="17"/>
+      <stats s_type="proj" pts="488" ab="587" doubles="40" hr="13" h="177" rbi="67" bb="55" avg=".302" r="84" sb="12"/>
+      <stats s_type="avg" pts="458" ab="589" doubles="36" hr="13" h="172" rbi="64" bb="44" avg=".292" r="82" sb="9"/>
+   </player>
+   <player id="462101" first="Elvis" last="Andrus" age="25" pos="SS" q_pos="SS|U" team="tex" rank="68"> 
+      <stats s_type="curr" pts="47" ab="71" doubles="0" hr="0" h="14" rbi="7" bb="6" avg=".197" r="8" sb="4"/>
+      <stats s_type="last" pts="474" ab="629" doubles="31" hr="3" h="180" rbi="62" bb="57" avg=".286" r="85" sb="21"/>
+      <stats s_type="proj" pts="482" ab="615" doubles="24" hr="6" h="175" rbi="56" bb="55" avg=".285" r="92" sb="28"/>
+      <stats s_type="avg" pts="459" ab="601" doubles="24" hr="3" h="167" rbi="52" bb="59" avg=".278" r="90" sb="30"/>
+   </player>
+   <player id="452254" first="Hunter" last="Pence" age="30" pos="OF" q_pos="OF|U" team="sf" rank="69"> 
+      <stats s_type="curr" pts="66" ab="74" doubles="2" hr="4" h="20" rbi="11" bb="5" avg=".270" r="8" sb="4"/>
+      <stats s_type="last" pts="517" ab="617" doubles="26" hr="24" h="156" rbi="104" bb="56" avg=".253" r="87" sb="5"/>
+      <stats s_type="proj" pts="506" ab="600" doubles="29" hr="23" h="165" rbi="84" bb="56" avg=".275" r="87" sb="5"/>
+      <stats s_type="avg" pts="536" ab="612" doubles="31" hr="24" h="173" rbi="97" bb="51" avg=".283" r="88" sb="10"/>
+   </player>
+   <player id="116539" first="Derek" last="Jeter" age="39" pos="SS" q_pos="SS|U" team="nyy" rank="70"> 
+      <stats s_type="curr" pts="0" ab="0" doubles="0" hr="0" h="0" rbi="0" bb="0" avg=".000" r="0" sb="0"/>
+      <stats s_type="last" pts="509" ab="683" doubles="32" hr="15" h="216" rbi="58" bb="45" avg=".316" r="99" sb="9"/>
+      <stats s_type="proj" pts="476" ab="644" doubles="26" hr="13" h="192" rbi="60" bb="52" avg=".298" r="95" sb="7"/>
+      <stats s_type="avg" pts="482" ab="631" doubles="29" hr="10" h="185" rbi="62" bb="51" avg=".293" r="98" sb="14"/>
+   </player>
+   <player id="521692" first="Salvador" last="Perez" age="23" pos="C" q_pos="C|U" team="kc" rank="71"> 
+      <stats s_type="curr" pts="33" ab="66" doubles="4" hr="0" h="17" rbi="5" bb="1" avg=".258" r="4" sb="0"/>
+      <stats s_type="last" pts="225" ab="289" doubles="16" hr="11" h="87" rbi="39" bb="12" avg=".301" r="38" sb="0"/>
+      <stats s_type="proj" pts="380" ab="490" doubles="27" hr="16" h="146" rbi="65" bb="29" avg=".298" r="63" sb="0"/>
+      <stats s_type="avg" pts="73" ab="97" doubles="5" hr="3" h="29" rbi="13" bb="4" avg=".299" r="13" sb="0"/>
+   </player>
+   <player id="466320" first="Melky" last="Cabrera" age="29" pos="OF" q_pos="OF|U" team="tor" rank="72"> 
+      <stats s_type="curr" pts="47" ab="75" doubles="1" hr="0" h="21" rbi="6" bb="7" avg=".280" r="7" sb="2"/>
+      <stats s_type="last" pts="438" ab="459" doubles="25" hr="11" h="159" rbi="60" bb="36" avg=".346" r="84" sb="13"/>
+      <stats s_type="proj" pts="496" ab="610" doubles="26" hr="16" h="180" rbi="72" bb="43" avg=".295" r="90" sb="15"/>
+      <stats s_type="avg" pts="437" ab="525" doubles="32" hr="11" h="159" rbi="63" bb="38" avg=".303" r="79" sb="13"/>
+   </player>
+   <player id="430001" first="Rickie" last="Weeks" age="31" pos="2B" q_pos="2B|U" team="mil" rank="73"> 
+      <stats s_type="curr" pts="45" ab="66" doubles="4" hr="1" h="12" rbi="3" bb="8" avg=".182" r="9" sb="3"/>
+      <stats s_type="last" pts="486" ab="588" doubles="29" hr="21" h="135" rbi="63" bb="74" avg=".230" r="85" sb="16"/>
+      <stats s_type="proj" pts="493" ab="582" doubles="29" hr="20" h="147" rbi="63" bb="71" avg=".253" r="92" sb="13"/>
+      <stats s_type="avg" pts="491" ab="564" doubles="29" hr="23" h="143" rbi="65" bb="67" avg=".254" r="91" sb="12"/>
+   </player>
+   <player id="434636" first="Angel" last="Pagan" age="32" pos="OF" q_pos="OF|U" team="sf" rank="74"> 
+      <stats s_type="curr" pts="60" ab="73" doubles="3" hr="0" h="22" rbi="11" bb="6" avg=".301" r="16" sb="1"/>
+      <stats s_type="last" pts="516" ab="605" doubles="38" hr="8" h="174" rbi="56" bb="48" avg=".288" r="95" sb="29"/>
+      <stats s_type="proj" pts="502" ab="590" doubles="38" hr="10" h="170" rbi="57" bb="51" avg=".288" r="89" sb="31"/>
+      <stats s_type="avg" pts="476" ab="554" doubles="31" hr="9" h="156" rbi="60" bb="45" avg=".282" r="81" sb="33"/>
+   </player>
+   <player id="444876" first="Alcides" last="Escobar" age="26" pos="SS" q_pos="SS|U" team="kc" rank="75"> 
+      <stats s_type="curr" pts="55" ab="68" doubles="4" hr="2" h="19" rbi="9" bb="4" avg=".279" r="7" sb="3"/>
+      <stats s_type="last" pts="448" ab="605" doubles="30" hr="5" h="177" rbi="52" bb="27" avg=".293" r="68" sb="35"/>
+      <stats s_type="proj" pts="450" ab="598" doubles="28" hr="6" h="166" rbi="52" bb="29" avg=".278" r="75" sb="37"/>
+      <stats s_type="avg" pts="377" ab="553" doubles="22" hr="4" h="145" rbi="46" bb="29" avg=".262" r="65" sb="24"/>
+   </player>
+   <player id="136860" first="Carlos" last="Beltran" age="36" pos="OF" q_pos="OF|U" team="stl" rank="76"> 
+      <stats s_type="curr" pts="52" ab="60" doubles="1" hr="4" h="17" rbi="12" bb="4" avg=".283" r="7" sb="0"/>
+      <stats s_type="last" pts="536" ab="547" doubles="26" hr="32" h="147" rbi="97" bb="65" avg=".269" r="83" sb="13"/>
+      <stats s_type="proj" pts="493" ab="505" doubles="35" hr="26" h="136" rbi="90" bb="60" avg=".269" r="77" sb="9"/>
+      <stats s_type="avg" pts="406" ab="429" doubles="25" hr="20" h="119" rbi="69" bb="55" avg=".277" r="61" sb="7"/>
+   </player>
+   <player id="150212" first="Michael" last="Cuddyer" age="34" pos="OF" q_pos="1B|OF|U" team="col" rank="77"> 
+      <stats s_type="curr" pts="70" ab="60" doubles="3" hr="4" h="20" rbi="13" bb="7" avg=".333" r="10" sb="2"/>
+      <stats s_type="last" pts="331" ab="358" doubles="30" hr="16" h="93" rbi="58" bb="32" avg=".260" r="53" sb="8"/>
+      <stats s_type="proj" pts="475" ab="535" doubles="46" hr="20" h="142" rbi="80" bb="49" avg=".265" r="81" sb="7"/>
+      <stats s_type="avg" pts="429" ab="499" doubles="32" hr="17" h="136" rbi="70" bb="46" avg=".273" r="72" sb="9"/>
+   </player>
+   <player id="519184" first="Ben" last="Revere" age="25" pos="OF" q_pos="OF|U" team="phi" rank="78"> 
+      <stats s_type="curr" pts="42" ab="75" doubles="0" hr="0" h="16" rbi="4" bb="4" avg=".213" r="8" sb="5"/>
+      <stats s_type="last" pts="377" ab="511" doubles="13" hr="0" h="150" rbi="32" bb="29" avg=".294" r="70" sb="40"/>
+      <stats s_type="proj" pts="446" ab="600" doubles="15" hr="0" h="172" rbi="40" bb="37" avg=".287" r="86" sb="45"/>
+      <stats s_type="avg" pts="233" ab="330" doubles="7" hr="0" h="92" rbi="21" bb="19" avg=".279" r="42" sb="25"/>
+   </player>
+   <player id="425545" first="Josh" last="Willingham" age="34" pos="OF" q_pos="OF|U" team="min" rank="79"> 
+      <stats s_type="curr" pts="45" ab="44" doubles="4" hr="2" h="11" rbi="9" bb="11" avg=".250" r="4" sb="0"/>
+      <stats s_type="last" pts="547" ab="519" doubles="30" hr="35" h="135" rbi="110" bb="76" avg=".260" r="85" sb="3"/>
+      <stats s_type="proj" pts="534" ab="550" doubles="35" hr="29" h="136" rbi="105" bb="79" avg=".247" r="86" sb="3"/>
+      <stats s_type="avg" pts="458" ab="459" doubles="25" hr="27" h="118" rbi="88" bb="66" avg=".257" r="69" sb="5"/>
+   </player>
+   <player id="443558" first="Nelson" last="Cruz" age="33" pos="OF" q_pos="OF|U" team="tex" rank="80"> 
+      <stats s_type="curr" pts="53" ab="69" doubles="4" hr="3" h="20" rbi="11" bb="2" avg=".290" r="7" sb="0"/>
+      <stats s_type="last" pts="505" ab="585" doubles="45" hr="24" h="152" rbi="90" bb="48" avg=".260" r="86" sb="8"/>
+      <stats s_type="proj" pts="473" ab="510" doubles="37" hr="24" h="141" rbi="83" bb="46" avg=".276" r="82" sb="8"/>
+      <stats s_type="avg" pts="460" ab="486" doubles="35" hr="25" h="135" rbi="85" bb="40" avg=".278" r="70" sb="11"/>
+   </player>
+   <player id="430947" first="Erick" last="Aybar" age="29" pos="SS" q_pos="SS|U" team="laa" rank="81"> 
+      <stats s_type="curr" pts="16" ab="28" doubles="2" hr="0" h="9" rbi="1" bb="0" avg=".321" r="4" sb="0"/>
+      <stats s_type="last" pts="385" ab="517" doubles="31" hr="8" h="150" rbi="45" bb="22" avg=".290" r="67" sb="20"/>
+      <stats s_type="proj" pts="421" ab="520" doubles="28" hr="11" h="150" rbi="53" bb="29" avg=".288" r="72" sb="27"/>
+      <stats s_type="avg" pts="394" ab="536" doubles="27" hr="8" h="147" rbi="44" bb="29" avg=".274" r="69" sb="24"/>
+   </player>
+   <player id="444843" first="Andre" last="Ethier" age="31" pos="OF" q_pos="OF|U" team="lad" rank="82"> 
+      <stats s_type="curr" pts="42" ab="61" doubles="3" hr="2" h="14" rbi="6" bb="10" avg=".230" r="4" sb="0"/>
+      <stats s_type="last" pts="476" ab="556" doubles="36" hr="20" h="158" rbi="89" bb="50" avg=".284" r="79" sb="2"/>
+      <stats s_type="proj" pts="494" ab="559" doubles="36" hr="20" h="159" rbi="99" bb="50" avg=".284" r="86" sb="2"/>
+      <stats s_type="avg" pts="447" ab="520" doubles="33" hr="18" h="151" rbi="78" bb="56" avg=".290" r="72" sb="1"/>
+   </player>
+   <player id="117244" first="Paul" last="Konerko" age="37" pos="1B" q_pos="1B|U" team="cws" rank="83"> 
+      <stats s_type="curr" pts="51" ab="62" doubles="3" hr="3" h="16" rbi="11" bb="5" avg=".258" r="7" sb="0"/>
+      <stats s_type="last" pts="456" ab="533" doubles="22" hr="26" h="159" rbi="75" bb="56" avg=".298" r="66" sb="0"/>
+      <stats s_type="proj" pts="472" ab="525" doubles="25" hr="26" h="151" rbi="88" bb="60" avg=".288" r="69" sb="1"/>
+      <stats s_type="avg" pts="525" ab="541" doubles="26" hr="32" h="164" rbi="97" bb="68" avg=".303" r="75" sb="0"/>
+   </player>
+   <player id="457477" first="Alejandro" last="De Aza" age="29" pos="OF" q_pos="OF|U" team="cws" rank="84"> 
+      <stats s_type="curr" pts="58" ab="70" doubles="4" hr="4" h="17" rbi="9" bb="3" avg=".243" r="11" sb="1"/>
+      <stats s_type="last" pts="433" ab="524" doubles="29" hr="9" h="147" rbi="50" bb="47" avg=".281" r="81" sb="26"/>
+      <stats s_type="proj" pts="467" ab="575" doubles="32" hr="10" h="158" rbi="55" bb="52" avg=".275" r="90" sb="25"/>
+      <stats s_type="avg" pts="206" ab="235" doubles="14" hr="4" h="68" rbi="25" bb="22" avg=".289" r="39" sb="13"/>
+   </player>
+   <player id="430897" first="Nick" last="Swisher" age="32" pos="OF" q_pos="1B|OF|U" team="cle" rank="85"> 
+      <stats s_type="curr" pts="60" ab="63" doubles="6" hr="2" h="19" rbi="8" bb="10" avg=".302" r="11" sb="0"/>
+      <stats s_type="last" pts="500" ab="537" doubles="36" hr="24" h="146" rbi="93" bb="77" avg=".272" r="75" sb="2"/>
+      <stats s_type="proj" pts="514" ab="550" doubles="37" hr="25" h="150" rbi="95" bb="79" avg=".273" r="77" sb="2"/>
+      <stats s_type="avg" pts="508" ab="543" doubles="33" hr="25" h="148" rbi="89" bb="77" avg=".273" r="82" sb="2"/>
+   </player>
+   <player id="476883" first="Pedro" last="Alvarez" age="26" pos="3B" q_pos="3B|U" team="pit" rank="86"> 
+      <stats s_type="curr" pts="31" ab="56" doubles="0" hr="2" h="7" rbi="5" bb="7" avg=".125" r="6" sb="0"/>
+      <stats s_type="last" pts="453" ab="525" doubles="25" hr="30" h="128" rbi="85" bb="57" avg=".244" r="64" sb="1"/>
+      <stats s_type="proj" pts="506" ab="580" doubles="28" hr="31" h="146" rbi="97" bb="62" avg=".252" r="75" sb="1"/>
+      <stats s_type="avg" pts="296" ab="369" doubles="18" hr="17" h="87" rbi="56" bb="39" avg=".236" r="41" sb="1"/>
+   </player>
+   <player id="444432" first="Mark" last="Trumbo" age="27" pos="OF" q_pos="1B|OF|U" team="laa" rank="87"> 
+      <stats s_type="curr" pts="59" ab="70" doubles="6" hr="2" h="23" rbi="9" bb="5" avg=".329" r="8" sb="1"/>
+      <stats s_type="last" pts="467" ab="544" doubles="19" hr="32" h="146" rbi="95" bb="36" avg=".268" r="66" sb="4"/>
+      <stats s_type="proj" pts="438" ab="522" doubles="18" hr="28" h="138" rbi="91" bb="35" avg=".264" r="63" sb="4"/>
+      <stats s_type="avg" pts="304" ab="366" doubles="17" hr="20" h="94" rbi="61" bb="21" avg=".257" r="44" sb="4"/>
+   </player>
+   <player id="116338" first="Torii" last="Hunter" age="38" pos="OF" q_pos="OF|U" team="det" rank="88"> 
+      <stats s_type="curr" pts="68" ab="74" doubles="7" hr="1" h="29" rbi="9" bb="5" avg=".392" r="13" sb="0"/>
+      <stats s_type="last" pts="469" ab="534" doubles="24" hr="16" h="167" rbi="92" bb="38" avg=".313" r="81" sb="9"/>
+      <stats s_type="proj" pts="460" ab="544" doubles="23" hr="20" h="154" rbi="89" bb="37" avg=".283" r="78" sb="9"/>
+      <stats s_type="avg" pts="483" ab="562" doubles="28" hr="21" h="160" rbi="88" bb="54" avg=".285" r="79" sb="8"/>
+   </player>
+   <player id="543333" first="Eric" last="Hosmer" age="23" pos="1B" q_pos="1B|U" team="kc" rank="89"> 
+      <stats s_type="curr" pts="31" ab="46" doubles="1" hr="0" h="12" rbi="4" bb="5" avg=".261" r="5" sb="2"/>
+      <stats s_type="last" pts="404" ab="535" doubles="22" hr="14" h="124" rbi="60" bb="56" avg=".232" r="65" sb="16"/>
+      <stats s_type="proj" pts="491" ab="545" doubles="28" hr="22" h="150" rbi="85" bb="60" avg=".275" r="75" sb="13"/>
+      <stats s_type="avg" pts="186" ab="235" doubles="11" hr="7" h="61" rbi="31" bb="20" avg=".260" r="29" sb="6"/>
+   </player>
+   <player id="460086" first="Alex" last="Gordon" age="29" pos="OF" q_pos="OF|U" team="kc" rank="90"> 
+      <stats s_type="curr" pts="63" ab="73" doubles="5" hr="1" h="25" rbi="10" bb="3" avg=".342" r="13" sb="0"/>
+      <stats s_type="last" pts="545" ab="642" doubles="51" hr="14" h="189" rbi="72" bb="73" avg=".294" r="93" sb="10"/>
+      <stats s_type="proj" pts="538" ab="605" doubles="46" hr="19" h="171" rbi="73" bb="66" avg=".283" r="92" sb="14"/>
+      <stats s_type="avg" pts="434" ab="498" doubles="35" hr="15" h="142" rbi="60" bb="58" avg=".285" r="76" sb="9"/>
+   </player>
+   <player id="488671" first="Alex" last="Avila" age="26" pos="C" q_pos="C|U" team="det" rank="91"> 
+      <stats s_type="curr" pts="26" ab="56" doubles="0" hr="2" h="11" rbi="2" bb="2" avg=".196" r="5" sb="0"/>
+      <stats s_type="last" pts="296" ab="367" doubles="21" hr="9" h="89" rbi="48" bb="61" avg=".243" r="42" sb="2"/>
+      <stats s_type="proj" pts="409" ab="445" doubles="26" hr="13" h="126" rbi="71" bb="75" avg=".283" r="61" sb="3"/>
+      <stats s_type="avg" pts="318" ab="375" doubles="22" hr="12" h="98" rbi="54" bb="57" avg=".261" r="44" sb="2"/>
+   </player>
+   <player id="435062" first="Howard" last="Kendrick" age="30" pos="2B" q_pos="2B|U" team="laa" rank="92"> 
+      <stats s_type="curr" pts="42" ab="66" doubles="1" hr="1" h="17" rbi="8" bb="4" avg=".258" r="4" sb="2"/>
+      <stats s_type="last" pts="395" ab="550" doubles="32" hr="8" h="158" rbi="67" bb="29" avg=".287" r="57" sb="14"/>
+      <stats s_type="proj" pts="446" ab="590" doubles="36" hr="13" h="165" rbi="73" bb="28" avg=".280" r="74" sb="15"/>
+      <stats s_type="avg" pts="429" ab="568" doubles="34" hr="12" h="160" rbi="68" bb="30" avg=".282" r="70" sb="14"/>
+   </player>
+   <player id="519025" first="Will" last="Middlebrooks" age="25" pos="3B" q_pos="3B|U" team="bos" rank="93"> 
+      <stats s_type="curr" pts="43" ab="68" doubles="2" hr="4" h="12" rbi="7" bb="3" avg=".176" r="8" sb="0"/>
+      <stats s_type="last" pts="244" ab="267" doubles="14" hr="15" h="77" rbi="54" bb="13" avg=".288" r="34" sb="4"/>
+      <stats s_type="proj" pts="461" ab="531" doubles="27" hr="27" h="147" rbi="88" bb="28" avg=".277" r="74" sb="9"/>
+      <stats s_type="avg" pts="28" ab="30" doubles="2" hr="2" h="9" rbi="6" bb="1" avg=".300" r="4" sb="0"/>
+   </player>
+   <player id="448801" first="Chris" last="Davis" age="27" pos="1B" q_pos="1B|OF|U" team="bal" rank="94"> 
+      <stats s_type="curr" pts="95" ab="62" doubles="7" hr="7" h="25" rbi="21" bb="10" avg=".403" r="11" sb="0"/>
+      <stats s_type="last" pts="456" ab="515" doubles="20" hr="33" h="139" rbi="85" bb="37" avg=".270" r="75" sb="2"/>
+      <stats s_type="proj" pts="465" ab="550" doubles="21" hr="31" h="146" rbi="88" bb="41" avg=".265" r="76" sb="1"/>
+      <stats s_type="avg" pts="221" ab="278" doubles="14" hr="13" h="72" rbi="36" bb="21" avg=".259" r="36" sb="2"/>
+   </player>
+   <player id="276055" first="Adam" last="Dunn" age="33" pos="1B" q_pos="1B|U" team="cws" rank="95"> 
+      <stats s_type="curr" pts="35" ab="65" doubles="1" hr="3" h="7" rbi="6" bb="3" avg=".108" r="7" sb="1"/>
+      <stats s_type="last" pts="543" ab="539" doubles="19" hr="41" h="110" rbi="96" bb="105" avg=".204" r="87" sb="2"/>
+      <stats s_type="proj" pts="533" ab="530" doubles="23" hr="38" h="121" rbi="94" bb="100" avg=".228" r="80" sb="1"/>
+      <stats s_type="avg" pts="460" ab="504" doubles="24" hr="30" h="108" rbi="80" bb="86" avg=".214" r="69" sb="1"/>
+   </player>
+   <player id="457787" first="Danny" last="Espinosa" age="26" pos="2B" q_pos="2B|SS|U" team="wsh" rank="96"> 
+      <stats s_type="curr" pts="26" ab="47" doubles="5" hr="1" h="8" rbi="3" bb="2" avg=".170" r="5" sb="0"/>
+      <stats s_type="last" pts="457" ab="594" doubles="37" hr="17" h="147" rbi="56" bb="46" avg=".247" r="82" sb="20"/>
+      <stats s_type="proj" pts="428" ab="540" doubles="29" hr="17" h="136" rbi="61" bb="43" avg=".252" r="74" sb="18"/>
+      <stats s_type="avg" pts="335" ab="423" doubles="23" hr="15" h="102" rbi="46" bb="37" avg=".241" r="57" sb="12"/>
+   </player>
+   <player id="435522" first="Neil" last="Walker" age="28" pos="2B" q_pos="2B|U" team="pit" rank="97"> 
+      <stats s_type="curr" pts="45" ab="64" doubles="1" hr="1" h="17" rbi="8" bb="8" avg=".266" r="6" sb="0"/>
+      <stats s_type="last" pts="388" ab="472" doubles="27" hr="14" h="132" rbi="69" bb="47" avg=".280" r="62" sb="7"/>
+      <stats s_type="proj" pts="492" ab="600" doubles="36" hr="16" h="169" rbi="86" bb="59" avg=".282" r="80" sb="6"/>
+      <stats s_type="avg" pts="405" ab="498" doubles="31" hr="13" h="141" rbi="73" bb="45" avg=".283" r="65" sb="6"/>
+   </player>
+   <player id="400284" first="Chase" last="Utley" age="34" pos="2B" q_pos="2B|U" team="phi" rank="98"> 
+      <stats s_type="curr" pts="72" ab="68" doubles="3" hr="3" h="20" rbi="15" bb="6" avg=".294" r="10" sb="3"/>
+      <stats s_type="last" pts="286" ab="301" doubles="15" hr="11" h="77" rbi="45" bb="43" avg=".256" r="48" sb="11"/>
+      <stats s_type="proj" pts="409" ab="430" doubles="23" hr="18" h="116" rbi="70" bb="49" avg=".270" r="71" sb="13"/>
+      <stats s_type="avg" pts="346" ab="375" doubles="19" hr="13" h="99" rbi="51" bb="48" avg=".264" r="59" sb="13"/>
+   </player>
+   <player id="453943" first="Todd" last="Frazier" age="27" pos="3B" q_pos="1B|3B|U" team="cin" rank="99"> 
+      <stats s_type="curr" pts="78" ab="65" doubles="4" hr="5" h="19" rbi="17" bb="8" avg=".292" r="12" sb="2"/>
+      <stats s_type="last" pts="372" ab="422" doubles="26" hr="19" h="115" rbi="67" bb="36" avg=".273" r="55" sb="3"/>
+      <stats s_type="proj" pts="463" ab="534" doubles="30" hr="26" h="140" rbi="89" bb="44" avg=".262" r="68" sb="4"/>
+      <stats s_type="avg" pts="105" ab="119" doubles="7" hr="6" h="32" rbi="18" bb="10" avg=".269" r="16" sb="1"/>
+   </player>
+   <player id="425560" first="Adam" last="LaRoche" age="33" pos="1B" q_pos="1B|U" team="wsh" rank="100"> 
+      <stats s_type="curr" pts="41" ab="50" doubles="1" hr="3" h="10" rbi="8" bb="7" avg=".200" r="6" sb="0"/>
+      <stats s_type="last" pts="535" ab="571" doubles="35" hr="33" h="155" rbi="100" bb="67" avg=".271" r="76" sb="1"/>
+      <stats s_type="proj" pts="481" ab="550" doubles="34" hr="26" h="148" rbi="90" bb="58" avg=".269" r="70" sb="1"/>
+      <stats s_type="avg" pts="370" ab="427" doubles="25" hr="20" h="108" rbi="72" bb="47" avg=".253" r="55" sb="1"/>
+   </player>
+   <player id="120" first="Washington" last="Nationals" age="0" pos="P" q_pos="P" team="wsh" rank="495"> 
+      <stats s_type="curr" pts="130" w="10" k="135" sho="2" h="163" bb="49" ip="160" era="4.16"/>
+      <stats s_type="last" pts="1239" w="98" k="1325" sho="9" h="1296" bb="497" ip="1468.1" era="3.34"/>
+      <stats s_type="proj" pts="1300" w="98" k="1381" sho="17" h="1280" bb="460" ip="1473" era="3.22"/>
+      <stats s_type="avg" pts="1050" w="82" k="1147" sho="8" h="1389" bb="495" ip="1451" era="3.68"/>
+   </player>
+   <player id="119" first="Los Angeles" last="Dodgers" age="0" pos="P" q_pos="P" team="lad" rank="496"> 
+      <stats s_type="curr" pts="140" w="8" k="140" sho="4" h="146" bb="52" ip="157.1" era="3.72"/>
+      <stats s_type="last" pts="1186" w="86" k="1276" sho="10" h="1277" bb="539" ip="1449.2" era="3.35"/>
+      <stats s_type="proj" pts="1266" w="91" k="1344" sho="16" h="1240" bb="452" ip="1453" era="3.27"/>
+      <stats s_type="avg" pts="1166" w="83" k="1272" sho="14" h="1296" bb="528" ip="1441" era="3.64"/>
+   </player>
+   <player id="113" first="Cincinnati" last="Reds" age="0" pos="P" q_pos="P" team="cin" rank="497"> 
+      <stats s_type="curr" pts="157" w="11" k="166" sho="2" h="155" bb="47" ip="176" era="3.58"/>
+      <stats s_type="last" pts="1235" w="97" k="1248" sho="12" h="1356" bb="427" ip="1453" era="3.34"/>
+      <stats s_type="proj" pts="1256" w="95" k="1316" sho="14" h="1315" bb="470" ip="1462" era="3.33"/>
+      <stats s_type="avg" pts="1074" w="89" k="1163" sho="9" h="1391" bb="497" ip="1458" era="3.84"/>
+   </player>
+   <player id="116" first="Detroit" last="Tigers" age="0" pos="P" q_pos="P" team="det" rank="498"> 
+      <stats s_type="curr" pts="133" w="9" k="179" sho="0" h="156" bb="60" ip="167.2" era="3.86"/>
+      <stats s_type="last" pts="1185" w="88" k="1318" sho="8" h="1409" bb="438" ip="1430.2" era="3.77"/>
+      <stats s_type="proj" pts="1249" w="92" k="1363" sho="12" h="1385" bb="425" ip="1458" era="3.35"/>
+      <stats s_type="avg" pts="1076" w="88" k="1163" sho="9" h="1420" bb="489" ip="1438.1" era="4.04"/>
+   </player>
+   <player id="144" first="Atlanta" last="Braves" age="0" pos="P" q_pos="P" team="atl" rank="499"> 
+      <stats s_type="curr" pts="160" w="13" k="123" sho="3" h="129" bb="45" ip="160" era="2.36"/>
+      <stats s_type="last" pts="1228" w="94" k="1232" sho="16" h="1310" bb="464" ip="1445.1" era="3.42"/>
+      <stats s_type="proj" pts="1243" w="95" k="1272" sho="13" h="1295" bb="488" ip="1471" era="3.30"/>
+      <stats s_type="avg" pts="1204" w="91" k="1268" sho="14" h="1323" bb="497" ip="1454.2" era="3.49"/>
+   </player>
+   <player id="139" first="Tampa Bay" last="Rays" age="0" pos="P" q_pos="P" team="tb" rank="500"> 
+      <stats s_type="curr" pts="133" w="8" k="135" sho="4" h="141" bb="59" ip="157.2" era="4.00"/>
+      <stats s_type="last" pts="1340" w="90" k="1383" sho="15" h="1233" bb="469" ip="1459.2" era="3.19"/>
+      <stats s_type="proj" pts="1222" w="89" k="1335" sho="12" h="1345" bb="485" ip="1460" era="3.39"/>
+      <stats s_type="avg" pts="1218" w="92" k="1238" sho="13" h="1281" bb="484" ip="1454" era="3.52"/>
+   </player>
+   <player id="143" first="Philadelphia" last="Phillies" age="0" pos="P" q_pos="P" team="phi" rank="501"> 
+      <stats s_type="curr" pts="141" w="8" k="141" sho="1" h="156" bb="57" ip="164.1" era="4.66"/>
+      <stats s_type="last" pts="1142" w="81" k="1385" sho="11" h="1387" bb="409" ip="1451.1" era="3.86"/>
+      <stats s_type="proj" pts="1219" w="86" k="1314" sho="11" h="1323" bb="425" ip="1477" era="3.56"/>
+      <stats s_type="avg" pts="1233" w="93" k="1289" sho="18" h="1370" bb="410" ip="1461.2" era="3.52"/>
+   </player>
+   <player id="141" first="Toronto" last="Blue Jays" age="0" pos="P" q_pos="P" team="tor" rank="502"> 
+      <stats s_type="curr" pts="99" w="8" k="140" sho="1" h="190" bb="63" ip="172.1" era="4.70"/>
+      <stats s_type="last" pts="926" w="73" k="1142" sho="11" h="1439" bb="574" ip="1443.2" era="4.64"/>
+      <stats s_type="proj" pts="1189" w="93" k="1241" sho="9" h="1408" bb="440" ip="1468" era="3.41"/>
+      <stats s_type="avg" pts="977" w="80" k="1165" sho="11" h="1426" bb="551" ip="1447.2" era="4.40"/>
+   </player>
+   <player id="137" first="San Francisco" last="Giants" age="0" pos="P" q_pos="P" team="sf" rank="503"> 
+      <stats s_type="curr" pts="159" w="12" k="156" sho="5" h="145" bb="52" ip="168" era="3.86"/>
+      <stats s_type="last" pts="1189" w="94" k="1237" sho="14" h="1361" bb="489" ip="1451" era="3.68"/>
+      <stats s_type="proj" pts="1150" w="90" k="1233" sho="11" h="1343" bb="465" ip="1451" era="3.51"/>
+      <stats s_type="avg" pts="1225" w="91" k="1295" sho="14" h="1300" bb="542" ip="1460" era="3.42"/>
+   </player>
+   <player id="133" first="Oakland" last="Athletics" age="0" pos="P" q_pos="P" team="oak" rank="504"> 
+      <stats s_type="curr" pts="128" w="12" k="133" sho="0" h="170" bb="52" ip="171" era="3.84"/>
+      <stats s_type="last" pts="1128" w="94" k="1136" sho="13" h="1360" bb="462" ip="1470" era="3.50"/>
+      <stats s_type="proj" pts="1145" w="85" k="1141" sho="9" h="1380" bb="475" ip="1463" era="3.63"/>
+      <stats s_type="avg" pts="1096" w="83" k="1122" sho="14" h="1352" bb="498" ip="1449.2" era="3.59"/>
+   </player>
+   <player id="147" first="New York" last="Yankees" age="0" pos="P" q_pos="P" team="nyy" rank="505"> 
+      <stats s_type="curr" pts="113" w="10" k="132" sho="3" h="162" bb="50" ip="155" era="4.01"/>
+      <stats s_type="last" pts="1155" w="95" k="1318" sho="9" h="1401" bb="431" ip="1445.1" era="3.85"/>
+      <stats s_type="proj" pts="1143" w="88" k="1288" sho="7" h="1410" bb="445" ip="1446" era="3.90"/>
+      <stats s_type="avg" pts="1092" w="96" k="1231" sho="8" h="1391" bb="493" ip="1448.2" era="3.88"/>
+   </player>
+   <player id="145" first="Chicago" last="White Sox" age="0" pos="P" q_pos="P" team="cws" rank="506"> 
+      <stats s_type="curr" pts="137" w="7" k="151" sho="2" h="137" bb="54" ip="158.2" era="3.40"/>
+      <stats s_type="last" pts="1097" w="85" k="1246" sho="11" h="1365" bb="503" ip="1445.2" era="4.02"/>
+      <stats s_type="proj" pts="1139" w="85" k="1235" sho="8" h="1365" bb="490" ip="1449" era="3.94"/>
+      <stats s_type="avg" pts="1079" w="84" k="1205" sho="12" h="1433" bb="477" ip="1450.2" era="4.07"/>
+   </player>
+   <player id="138" first="St. Louis" last="Cardinals" age="0" pos="P" q_pos="P" team="stl" rank="507"> 
+      <stats s_type="curr" pts="155" w="10" k="145" sho="6" h="163" bb="53" ip="162.1" era="3.44"/>
+      <stats s_type="last" pts="1132" w="88" k="1218" sho="10" h="1420" bb="436" ip="1462.2" era="3.71"/>
+      <stats s_type="proj" pts="1110" w="88" k="1200" sho="9" h="1410" bb="430" ip="1465" era="3.56"/>
+      <stats s_type="avg" pts="1078" w="88" k="1137" sho="12" h="1431" bb="454" ip="1459.1" era="3.69"/>
+   </player>
+   <player id="109" first="Arizona" last="Diamondbacks" age="0" pos="P" q_pos="P" team="ari" rank="508"> 
+      <stats s_type="curr" pts="129" w="10" k="154" sho="2" h="154" bb="55" ip="170" era="3.44"/>
+      <stats s_type="last" pts="1052" w="81" k="1200" sho="9" h="1432" bb="417" ip="1433.2" era="3.94"/>
+      <stats s_type="proj" pts="1109" w="83" k="1202" sho="13" h="1415" bb="440" ip="1466" era="3.78"/>
+      <stats s_type="avg" pts="969" w="80" k="1109" sho="8" h="1450" bb="469" ip="1436.1" era="4.18"/>
+   </player>
+   <player id="158" first="Milwaukee" last="Brewers" age="0" pos="P" q_pos="P" team="mil" rank="509"> 
+      <stats s_type="curr" pts="97" w="9" k="124" sho="0" h="166" bb="40" ip="154" era="4.38"/>
+      <stats s_type="last" pts="1072" w="83" k="1402" sho="9" h="1458" bb="525" ip="1453.2" era="4.22"/>
+      <stats s_type="proj" pts="1085" w="79" k="1320" sho="5" h="1401" bb="519" ip="1438" era="4.22"/>
+      <stats s_type="avg" pts="1071" w="85" k="1306" sho="10" h="1431" bb="516" ip="1444.2" era="4.15"/>
+   </player>
+   <player id="108" first="Los Angeles" last="Angels" age="0" pos="P" q_pos="P" team="laa" rank="510"> 
+      <stats s_type="curr" pts="96" w="7" k="119" sho="1" h="161" bb="69" ip="155.1" era="4.58"/>
+      <stats s_type="last" pts="1138" w="89" k="1157" sho="16" h="1339" bb="483" ip="1433.1" era="4.02"/>
+      <stats s_type="proj" pts="1078" w="84" k="1163" sho="8" h="1425" bb="450" ip="1469" era="4.10"/>
+      <stats s_type="avg" pts="1072" w="85" k="1115" sho="12" h="1383" bb="508" ip="1449.1" era="3.87"/>
+   </player>
+   <player id="134" first="Pittsburgh" last="Pirates" age="0" pos="P" q_pos="P" team="pit" rank="511"> 
+      <stats s_type="curr" pts="163" w="10" k="143" sho="3" h="120" bb="74" ip="158" era="3.36"/>
+      <stats s_type="last" pts="1051" w="79" k="1192" sho="10" h="1357" bb="490" ip="1433.1" era="3.91"/>
+      <stats s_type="proj" pts="1074" w="81" k="1210" sho="8" h="1400" bb="505" ip="1448" era="4.00"/>
+      <stats s_type="avg" pts="897" w="69" k="1083" sho="9" h="1479" bb="521" ip="1431.1" era="4.32"/>
+   </player>
+   <player id="140" first="Texas" last="Rangers" age="0" pos="P" q_pos="P" team="tex" rank="512"> 
+      <stats s_type="curr" pts="175" w="12" k="153" sho="4" h="130" bb="48" ip="158" era="2.68"/>
+      <stats s_type="last" pts="1167" w="93" k="1286" sho="10" h="1378" bb="446" ip="1442" era="4.02"/>
+      <stats s_type="proj" pts="1065" w="87" k="1316" sho="9" h="1393" bb="480" ip="1452" era="4.15"/>
+      <stats s_type="avg" pts="1134" w="93" k="1215" sho="12" h="1353" bb="486" ip="1446.1" era="3.91"/>
+   </player>
+   <player id="118" first="Kansas City" last="Royals" age="0" pos="P" q_pos="P" team="kc" rank="513"> 
+      <stats s_type="curr" pts="139" w="10" k="147" sho="2" h="130" bb="45" ip="149.2" era="3.31"/>
+      <stats s_type="last" pts="935" w="72" k="1177" sho="12" h="1504" bb="542" ip="1451.1" era="4.30"/>
+      <stats s_type="proj" pts="1045" w="82" k="1216" sho="7" h="1451" bb="495" ip="1458" era="3.90"/>
+      <stats s_type="avg" pts="862" w="70" k="1097" sho="7" h="1515" bb="550" ip="1446.1" era="4.57"/>
+   </player>
+   <player id="110" first="Baltimore" last="Orioles" age="0" pos="P" q_pos="P" team="bal" rank="514"> 
+      <stats s_type="curr" pts="97" w="10" k="122" sho="0" h="142" bb="62" ip="159" era="4.13"/>
+      <stats s_type="last" pts="1088" w="93" k="1177" sho="10" h="1433" bb="481" ip="1483" era="3.90"/>
+      <stats s_type="proj" pts="1023" w="79" k="1183" sho="6" h="1445" bb="477" ip="1472" era="4.15"/>
+      <stats s_type="avg" pts="891" w="76" k="1076" sho="8" h="1503" bb="512" ip="1455.1" era="4.46"/>
+   </player>
+   <player id="112" first="Chicago" last="Cubs" age="0" pos="P" q_pos="P" team="chc" rank="515"> 
+      <stats s_type="curr" pts="112" w="5" k="135" sho="0" h="125" bb="56" ip="147.1" era="3.67"/>
+      <stats s_type="last" pts="913" w="61" k="1128" sho="9" h="1399" bb="573" ip="1413.2" era="4.51"/>
+      <stats s_type="proj" pts="1020" w="75" k="1185" sho="6" h="1357" bb="535" ip="1452" era="4.18"/>
+      <stats s_type="avg" pts="968" w="69" k="1207" sho="9" h="1416" bb="586" ip="1428.1" era="4.36"/>
+   </player>
+   <player id="121" first="New York" last="Mets" age="0" pos="P" q_pos="P" team="nym" rank="516"> 
+      <stats s_type="curr" pts="110" w="9" k="122" sho="1" h="143" bb="57" ip="149.2" era="4.33"/>
+      <stats s_type="last" pts="1092" w="74" k="1240" sho="13" h="1368" bb="488" ip="1434" era="4.09"/>
+      <stats s_type="proj" pts="1018" w="71" k="1255" sho="5" h="1390" bb="515" ip="1448" era="4.28"/>
+      <stats s_type="avg" pts="1018" w="77" k="1157" sho="14" h="1429" bb="516" ip="1445" era="4.00"/>
+   </player>
+   <player id="111" first="Boston" last="Red Sox" age="0" pos="P" q_pos="P" team="bos" rank="517"> 
+      <stats s_type="curr" pts="160" w="12" k="178" sho="2" h="129" bb="58" ip="162" era="2.83"/>
+      <stats s_type="last" pts="915" w="69" k="1176" sho="4" h="1449" bb="529" ip="1443" era="4.72"/>
+      <stats s_type="proj" pts="1010" w="75" k="1200" sho="7" h="1414" bb="533" ip="1453" era="4.40"/>
+      <stats s_type="avg" pts="1011" w="83" k="1199" sho="9" h="1406" bb="550" ip="1452.1" era="4.37"/>
+   </player>
+   <player id="136" first="Seattle" last="Mariners" age="0" pos="P" q_pos="P" team="sea" rank="518"> 
+      <stats s_type="curr" pts="135" w="7" k="147" sho="3" h="170" bb="53" ip="180.1" era="4.54"/>
+      <stats s_type="last" pts="1064" w="75" k="1166" sho="11" h="1359" bb="449" ip="1456.2" era="3.76"/>
+      <stats s_type="proj" pts="999" w="72" k="1184" sho="9" h="1395" bb="460" ip="1466" era="3.91"/>
+      <stats s_type="avg" pts="997" w="68" k="1076" sho="10" h="1377" bb="446" ip="1442.2" era="3.87"/>
+   </player>
+   <player id="135" first="San Diego" last="Padres" age="0" pos="P" q_pos="P" team="sd" rank="519"> 
+      <stats s_type="curr" pts="80" w="5" k="118" sho="0" h="163" bb="70" ip="154.1" era="4.49"/>
+      <stats s_type="last" pts="1023" w="76" k="1205" sho="11" h="1356" bb="539" ip="1434.2" era="4.01"/>
+      <stats s_type="proj" pts="974" w="72" k="1180" sho="6" h="1415" bb="561" ip="1458" era="4.44"/>
+      <stats s_type="avg" pts="1100" w="79" k="1213" sho="14" h="1328" bb="526" ip="1446.2" era="3.61"/>
+   </player>
+   <player id="114" first="Cleveland" last="Indians" age="0" pos="P" q_pos="P" team="cle" rank="520"> 
+      <stats s_type="curr" pts="113" w="7" k="140" sho="3" h="143" bb="59" ip="151" era="4.65"/>
+      <stats s_type="last" pts="810" w="68" k="1086" sho="6" h="1503" bb="543" ip="1442" era="4.79"/>
+      <stats s_type="proj" pts="934" w="69" k="1085" sho="6" h="1488" bb="556" ip="1437" era="4.51"/>
+      <stats s_type="avg" pts="865" w="72" k="1026" sho="5" h="1487" bb="526" ip="1442.2" era="4.44"/>
+   </player>
+   <player id="146" first="Miami" last="Marlins" age="0" pos="P" q_pos="P" team="mia" rank="521"> 
+      <stats s_type="curr" pts="95" w="4" k="139" sho="0" h="179" bb="70" ip="169" era="4.53"/>
+      <stats s_type="last" pts="925" w="69" k="1113" sho="7" h="1448" bb="495" ip="1440.2" era="4.10"/>
+      <stats s_type="proj" pts="893" w="61" k="1075" sho="6" h="1538" bb="485" ip="1442" era="4.45"/>
+      <stats s_type="avg" pts="987" w="74" k="1166" sho="12" h="1428" bb="515" ip="1446.1" era="4.05"/>
+   </player>
+   <player id="117" first="Houston" last="Astros" age="0" pos="P" q_pos="P" team="hou" rank="522"> 
+      <stats s_type="curr" pts="66" w="5" k="100" sho="1" h="175" bb="73" ip="156.2" era="5.40"/>
+      <stats s_type="last" pts="875" w="55" k="1170" sho="11" h="1493" bb="540" ip="1423.1" era="4.57"/>
+      <stats s_type="proj" pts="965" w="60" k="1155" sho="2" h="1580" bb="570" ip="1436" era="4.49"/>
+      <stats s_type="avg" pts="913" w="62" k="1190" sho="9" h="1472" bb="549" ip="1432.2" era="4.38"/>
+   </player>
+   <player id="142" first="Minnesota" last="Twins" age="0" pos="P" q_pos="P" team="min" rank="523"> 
+      <stats s_type="curr" pts="85" w="8" k="87" sho="0" h="142" bb="37" ip="132" era="3.95"/>
+      <stats s_type="last" pts="743" w="66" k="943" sho="6" h="1536" bb="465" ip="1438.2" era="4.77"/>
+      <stats s_type="proj" pts="882" w="67" k="985" sho="7" h="1595" bb="452" ip="1439" era="4.62"/>
+      <stats s_type="avg" pts="851" w="74" k="977" sho="9" h="1531" bb="443" ip="1437.2" era="4.44"/>
+   </player>
+   <player id="115" first="Colorado" last="Rockies" age="0" pos="P" q_pos="P" team="col" rank="524"> 
+      <stats s_type="curr" pts="114" w="13" k="114" sho="0" h="156" bb="54" ip="160.2" era="3.87"/>
+      <stats s_type="last" pts="768" w="64" k="1144" sho="7" h="1637" bb="566" ip="1422" era="5.22"/>
+      <stats s_type="proj" pts="870" w="59" k="1196" sho="2" h="1615" bb="555" ip="1431" era="4.95"/>
+      <stats s_type="avg" pts="902" w="73" k="1165" sho="9" h="1504" bb="538" ip="1437.1" era="4.60"/>
+   </player>
+</roster>

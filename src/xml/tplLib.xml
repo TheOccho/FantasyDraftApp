@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<tpls>
+<tpl id="chat.tpl">
+<![CDATA[
+{%
+%}
+<span class="title">CHAT</span>
+]]>
+</tpl>
+
+<tpl id="draft-results.tpl">
+<![CDATA[
+{%
+%}
+<span class="title">DRAFT RESULTS</span>
+<ul id="results-filter">
+	<li data-id="team" class="tab selected">By Team</li>
+	<li data-id="round" class="tab">By Round</li>
+	<li data-id="tally" class="tab">Tally</li>
+</ul>
+<div class="wrapper">
+	<div class="view" id="team-view">
+		<select id="team-select">
+			<option value="0">My Team</option>
+		</select>
+		<div class="table-wrapper"></div>
+	</div>
+	<div class="view" id="round-view">
+		<select id="round-select"></select>
+		<div class="table-wrapper"></div>
+	</div>
+	<div class="view" id="tally-view">
+		tally view
+	</div>
+</div>
+]]>
+</tpl>
+<tpl id="header-strip.tpl">
+<![CDATA[
+{%
+
+%}
+<span class="title">MLB.COM FANTASY BASEBALL 2014 LIVE DRAFT</span>
+]]>
+</tpl>
+<tpl id="pick-carousel.tpl">
+<![CDATA[
+{%
+
+%}
+]]>
+</tpl>
+<tpl id="player-grid.tpl">
+<![CDATA[
+{%
+%}
+<ul id="position-filter">
+	<li data-id="all" class="tab selected">All Hitters</li>
+	<li data-id="c" class="tab">C</li>
+	<li data-id="1b" class="tab">1B</li>
+	<li data-id="2b" class="tab">2B</li>
+	<li data-id="ss" class="tab">SS</li>
+	<li data-id="3b" class="tab">3B</li>
+	<li data-id="of" class="tab">OF</li>
+	<li data-id="p" class="tab">P</li>
+	<li data-id="search" class="tab">Search</li>
+</ul>
+<div id="ranking-stat-filters">
+	<div id="ranking"><span class="label">Ranking:</span> <span id="custom-ranking" class="filter">Custom</span> | <span id="default-ranking" class="filter selected">Default</span></div>
+	<div id="stats"><span class="label">Stats:</span> <span id="projected-stats" class="filter selected">Projected</span> | <span id="last-season-stats" class="filter">Last Season</span></div>
+	<div id="hide-drafted"><input id="hide-drafted-cb" type="checkbox" checked="" />Hide Drafted</div>
+</div>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="player-grid-table"></table>
+]]>
+</tpl>
+<tpl id="player-queue.tpl">
+<![CDATA[
+{%
+%}
+<span class="title">PLAYER QUEUE</span>
+<div class="table-wrapper">
+	<table>
+		<thead>
+			<th width="25px">Rk</th>
+			<th width="102px" style="text-align:left">Player Name</th>
+			<th width="38px">Pts</th>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+<div class="footer">
+	<div class="button disabled" id="move-up-btn">Move Up</div>
+	<div class="button disabled" id="move-down-btn">Move Down</div>
+	<div class="button disabled" id="remove-btn">Remove</div>
+</footer>
+]]>
+</tpl>
+<tpl id="selected-player.tpl">
+<![CDATA[
+{%
+
+%}
+<span class="title">SELECTED PLAYER</span>
+<img class="mugshot" src="http://mlb.com/mlb/fantasy/wsfb/images/mugshots/default/default_62x75.jpg" onerror="(function(img){img.onerror='';img.src = 'http://mlb.com/mlb/fantasy/wsfb/images/mugshots/default/default_62x75.jpg';})(this);"/>
+<span class="player-name">No Player Selected</span>
+<span class="team-name"><b>Team:</b> --</span>
+<span class="positions"><b>Qualifies at:</b> --</span>
+<span data-pid="" class="playercard-link">View Playercard >></span>
+<table>
+<thead>
+	<th>Last Year</th>
+	<th>Projected</th>
+	<th>3-Year Avg</th>
+</thead>
+<tbody>
+	<tr>
+		<td class="last">--</td>
+		<td class="proj">--</td>
+		<td class="avg">--</td>
+	</tr>
+</tbody>
+</table>
+<div class="button disabled" id="draft-btn" data-pid="">DRAFT</div>
+<div class="button disabled" id="add-to-queue-btn" data-pid="">Add to Queue</div>
+]]>
+</tpl><tpl id="draft-results-round-row.tpl">
+<![CDATA[
+{%
+	var player = this.player;
+	var controller = this.controller;
+	var playerData = controller.getPlayerRoster().getPlayerByID(player.getPlayerID());
+	var ownerData = controller.getLeague().getManagerByID(player.getOwner());
+%}
+<tr data-pid="{%= playerData.getPlayerID() %}">
+	<td>{%= player.getPickNum() %}</td>
+	<td>{%= playerData.getFirstName().charAt(0) + ". " + playerData.getLastName() %}<br/><span class="player-team-pos">{%= playerData.getTeamAbbrev().toUpperCase() %} - {%= playerData.getQualifiedPositions().join(", ") %}</span></td>
+	<td>{%= ownerData.getName().substr(0, 10)+"..." %}</td>
+</tr>
+]]>
+</tpl>
+<tpl id="draft-results-round-table.tpl">
+<![CDATA[
+{%
+%}
+<table>
+	<thead>
+		<th>Pk</th>
+		<th>Player Name</th>
+		<th>Drafted By</th>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+]]>
+</tpl>
+<tpl id="draft-results-team-table.tpl">
+<![CDATA[
+{%
+%}
+<table>
+<thead>
+	<th>Pos</th>
+	<th>Player Name</th>
+</thead>
+<tbody class="roster">
+	<tr class="empty" id="c">
+		<td>C</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="1b">
+		<td>1B</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="2b">
+		<td>2B</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="ss">
+		<td>SS</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="3b">
+		<td>3B</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="of1">
+		<td>OF</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="of2">
+		<td>OF</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="of3">
+		<td>OF</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="u">
+		<td>U</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="p">
+		<td>P</td>
+		<td></td>
+	</tr>
+</tbody>
+<thead>
+	<th>Bn</th>
+	<th></th>
+</thead>
+<tbody class="bench">
+	<tr class="empty" id="bn1">
+		<td>BN</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="bn2">
+		<td>BN</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="bn3">
+		<td>BN</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="bn4">
+		<td>BN</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="bn5">
+		<td>BN</td>
+		<td></td>
+	</tr>
+	<tr class="empty" id="bn6">
+		<td>BN</td>
+		<td></td>
+	</tr>
+</tbody>
+</table>
+]]>
+</tpl>
+<tpl id="player-queue-row.tpl">
+<![CDATA[
+{%
+	var rank = this.index+1;
+	var player = this.player;
+%}
+<tr class="{% if(typeof player === "undefined") { %}empty{% } %}" data-pid="{% if(typeof player !== "undefined") { %}{%= player.getPlayerID() %}{% } %}">
+	<td width="28px">{%= rank %}</td>
+	<td style="text-align:left;" width="124px">{% if(typeof player !== "undefined") { %}{%= player.getFirstName().charAt(0) + ". " + player.getLastName() %}<br/><span class="player-team-pos">{%= player.getTeamAbbrev().toUpperCase() %} - {%= player.getQualifiedPositions().join(", ") %}{% } %}</td>
+	<td width="22px">{% if(typeof player !== "undefined") { %}{%= player.getProjectedStats().getPoints() %}{% } %}</td>
+</tr>
+]]>
+</tpl></tpls>

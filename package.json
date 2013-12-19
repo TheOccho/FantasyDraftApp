@@ -1,0 +1,13 @@
+{
+  "name": "FantasyDraft2014",
+  "version": "1.0.0",
+  "private":true,
+  "devDependencies": {
+    "bower": "~1.2.7",
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "",
+    "grunt-contrib-copy": "",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "requirejs": "~0.4.1"
+  }
+}

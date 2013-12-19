@@ -1,0 +1,127 @@
+#player-grid {
+	width: 100%;
+	height: 508px;
+}
+
+#player-grid #ranking-stat-filters {
+	color: #666;
+	font-family: 'helvetica_neue_lt_w1g55_roman';
+	font-size: 12px;
+	position: relative;
+	top: 40px;
+}
+
+#player-grid #ranking-stat-filters #ranking {
+	position: absolute;
+	left: 20px;
+}
+
+#player-grid #ranking-stat-filters span.selected {
+	font-weight: bold;
+}
+
+#player-grid #ranking-stat-filters #custom-ranking, #player-grid #ranking-stat-filters #default-ranking, #player-grid #ranking-stat-filters #projected-stats, #player-grid #ranking-stat-filters #last-season-stats {
+	cursor: pointer;
+}
+
+#player-grid #ranking-stat-filters #ranking span:first-child {
+	font-weight: bold;
+}
+
+#player-grid #ranking-stat-filters #stats {
+	position: absolute;
+	left: 225px;
+}
+
+#player-grid #ranking-stat-filters #stats span:first-child {
+	font-weight: bold;
+}
+
+#player-grid #ranking-stat-filters #hide-drafted {
+	position: absolute;
+	left: 440px;
+}
+
+#player-grid #ranking-stat-filters #hide-drafted input {
+	margin-right: 7px;
+}
+
+#player-grid-table_wrapper {
+	position: absolute;
+	top: 65px;
+}
+
+#player-grid-table_filter {
+	height: 0;
+}
+
+#player-grid-table_filter label:first-child {
+	visibility: hidden;
+}
+
+#player-grid table {
+	width: 556px;
+	color: #6a6a6a;
+	font-family: 'helvetica_neue_lt_w1g55_roman';
+	font-size: 14px;
+	border-collapse: collapse;
+
+	thead tr {
+		display: block;
+	}
+
+	th, td {
+		border: 1px solid #e1e1e1;
+		text-align:center;
+		padding: 5px;
+	}
+
+	td {
+		width: 30px;
+		padding: 3px 5px;
+	}
+
+	td.player-name {
+		width: 160px;
+	}
+
+	thead th:first-child {
+		text-align: center;
+	}
+
+	tbody td:first-child {
+		text-align: center;
+	}
+
+	tbody tr:first-child td {
+		border-top: none;
+	}
+
+	tbody {
+		display: block;
+		overflow: auto;
+		width: 100%;
+	}
+
+	tbody tr.selected td {
+		background-color: #EEE;
+	}
+
+	tbody tr.drafted td {
+		background-color: #CCC;
+	}
+
+	thead th, tbody tr {
+		cursor: pointer;
+	}
+
+	tbody tr td:nth-child(2) {
+		text-align: left;
+		line-height: 15px;
+	}
+
+	span.player-team-pos {
+		font-size: 10px;
+		font-weight: bold;
+	}
+}

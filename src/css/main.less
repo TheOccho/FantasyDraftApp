@@ -1,0 +1,129 @@
+@module-title-color: #990000;
+@module-bg-color: #FFF;
+@module-margin: 10px;
+@module-border: 1px solid #333;
+
+/* * {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}*/
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#fantasyDraft {
+	position: absolute;
+	padding: 10px;
+	width: 1024px;
+	height: 768px;
+	background-color: #CFCFCF;
+}
+
+#fantasyDraft .module {
+	position: relative;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	border: @module-border;
+	background-color: @module-bg-color;
+}
+
+#fantasyDraft .module .title {
+	color: @module-title-color;
+	font-family: 'mlb_secondary';
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+.left-side {
+	width: 558px;
+	margin-right: @module-margin;
+	float: left;
+}
+
+.right-side {
+	width: 456px;
+	float: left;
+}
+
+@font-face{font-family:mlb_primary;src:url(http://ui.bamstatic.com/clubs/mlb/fonts/benton_sans_cond_medium/6ec61f10-00ea-4ffd-a36b-26e2577a83f1-2.eot);src:url(http://ui.bamstatic.com/clubs/mlb/fonts/benton_sans_cond_medium/6ec61f10-00ea-4ffd-a36b-26e2577a83f1-2.eot?) format("embedded-opentype"),url(http://ui.bamstatic.com/clubs/mlb/fonts/benton_sans_cond_medium/6ec61f10-00ea-4ffd-a36b-26e2577a83f1-3.woff) format("woff"),url(http://ui.bamstatic.com/clubs/mlb/fonts/benton_sans_cond_medium/6ec61f10-00ea-4ffd-a36b-26e2577a83f1-1.ttf) format("truetype"),url(http://ui.bamstatic.com/clubs/mlb/fonts/benton_sans_cond_medium/6ec61f10-00ea-4ffd-a36b-26e2577a83f1-4.svg#web) format("svg");font-style:normal;font-weight:700}
+
+@font-face{font-family:mlb_secondary;src:url(http://ui.bamstatic.com/clubs/mlb/fonts/soho_std_medium/63e0ab65-83cd-4927-a0c6-2e41298a43ed.eot);src:url(http://ui.bamstatic.com/clubs/mlb/fonts/soho_std_medium/63e0ab65-83cd-4927-a0c6-2e41298a43ed.eot?) format("embedded-opentype"),url(http://ui.bamstatic.com/clubs/mlb/fonts/soho_std_medium/49339b19-a568-4e06-8d7a-eb751f466d39.woff) format("woff"),url(http://ui.bamstatic.com/clubs/mlb/fonts/soho_std_medium/7cacda2f-e7b8-44cc-a993-0d8467d01838.ttf) format("truetype"),url(http://ui.bamstatic.com/clubs/mlb/fonts/soho_std_medium/576e4f32-4fdd-4305-a5ba-efee7439de7f.svg#576e4f32-4fdd-4305-a5ba-efee7439de7f) format("svg")}
+
+
+@font-face {
+    font-family: 'helvetica_neue_lt_w1g55_roman';
+    src: url('fonts/helveticaneue-roman-webfont.eot');
+    src: url('fonts/helveticaneue-roman-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/helveticaneue-roman-webfont.woff') format('woff'),
+         url('fonts/helveticaneue-roman-webfont.ttf') format('truetype'),
+         url('fonts/helveticaneue-roman-webfont.svg#helvetica_neue_lt_w1g55_roman') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+li.tab:first-child {
+	width: 100px;
+}
+
+li.tab:last-child {
+	width: 63px;
+	border-right: none;
+}
+
+li.tab {
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #ebebeb 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ebebeb)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#ebebeb 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#ebebeb 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#ebebeb 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#ebebeb 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ebebeb',GradientType=0 ); /* IE6-9 */
+
+	cursor: pointer;
+	font-family: 'helvetica_neue_lt_w1g55_roman';
+	font-size: 14px;
+	color: #6d6d6d;
+	border: 1px solid #B2B2B2;
+	border-top: none;
+	border-left: none;
+	float: left;
+	height: 28px;
+	line-height: 27px;
+	text-align: center;
+	width: 55px;
+}
+
+li.tab.selected {
+	font-weight: bold;
+	background: #c8c8c8; /* Old browsers */
+	background: -moz-linear-gradient(top,  #c8c8c8 0%, #ededed 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c8c8c8), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #c8c8c8 0%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #c8c8c8 0%,#ededed 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #c8c8c8 0%,#ededed 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #c8c8c8 0%,#ededed 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8c8c8', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+}
+
+@import "header-strip.less";
+@import "pick-carousel.less";
+@import "selected-player.less";
+@import "player-queue.less";
+@import "player-grid.less";
+@import "draft-results.less";
+@import "chat.less";

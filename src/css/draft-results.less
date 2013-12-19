@@ -1,0 +1,97 @@
+#draft-results {
+	width: 246px;
+	height: 410px;
+	float: left;
+}
+
+#draft-results #results-filter {
+	position: absolute;
+	top: 37px;
+}
+
+#draft-results #results-filter li.tab {
+	border-top: 1px solid #B2B2B2;
+	width: 80.6px;
+}
+
+#draft-results .wrapper {
+	position: absolute;
+	top: 66px;
+}
+
+#draft-results .table-wrapper {
+	height: 311px;
+	width: 244px;
+	overflow: auto;
+	position: relative;
+	top: 5px;
+}
+
+#draft-results table {
+	width: 100%;
+	color: #6a6a6a;
+	font-family: 'helvetica_neue_lt_w1g55_roman';
+	font-size: 14px;
+	border-collapse: collapse;
+
+	th, td {
+		border: 1px solid #e1e1e1;
+		padding: 2px 5px;
+		text-align: left;
+	}
+
+	th {
+		background-color: #E9E9E9;
+		border-right: none;
+		border-left: none;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
+	th:first-child, td:first-child {
+		text-align: center;
+		width: 30px;
+	}
+
+	tbody tr {
+		cursor: pointer;
+		height: 36px;
+	}
+
+	span.player-team-pos {
+		font-size: 10px;
+		font-weight: bold;
+	}
+
+	tbody tr.selected td {
+		background-color: #EEE;
+	}
+
+	tbody tr.empty {
+		cursor: auto;
+	}
+}
+
+/** BY TEAM */
+
+#draft-results #team-view select {
+	margin: 7px 0 0 7px;
+	width: 230px;
+}
+
+/** BY ROUND */
+
+#draft-results #round-view {
+	display: none;
+}
+
+#draft-results #round-view select {
+	margin: 7px 0 0 7px;
+	width: 230px;
+}
+
+/** BY TALLY */
+
+#draft-results #tally-view {
+	display: none;
+}
