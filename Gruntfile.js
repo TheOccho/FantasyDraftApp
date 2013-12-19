@@ -62,6 +62,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-rsync');
 
 	grunt.registerTask("markup", "Copy over the main html page", function() {
 		var originalMarkup = fs.readFileSync("fantasydraft.html", FILE_ENCODING);
