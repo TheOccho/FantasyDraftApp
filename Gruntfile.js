@@ -1,7 +1,8 @@
 module.exports = function(grunt) {
 
 	var FILE_ENCODING = 'utf-8',
-	    fs = require('fs');
+	    fs = require('fs'),
+	    path = require('path');
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -43,10 +44,24 @@ module.exports = function(grunt) {
 		}
 	});
 
+	/*var config = require('load-grunt-config')(grunt, {
+        configPath: path.join(process.cwd(), 'grunt'), //path to task.js files, defaults to grunt dir
+        init: false, //auto grunt.initConfig
+        config: { //additional config vars
+            test: false
+        },
+        loadGruntTasks: { //can optionally pass options to load-grunt-tasks.  If you set to false, it will disable auto loading tasks.
+            pattern: 'grunt-',
+            config: require('./package.json'),
+            scope: 'devDependencies'
+        }
+    });*/
+
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	grunt.registerTask("markup", "Copy over the main html page", function() {
 		var originalMarkup = fs.readFileSync("fantasydraft.html", FILE_ENCODING);
@@ -153,6 +168,8 @@ module.exports = function(grunt) {
 	});
 
 	grunt.loadTasks('./node_modules/bam-grunt-tasks/tasks/common');
+
+	//grunt.initConfig(config);
 
 	grunt.registerTask('default', ['uglify', 'copy', 'requirejs', 'less', 'tpllib', 'markup']);
 };
