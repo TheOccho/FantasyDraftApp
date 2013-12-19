@@ -152,5 +152,7 @@ module.exports = function(grunt) {
 		  fs.writeFileSync(outputPath + "tplLib.xml", resultStr, FILE_ENCODING);
 	});
 
+	grunt.loadTasks('./node_modules/bam-grunt-tasks/tasks/common');
+
 	grunt.registerTask('default', ['uglify', 'copy', 'requirejs', 'less', 'tpllib', 'markup']);
 };
