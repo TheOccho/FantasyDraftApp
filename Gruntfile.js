@@ -8,15 +8,15 @@ module.exports = function(grunt) {
 		uglify: {
 			my_target: {
 		      files: {
-		        "bin/release/src/js/external/external.min.js": ["bower_components/jquery/jquery.js", "src/js/external/jquery.etc.js", "src/js/external/jquery.dataTables.js", "src/js/external/jquery.dataTables.scroller.js", "src/js/external/jquery.template.js", "src/js/external/jquery.bindable.js", "src/js/external/jquery.xml2json.js", "src/js/external/jclass.js", "bower_components/requirejs/require.js"]
+		        "builds-temp/src/js/external/external.min.js": ["bower_components/jquery/jquery.js", "src/js/external/jquery.etc.js", "src/js/external/jquery.dataTables.js", "src/js/external/jquery.dataTables.scroller.js", "src/js/external/jquery.template.js", "src/js/external/jquery.bindable.js", "src/js/external/jquery.xml2json.js", "src/js/external/jclass.js", "bower_components/requirejs/require.js"]
 		      }
 		    }
 		},
 		copy: {
 		  main: {
 		    files: [
-		      {expand: true, flatten: true, src: ['src/css/fonts/*'], dest: 'bin/release/src/css/fonts/', filter: 'isFile'},
-		      {expand: true, flatten: true, src: ['src/xml/*'], dest: 'bin/release/src/xml/', filter: 'isFile'}
+		      {expand: true, flatten: true, src: ['src/css/fonts/*'], dest: 'builds-temp/src/css/fonts/', filter: 'isFile'},
+		      {expand: true, flatten: true, src: ['src/xml/*'], dest: 'builds-temp/src/xml/', filter: 'isFile'}
 		     ]
 		   }
 		},
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 					name: "main",
 					baseUrl: "src/js",
 					mainConfigFile: "require.config.js",
-					out: "bin/release/src/js/main.js"
+					out: "builds-temp/src/js/main.js"
 				}
 			}
 		},
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 			      cleancss: true
 			    },
 			    files: {
-			      "bin/release/src/css/main.css": "src/css/main.less"
+			      "builds-temp/src/css/main.css": "src/css/main.less"
 			    }
   			}
 		}
@@ -48,10 +48,26 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
+	grunt.registerTask("markup", "Copy over the main html page", function() {
+		var originalMarkup = fs.readFileSync("fantasydraft.html", FILE_ENCODING);
+		var modifiedMarkup = "";
+		var preCSS = originalMarkup.substr(0, originalMarkup.indexOf("<!-- CSS START -->"));
+		var preScripts = originalMarkup.substr(originalMarkup.indexOf("<!-- CSS END -->")+16, originalMarkup.indexOf("<!-- SCRIPTS START -->") - (originalMarkup.indexOf("<!-- CSS END -->")+16));
+		var postScripts = originalMarkup.substr(originalMarkup.indexOf("<!-- SCRIPTS END -->")+20);
+
+		modifiedMarkup = preCSS;
+		modifiedMarkup += '<link type="text/css" rel="stylesheet" href="src/css/main.css" />';
+		modifiedMarkup += preScripts;
+		modifiedMarkup += ('<script type="text/javascript" src="src/js/external/external.min.js"></script><script>'+fs.readFileSync("require.config.js", FILE_ENCODING)+"</script>");
+		modifiedMarkup += postScripts;
+
+		fs.writeFileSync("builds-temp/fantasydraft.html", modifiedMarkup, FILE_ENCODING);
+	});
+
 	grunt.registerTask("tpllib", "Create a template library file from the individual template files", function() {
 
 		//set output path and also check for -dev param
-		var outputPath = "bin/release/src/xml/";
+		var outputPath = "builds-temp/src/xml/";
 			if (typeof grunt.option('dev') !== 'undefined') {
 				outputPath = "src/xml/";
 			}
@@ -109,8 +125,6 @@ module.exports = function(grunt) {
 		                    }
 		                }
 		                //if we get here, it's time to read the file
-		                //console.log("getting "+opts.src+"/"+filePath);
-
 		                var retVal = '<tpl id="'+filePath+'">\n<![CDATA[\n';
 		                retVal += fs.readFileSync(opts.srcTwo+"/"+filePath, FILE_ENCODING);
 		                retVal +='\n]]>\n</tpl>';
@@ -120,12 +134,6 @@ module.exports = function(grunt) {
 		    });
 		    //put the result string together
 		    resultStr = fileHeader + out.join('\n') + outTwo.join('\n') + fileFooter;
-
-		  if (!fs.existsSync(outputPath)) {
-		      mkdirp(outputPath, function (err) {
-		        if (err) console.error(err);
-		      });
-		  }
 
 		  //now, convert the xml structure to json using xml2js and store the output in memory
 		  console.log("about to write tpl lib...");
@@ -144,5 +152,5 @@ module.exports = function(grunt) {
 		  fs.writeFileSync(outputPath + "tplLib.xml", resultStr, FILE_ENCODING);
 	});
 
-	grunt.registerTask('default', ['uglify', 'copy', 'requirejs', 'less', 'tpllib']);
+	grunt.registerTask('default', ['uglify', 'copy', 'requirejs', 'less', 'tpllib', 'markup']);
 };
