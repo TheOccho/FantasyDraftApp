@@ -2,47 +2,50 @@ module.exports = function(grunt) {
 
 	var FILE_ENCODING = 'utf-8',
 	    fs = require('fs'),
-	    path = require('path');
-
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
-		uglify: {
-			my_target: {
-		      files: {
-		        "builds-temp/src/js/external/external.min.js": ["bower_components/jquery/jquery.js", "src/js/external/jquery.etc.js", "src/js/external/jquery.dataTables.js", "src/js/external/jquery.dataTables.scroller.js", "src/js/external/jquery.template.js", "src/js/external/jquery.bindable.js", "src/js/external/jquery.xml2json.js", "src/js/external/jclass.js", "bower_components/requirejs/require.js"]
-		      }
-		    }
-		},
-		copy: {
-		  main: {
-		    files: [
-		      {expand: true, flatten: true, src: ['src/css/fonts/*'], dest: 'builds-temp/src/css/fonts/', filter: 'isFile'},
-		      {expand: true, flatten: true, src: ['src/xml/*'], dest: 'builds-temp/src/xml/', filter: 'isFile'}
-		     ]
-		   }
-		},
-		requirejs: {
-			compile: {
-				options: {
-					name: "main",
-					baseUrl: "src/js",
-					mainConfigFile: "require.config.js",
-					out: "builds-temp/src/js/main.js"
-				}
-			}
-		},
-		less: {
-		    production: {
-			    options: {
-			      paths: ["src/css"],
-			      cleancss: true
-			    },
-			    files: {
-			      "builds-temp/src/css/main.css": "src/css/main.less"
+	    path = require('path'),
+	    version = grunt.file.readJSON('package.json').version,
+		configObject = {
+			pkg: grunt.file.readJSON('package.json'),
+			uglify: {
+				my_target: {
+			      files: {}
 			    }
-  			}
-		}
-	});
+			},
+			copy: {
+			  main: {
+			    files: [
+			      {expand: true, flatten: true, src: ['src/css/fonts/*'], dest: 'builds-temp/'+version+'/src/css/fonts/', filter: 'isFile'},
+			      {expand: true, flatten: true, src: ['src/xml/*'], dest: 'builds-temp/'+version+'/src/xml/', filter: 'isFile'}
+			     ]
+			   }
+			},
+			requirejs: {
+				compile: {
+					options: {
+						name: "main",
+						baseUrl: "src/js",
+						mainConfigFile: "require.config.js",
+						out: "builds-temp/"+version+"/src/js/main.js"
+					}
+				}
+			},
+			less: {
+			    production: {
+				    options: {
+				      paths: ["src/css"],
+				      cleancss: true
+				    },
+				    files: {}
+	  			}
+			}
+		};
+		
+	//dynamically set output path for uglify and less
+	configObject.uglify.my_target.files["builds-temp/"+version+"/src/js/external/external.min.js"] = ["bower_components/jquery/jquery.js", "src/js/external/jquery.etc.js", "src/js/external/jquery.dataTables.js", "src/js/external/jquery.dataTables.scroller.js", "src/js/external/jquery.template.js", "src/js/external/jquery.bindable.js", "src/js/external/jquery.xml2json.js", "src/js/external/jclass.js", "bower_components/requirejs/require.js"];
+	configObject.less.production.files["builds-temp/"+version+"/src/css/main.css"] = "src/css/main.less";
+
+	//KICK OFF!
+	grunt.config.init(configObject);
 
 	/*var config = require('load-grunt-config')(grunt, {
         configPath: path.join(process.cwd(), 'grunt'), //path to task.js files, defaults to grunt dir
@@ -83,7 +86,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("tpllib", "Create a template library file from the individual template files", function() {
 
 		//set output path and also check for -dev param
-		var outputPath = "builds-temp/src/xml/";
+		var outputPath = "builds-temp/"+version+"/src/xml/";
 			if (typeof grunt.option('dev') !== 'undefined') {
 				outputPath = "src/xml/";
 			}
