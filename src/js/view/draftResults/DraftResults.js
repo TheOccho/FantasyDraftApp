@@ -40,6 +40,10 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 
 					//render the current round of players drafted
 					that.renderRoundTable(currentRound);
+				} else if(that.currentFilter === "tally") {
+
+					//render the tally table
+					that.renderTallyTable();
 				}
 			});
 
@@ -85,7 +89,18 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 		handleDraftedDataLoaded: function(evt, args) {
 			this.renderTeamTableByOwnerID(controller.getManagerID());
 		},
+		renderTeamTableByOwnerID: function(ownerID) {
+			//clear out old table and attach a new blank one
+			this.element.find("#team-view div.table-wrapper").empty().append($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_TEAM_TABLE), {}, true));
+
+			var myDraftedPlayers = controller.getDrafted().getDraftedPlayersByOwnerID(ownerID);
+			for(var i=0,l=myDraftedPlayers.length;i<l;i++) {
+				var player = controller.getPlayerRoster().getPlayerByID(myDraftedPlayers[i].getPlayerID());
+				this.addPlayerToRow(player, myDraftedPlayers[i].getPosition().toLowerCase());
+			}
+		},
 		renderRoundTable: function(round) {
+			//clear out old table and attach a new blank one
 			this.element.find("#round-view div.table-wrapper").empty().append($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_ROUND_TABLE) , {}, true));
 			
 			var playersDraftedForRound = controller.getDrafted().getDraftedPlayersByRound(round);
@@ -94,16 +109,18 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 				tbody.append($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_ROUND_ROW), {player: playersDraftedForRound[i], controller: controller}, true));
 			}
 		},
-		renderTeamTableByOwnerID: function(ownerID) {
-			this.renderBlankTable();
-			var myDraftedPlayers = controller.getDrafted().getDraftedPlayersByOwnerID(ownerID);
-			for(var i=0,l=myDraftedPlayers.length;i<l;i++) {
-				var player = controller.getPlayerRoster().getPlayerByID(myDraftedPlayers[i].getPlayerID());
-				this.addPlayerToRow(player, myDraftedPlayers[i].getPosition().toLowerCase());
+		renderTallyTable: function() {
+			//clear out old table and attach a new blank one
+			this.element.find("#tally-view div.table-wrapper").empty().append($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_TALLY_TABLE), {}, true));
+		
+			var managers = controller.getLeague().getManagers();
+			var tbody = this.element.find("#tally-view div.table-wrapper table tbody");
+			for(var i=0,l=managers.length;i<l;i++) {
+				var managerTally = controller.getLeague().getManagerDraftTally(managers[i].getID());
+				tbody.append($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_TALLY_ROW), {manager: managers[i], tally: managerTally}, true));
 			}
-		},
-		renderBlankTable: function() {
-			this.element.find("#team-view div.table-wrapper").empty().append($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_TEAM_TABLE), {}, true));
+			var totalTally = controller.getLeague().getTotalDraftedTally();
+			tbody.append('<tr class="totals-row empty"><td>Totals</td><td>'+totalTally["c"]+'</td><td>'+totalTally["1b"]+'</td><td>'+totalTally["2b"]+'</td><td>'+totalTally["ss"]+'</td><td>'+totalTally["3b"]+'</td><td>'+totalTally["of"]+'</td><td>'+totalTally["u"]+'</td><td>'+totalTally["p"]+'</td></tr>');
 		},
 		getFormattedPlayerCell: function(player) {
 			if(player.getPrimaryPosition() === "P") {

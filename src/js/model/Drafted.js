@@ -37,6 +37,13 @@ define("model/Drafted", function( require, exports, module ) {
 			}
 			//set player as drafted
 			_controller.getPlayerRoster().setPlayerDrafted(tmpPlayer.getPlayerID());
+			//update manager's draft tally
+			if(tmpPlayer.getPosition().toLowerCase() !== "bn") {
+				_controller.getLeague().updateDraftedPlayerTally(tmpPlayer.getOwner(), tmpPlayer.getPosition().toLowerCase());
+			} else {
+				var primaryPosition = _controller.getPlayerRoster().getPlayerByID(tmpPlayer.getPlayerID()).getPrimaryPosition();
+				_controller.getLeague().updateDraftedPlayerTally(tmpPlayer.getOwner(), primaryPosition.toLowerCase());
+			}
 			_dataArray.push(tmpPlayer);
 			//set current round
 			_currentRound = _data.player[i].round;

@@ -7,5 +7,5 @@
 <tr data-pid="{%= playerData.getPlayerID() %}">
 	<td>{%= player.getPickNum() %}</td>
 	<td>{%= playerData.getFirstName().charAt(0) + ". " + playerData.getLastName() %}<br/><span class="player-team-pos">{%= playerData.getTeamAbbrev().toUpperCase() %} - {%= playerData.getQualifiedPositions().join(", ") %}</span></td>
-	<td>{%= ownerData.getName().substr(0, 10)+"..." %}</td>
+	<td>{%= ownerData.getName().substr(0, 14)+"..." %}</td>
 </tr>

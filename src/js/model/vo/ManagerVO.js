@@ -4,6 +4,7 @@ define("model/vo/ManagerVO", function( require, exports, module ) {
 
 	function ManagerVO() {
 		this._data;
+		this._draftedTally = {"c":0,"1b":0,"2b":0,"ss":0,"3b":0,"of":0,"u":0,"p":0};
 	}
 
 	ManagerVO.prototype = {
@@ -18,6 +19,12 @@ define("model/vo/ManagerVO", function( require, exports, module ) {
 		},
 		getLogo: function() {
 			return this._data.logo || "";
+		},
+		updateDraftedPlayerTally: function(position) {
+			this._draftedTally[position]++;
+		},
+		getDraftedTally: function() {
+			return this._draftedTally;
 		}
 	};
 

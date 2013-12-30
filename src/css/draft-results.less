@@ -27,11 +27,53 @@
 	top: 5px;
 }
 
+#draft-results #tally-view .table-wrapper {
+	top: 0px;
+	height: 342px;
+	overflow: hidden;
+
+	th {
+		padding: 0;
+		width: 20px !important;
+		font-size: 11px;
+		text-align: center;
+	}
+
+	th.team-name {
+		width: 100px !important;
+	}
+
+	td {
+		font-size: 11px;
+		text-align: center;
+		padding: 4px;
+	}
+
+	td:first-child {
+		text-align: right;
+	}
+
+	tr {
+		cursor: auto;
+		height: 24.5px;
+	}
+
+	tr.totals-row td {
+		font-size: 11px;
+		text-align: center;
+		font-weight: bold;
+	}
+
+	tr.totals-row td:first-child {
+		text-align: right;
+	}
+}
+
 #draft-results table {
 	width: 100%;
 	color: #6a6a6a;
 	font-family: 'helvetica_neue_lt_w1g55_roman';
-	font-size: 14px;
+	font-size: 12px;
 	border-collapse: collapse;
 
 	th, td {

@@ -9,6 +9,8 @@ define("model/League", function( require, exports, module ) {
 	var _controller,
 		_data,
 		_managers = [],
+		_managersHash = {},
+		_totalDraftedTally = {"c":0,"1b":0,"2b":0,"ss":0,"3b":0,"of":0,"u":0,"p":0},
 		eventEnums = require("enums/EventEnums"),
 		dataPathManager = require("data/DataPathManager"),
 		managerVO = require("model/vo/ManagerVO");
@@ -32,6 +34,7 @@ define("model/League", function( require, exports, module ) {
 		for(var i=0,l=_data.managers.m.length;i<l;i++) {
 			var tmpManager = new managerVO();
 			tmpManager.setData(_data.managers.m[i]);
+			_managersHash[tmpManager.getID()] = i;
 			_managers.push(tmpManager);
 		}
 	}
@@ -54,11 +57,7 @@ define("model/League", function( require, exports, module ) {
 	};
 
 	exports.getManagerByID = function(managerID) {
-		for(var i=0,l=_managers.length;i<l;i++) {
-			if(_managers[i].getID() === managerID) {
-				return _managers[i];
-			}
-		}
+		return _managers[_managersHash[managerID]];
 	};
 
 	exports.getLeagueID = function() {
@@ -71,5 +70,18 @@ define("model/League", function( require, exports, module ) {
 
 	exports.getTotalRounds = function() {
 		return _data.total_rounds || "";
+	};
+
+	exports.updateDraftedPlayerTally = function(managerID, position) {
+		_managers[_managersHash[managerID]].updateDraftedPlayerTally(position);
+		_totalDraftedTally[position]++;
+	};
+
+	exports.getManagerDraftTally = function(managerID) {
+		return _managers[_managersHash[managerID]].getDraftedTally();
+	};
+
+	exports.getTotalDraftedTally = function() {
+		return _totalDraftedTally;
 	};
 });

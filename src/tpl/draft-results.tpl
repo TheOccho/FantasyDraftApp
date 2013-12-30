@@ -18,6 +18,6 @@
 		<div class="table-wrapper"></div>
 	</div>
 	<div class="view" id="tally-view">
-		tally view
+		<div class="table-wrapper"></div>
 	</div>
 </div>
