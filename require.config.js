@@ -1,5 +1,5 @@
 requirejs.config({
-	baseUrl: "src/js"
+	baseUrl: requireBaseUrl
 });
 // KICKOFF THE APP
 require(["main"], function(main) {

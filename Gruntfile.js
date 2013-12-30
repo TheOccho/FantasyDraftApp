@@ -24,7 +24,6 @@ module.exports = function(grunt) {
 					options: {
 						name: "main",
 						baseUrl: "src/js",
-						mainConfigFile: "require.config.js",
 						out: "builds-temp/"+version+"/src/js/main.js"
 					}
 				}
@@ -75,9 +74,9 @@ module.exports = function(grunt) {
 		var postScripts = originalMarkup.substr(originalMarkup.indexOf("<!-- SCRIPTS END -->")+20);
 
 		modifiedMarkup = preCSS;
-		modifiedMarkup += '<link type="text/css" rel="stylesheet" href="src/css/main.css" />';
+		modifiedMarkup += '<link type="text/css" rel="stylesheet" href="'+version+'/src/css/main.css" />';
 		modifiedMarkup += preScripts;
-		modifiedMarkup += ('<script type="text/javascript" src="src/js/external/external.min.js"></script><script>'+fs.readFileSync("require.config.js", FILE_ENCODING)+"</script>");
+		modifiedMarkup += ('<script type="text/javascript" src="'+version+'/src/js/external/external.min.js"></script><script>var requireBaseUrl="'+version+'/src/js";'+fs.readFileSync("require.config.js", FILE_ENCODING)+"</script>");
 		modifiedMarkup += postScripts;
 
 		fs.writeFileSync("builds-temp/fantasydraft.html", modifiedMarkup, FILE_ENCODING);
