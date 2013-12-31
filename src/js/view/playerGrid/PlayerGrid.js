@@ -56,37 +56,50 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				that.element.find("#position-filter li.tab").removeClass("selected");
 				filterClicked.addClass("selected");
 
-				switch(that.currentFilter) {
-					case "all":
-						that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getAllHitters());
-						break;
-					case "c":
-						that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getCatchers());
-						break;
-					case "1b":
-						that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getFirstBasemen());
-						break;
-					case "2b":
-						that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getSecondBasemen());
-						break;
-					case "ss":
-						that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getShortstops());
-						break;
-					case "3b":
-						that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getThirdBasemen());
-						break;
-					case "of":
-						that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getOutfielders());
-						break;
-					case "p":
-						that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getAllPitchers());
-						break;
+				if(that.currentFilter === "search") {
+					that.currentFilter = "all";
+					that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getAllHitters());
+					that.currentFilter = "search";
+					$("#search-filter").show();
+					$("#ranking-stat-filters").hide();
+				} else {
+					$("#search-filter").hide();
+					$("#ranking-stat-filters").show();
+					switch(that.currentFilter) {
+						case "all":
+							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getAllHitters());
+							break;
+						case "c":
+							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getCatchers());
+							break;
+						case "1b":
+							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getFirstBasemen());
+							break;
+						case "2b":
+							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getSecondBasemen());
+							break;
+						case "ss":
+							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getShortstops());
+							break;
+						case "3b":
+							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getThirdBasemen());
+							break;
+						case "of":
+							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getOutfielders());
+							break;
+						case "p":
+							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getAllPitchers());
+							break;
+					}
 				}
 			});
 
 			//player row clicks
 			$(document).on("click", this.__targetDiv + " table tbody tr", function(e) {
 				var selectedPlayerRow = $(this);
+				if(selectedPlayerRow.find("img").length > 0) {
+					return false;
+				}
 
 				if(selectedPlayerRow.hasClass("selected")) {
 					selectedPlayerRow.removeClass("selected");
@@ -96,8 +109,20 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				}
 				controller.dispatchEvent(eventEnums.PLAYER_GRID_PLAYER_SELECTED, [ {playerID: selectedPlayerRow.attr("data-pid") } ]);
 			});
+
+			//hide/show drafted
+			$(document).on("change", this.__targetDiv + " .hide-drafted input", function(e) {
+				//force filter of drafted players
+				$(".hide-drafted input").prop("checked", $(this).prop("checked"));
+				oTable.fnDraw();
+			});
+
+			$(document).on("keyup", this.__targetDiv + " #search-filter input", function(e) {
+				oTable.fnFilter( this.value, 1 );
+			});			
 		},
 	    renderPlayerGrid: function(table, players) {
+	    	var that = this;
 	    	if(typeof oTable !== "undefined") {
 	    		var table = $('#player-grid-table').dataTable();
 				table.fnClearTable();
@@ -141,9 +166,26 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				}
 			}
 			if(typeof oTable === "undefined") {
+				//set filtering for showing/hiding drafted players
+				$.fn.dataTableExt.afnFiltering.push(
+					function( oSettings, aData, iDataIndex ) {
+						var nTr = oSettings.aoData[iDataIndex].nTr;
+						if(nTr === null) {
+							return true;
+						}
+						if(nTr.className.match("drafted") && $($(".hide-drafted input")[0]).prop("checked")) {
+							return false;
+						} else {
+							return true;
+						}
+					}
+				);
 				oTable = $('#player-grid-table').dataTable( {
 					"sScrollY": "411px",
 					"aaData": rows,
+					"oLanguage": {
+						"sZeroRecords": '<img src="/FantasyDraft2014/src/images/no-results.png">'
+			        },
 					"aoColumns": [
 						{ "sTitle": "Rk", "asSorting": [ "asc" ] },
 						{ "sTitle": "Player Name", "sClass": "player-name", "asSorting": ['asc','desc'] },
@@ -161,7 +203,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 						$(nRow).attr("data-pid", aData[11]);
 						$("td:eq(1)", nRow).addClass("player-name");
 						if(aData[12]) {
-							//$(nRow).addClass("drafted");
+							$(nRow).addClass("drafted");
 						}
 					},
 					"fnDrawCallback": function( oSettings ) {
@@ -206,6 +248,9 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 						  {event:eventEnums.DRAFT_RESULTS_PLAYER_SELECTED, handler:handlePlayerSelectedFunction}]);
 
 			this.addViewListeners();
+
+			//uncheck hide drafted
+			$(".hide-drafted input").prop("checked", false);
 		}
 	});
 });

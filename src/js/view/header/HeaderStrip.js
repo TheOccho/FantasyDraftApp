@@ -6,8 +6,6 @@ define("view/header/HeaderStrip", function( require, exports, module ) {
 		label: "header strip",
 		init: function(div, template) {
 			this._super(div, template);
-
-			//this.connect([{event:"FantasyDraft.RANDOM_EVENT", handler:this.handleSomeEvent}]);
 		}
 	});
 });

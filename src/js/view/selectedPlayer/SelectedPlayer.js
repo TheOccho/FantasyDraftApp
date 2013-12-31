@@ -15,7 +15,10 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 
 			//draft player click
 			$(document).on("click", this.__targetDiv + " #draft-btn", function(e) {
-				
+				if($(this).hasClass("disabled")) {
+					return false;
+				}
+				//draft player action
 			});
 
 			//add to queue click
@@ -36,8 +39,14 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			this.currentlySelectedPlayerID = args.playerID;
 			var playerData = controller.getPlayerRoster().getPlayerByID(this.currentlySelectedPlayerID);
 
-			//assume add to queue is enable
+			//assume add to queue is enabled
 			this.element.find("#add-to-queue-btn").removeClass("disabled");
+
+			//assume draft btn is enabled
+			this.element.find("#draft-btn").removeClass("disabled");
+			if(playerData.getIsDrafted()) {
+				this.element.find("#draft-btn").addClass("disabled");
+			}
 			
 			//fetch the player queue to check if we should disable the add to queue button
 			controller.unbind(eventEnums.SEND_PLAYER_QUEUE);

@@ -26,6 +26,10 @@ define("model/Drafted", function( require, exports, module ) {
 
 	function setData(data) {
 		_data = data;
+		if(typeof _data.player === "undefined") {
+			_currentRound = 1;
+			return;
+		}
 		for(var i=0,l=_data.player.length;i<l;i++) {
 			var tmpPlayer = new draftedplayerVO();
 			tmpPlayer.setData(_data.player[i]);

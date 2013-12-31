@@ -14,6 +14,11 @@
 <div id="ranking-stat-filters">
 	<div id="ranking"><span class="label">Ranking:</span> <span id="custom-ranking" class="filter">Custom</span> | <span id="default-ranking" class="filter selected">Default</span></div>
 	<div id="stats"><span class="label">Stats:</span> <span id="projected-stats" class="filter selected">Projected</span> | <span id="last-season-stats" class="filter">Last Season</span></div>
-	<div id="hide-drafted"><input id="hide-drafted-cb" type="checkbox" checked="" />Hide Drafted</div>
+	<div class="hide-drafted"><input type="checkbox" checked="" />Hide Drafted</div>
+</div>
+<div id="search-filter">
+	<span>Search Players By Name</span>
+	<input id="search-input" type="text" placeholder="Enter player name"></input>
+	<div class="hide-drafted"><input type="checkbox" checked="" />Hide Drafted</div>
 </div>
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="player-grid-table"></table>

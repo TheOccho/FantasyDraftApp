@@ -94,6 +94,9 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 			this.element.find("#team-view div.table-wrapper").empty().append($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_TEAM_TABLE), {}, true));
 
 			var myDraftedPlayers = controller.getDrafted().getDraftedPlayersByOwnerID(ownerID);
+			if(typeof myDraftedPlayers === "undefined") {
+				return;
+			}
 			for(var i=0,l=myDraftedPlayers.length;i<l;i++) {
 				var player = controller.getPlayerRoster().getPlayerByID(myDraftedPlayers[i].getPlayerID());
 				this.addPlayerToRow(player, myDraftedPlayers[i].getPosition().toLowerCase());

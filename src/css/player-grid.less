@@ -3,6 +3,8 @@
 	height: 508px;
 }
 
+/** RANKING STATS FILTER */
+
 #player-grid #ranking-stat-filters {
 	color: #666;
 	font-family: 'helvetica_neue_lt_w1g55_roman';
@@ -37,13 +39,55 @@
 	font-weight: bold;
 }
 
-#player-grid #ranking-stat-filters #hide-drafted {
+#player-grid #ranking-stat-filters .hide-drafted {
 	position: absolute;
 	left: 440px;
+	top: -2px;
 }
 
-#player-grid #ranking-stat-filters #hide-drafted input {
+#player-grid #ranking-stat-filters .hide-drafted input {
 	margin-right: 7px;
+}
+
+/** SEARCH FILTER */
+
+#player-grid #search-filter {
+	display: none;
+	background-color: #585858;
+	height: 36px;
+	position: relative;
+	top: 29px;
+	width: 100%;
+	font-family: 'helvetica_neue_lt_w1g55_roman';
+	font-size: 12px;
+
+	span {
+		color: #FFF;
+		font-size: 12px;
+		font-weight: bold;
+		left: 14px;
+		position: absolute;
+		top: 9px;
+		width: 200px;
+	}
+
+	input#search-input {
+		left: 170px;
+		position: absolute;
+		top: 7px;
+		width: 250px;
+	}
+
+	.hide-drafted {
+		color: #FFF;
+		left: 440px;
+		position: absolute;
+		top: 8px;
+
+		input {
+			margin-right: 7px;
+		}
+	}
 }
 
 #player-grid-table_wrapper {
