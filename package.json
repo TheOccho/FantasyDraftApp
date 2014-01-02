@@ -13,6 +13,6 @@
     "wrench": "~1.5.4",
     "xml2js": "~0.4.0",
     "load-grunt-config": "~0.7.0",
-    "bam.grunt.tasks": "git+ssh://git@github.mlbam.net/pvaca/bam.grunt.tasks.git"
+      "bam.grunt.tasks": "git+ssh://git@github.mlbam.net/fed-tools/bam-grunt-tasks.git"
   }
 }
