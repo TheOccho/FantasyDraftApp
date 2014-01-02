@@ -31,6 +31,8 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 	return AbstractFantasyDraftView.extend({
 		label: "player grid",
 		currentFilter: "all",
+		currentStatsFilter: "proj",
+		currentRankFilter: "default",
 		getBatterOrPitcher: function() {
 			switch(this.currentFilter) {
 				case "all":
@@ -43,6 +45,34 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					return "b";
 				case "p":
 					return "p";
+			}
+		},
+		renderPlayerGridByCurrentFilter: function() {
+			switch(this.currentFilter) {
+				case "all":
+					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getAllHitters());
+					break;
+				case "c":
+					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getCatchers());
+					break;
+				case "1b":
+					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getFirstBasemen());
+					break;
+				case "2b":
+					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getSecondBasemen());
+					break;
+				case "ss":
+					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getShortstops());
+					break;
+				case "3b":
+					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getThirdBasemen());
+					break;
+				case "of":
+					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getOutfielders());
+					break;
+				case "p":
+					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getAllPitchers());
+					break;
 			}
 		},
 		addViewListeners: function() {
@@ -65,32 +95,22 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				} else {
 					$("#search-filter").hide();
 					$("#ranking-stat-filters").show();
-					switch(that.currentFilter) {
-						case "all":
-							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getAllHitters());
-							break;
-						case "c":
-							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getCatchers());
-							break;
-						case "1b":
-							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getFirstBasemen());
-							break;
-						case "2b":
-							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getSecondBasemen());
-							break;
-						case "ss":
-							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getShortstops());
-							break;
-						case "3b":
-							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getThirdBasemen());
-							break;
-						case "of":
-							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getOutfielders());
-							break;
-						case "p":
-							that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getAllPitchers());
-							break;
-					}
+					that.renderPlayerGridByCurrentFilter();
+				}
+			});
+
+			//ranking filter clicks and stats filter click
+			$(document).on("click", this.__targetDiv + " #ranking-stat-filters span.filter", function(e) {
+				var filterClickedID = $(this).attr("data-id");
+				if((filterClickedID === "custom" || filterClickedID === "default") && that.currentRankFilter !== filterClickedID) {
+					that.currentRankFilter = filterClickedID;
+					$("#ranking-stat-filters #ranking span.filter").removeClass("selected");
+					$("#ranking-stat-filters #ranking span.filter[data-id="+filterClickedID+"]").addClass("selected");
+				} else if((filterClickedID === "proj" || filterClickedID === "last") && that.currentStatsFilter !== filterClickedID) {
+					that.currentStatsFilter = filterClickedID;
+					$("#ranking-stat-filters #stats span.filter").removeClass("selected");
+					$("#ranking-stat-filters #stats span.filter[data-id="+filterClickedID+"]").addClass("selected");
+					that.renderPlayerGridByCurrentFilter();
 				}
 			});
 
@@ -117,6 +137,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				oTable.fnDraw();
 			});
 
+			//search for player listener
 			$(document).on("keyup", this.__targetDiv + " #search-filter input", function(e) {
 				oTable.fnFilter( this.value, 1 );
 			});			
@@ -133,29 +154,29 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				if(players[i].getPrimaryPosition() === "P") {
 					player.push(players[i].getRank());
 					player.push(players[i].getFirstName() + " " + players[i].getLastName() + '</br><span class="player-team-pos">' + players[i].getTeamAbbrev().toUpperCase() + ' - P</span>');
-					player.push(players[i].getProjectedStats().getPoints());
-					player.push(players[i].getProjectedStats().getWins());
-					player.push(players[i].getProjectedStats().getInningsPitched());
-					player.push(players[i].getProjectedStats().getHits());
-					player.push(players[i].getProjectedStats().getWalks());
-					player.push(players[i].getProjectedStats().getStrikeouts());
-					player.push(players[i].getProjectedStats().getShutouts());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getPoints());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getWins());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getInningsPitched());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getHits());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getWalks());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getStrikeouts());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getShutouts());
 					player.push("a");
-					player.push(players[i].getProjectedStats().getERA());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getERA());
 					player.push(players[i].getPlayerID());
 					player.push(players[i].getIsDrafted());
 					rows.push(player);
 				} else {
 					player.push(players[i].getRank());
 					player.push(players[i].getFirstName().charAt(0) + ". " + players[i].getLastName() + '</br><span class="player-team-pos">' + players[i].getTeamAbbrev().toUpperCase() + " - " + players[i].getQualifiedPositions().join(", ") + '</span>');
-					player.push(players[i].getProjectedStats().getPoints());
-					player.push(players[i].getProjectedStats().getAtBats());
-					player.push(players[i].getProjectedStats().getRuns());
-					player.push(players[i].getProjectedStats().getHomeruns());
-					player.push(players[i].getProjectedStats().getRBI());
-					player.push(players[i].getProjectedStats().getBB());
-					player.push(players[i].getProjectedStats().getStolenBases());
-					player.push(players[i].getProjectedStats().getAVG());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getPoints());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getAtBats());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getRuns());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getHomeruns());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getRBI());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getBB());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getStolenBases());
+					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getAVG());
 					player.push("b");
 					player.push(players[i].getPlayerID());
 					player.push(players[i].getIsDrafted());
@@ -184,7 +205,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					"sScrollY": "411px",
 					"aaData": rows,
 					"oLanguage": {
-						"sZeroRecords": '<img src="/FantasyDraft2014/src/images/no-results.png">'
+						"sZeroRecords": '<img src="'+dataPathManager.getImagePath("no-results.png")+'">'
 			        },
 					"aoColumns": [
 						{ "sTitle": "Rk", "asSorting": [ "asc" ] },
