@@ -69,8 +69,8 @@
 	<li data-id="search" class="tab">Search</li>
 </ul>
 <div id="ranking-stat-filters">
-	<div id="ranking"><span class="label">Ranking:</span> <span id="custom-ranking" class="filter">Custom</span> | <span id="default-ranking" class="filter selected">Default</span></div>
-	<div id="stats"><span class="label">Stats:</span> <span id="projected-stats" class="filter selected">Projected</span> | <span id="last-season-stats" class="filter">Last Season</span></div>
+	<div id="ranking"><span class="label">Ranking:</span> <span id="custom-ranking" class="filter" data-id="custom">Custom</span> | <span id="default-ranking" class="filter selected" data-id="default">Default</span></div>
+	<div id="stats"><span class="label">Stats:</span> <span id="projected-stats" class="filter selected" data-id="proj">Projected</span> | <span id="last-season-stats" class="filter" data-id="last">Last Season</span></div>
 	<div class="hide-drafted"><input type="checkbox" checked="" />Hide Drafted</div>
 </div>
 <div id="search-filter">

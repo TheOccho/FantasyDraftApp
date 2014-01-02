@@ -10,7 +10,7 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 
 	return AbstractFantasyDraftView.extend({
 		label: "player queue",
-		numViewableRows: 9,
+		numViewableRows: 10,
 		handleAddRemoveButtons: function(selectedPlayerIndex) {
 			var moveUpButton = this.element.find(".footer #move-up-btn");
 			var moveDownButton = this.element.find(".footer #move-down-btn");
