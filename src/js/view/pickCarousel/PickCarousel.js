@@ -18,15 +18,27 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 							["453064","SS","347552","1","9"],
 							["425902","1B","347550","1","10"],
 							["430832","OF","347559","1","11"],
-							["519317","OF","347551","1","12"]];
+							["519317","OF","347551","1","12"],
+							["457708","OF","347551","2","1"]];
 
 	return AbstractFantasyDraftView.extend({
 		label: "pick carousel",
 		currentRound: 1,
 		addViewListeners: function() {
+			var that = this;
 			$(document).on("click", this.__targetDiv + " #timer-area", function(e) {
 				controller.getDrafted().setPlayerDrafted(testDraftPlayers[testPlayersDrafted][0], testDraftPlayers[testPlayersDrafted][1], testDraftPlayers[testPlayersDrafted][2], testDraftPlayers[testPlayersDrafted][3], testDraftPlayers[testPlayersDrafted][4]);
 				testPlayersDrafted++;
+			});
+
+			//handler for autopick checkbox
+			$(document).on("change", this.__targetDiv + " #auto-pick input", function(e) {
+				var autoPick = $(this).prop("checked");
+				if(autoPick) {
+					that.element.find("li.my-team img.auto-draft-icon").removeClass("hidden");
+				} else {
+					that.element.find("li.my-team img.auto-draft-icon").addClass("hidden");
+				}
 			});
 		},
 		updatePickCarousel: function() {
@@ -59,6 +71,7 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			this.updatePickCarousel();
 		},
 		renderLastPlayerPickedTicker: function() {
+			//console.log(controller.getDrafted().getOverallLastPick(), controller.getDrafted().getOverallLastPick(true));
 			var lastPickFormatted = controller.getDrafted().getOverallLastPick(true);
 			var lastPickTeamName = controller.getLeague().getManagerByID(controller.getDrafted().getLastOwnerToDraft()).getName();
 			var lastPickPlayer = controller.getPlayerRoster().getPlayerByID(controller.getDrafted().getLastPlayerDrafted());
@@ -119,7 +132,8 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 
 			var theList = this.element.find("ul");
 			var tmpRound = this.currentRound;
-			var gearIconPath = dataPathManager.getImagePath("auto-draft-gear.png");
+			var gearIconPathGrey = dataPathManager.getImagePath("auto-draft-gear-grey.png");
+			var gearIconPathWhite = dataPathManager.getImagePath("auto-draft-gear-white.png");
 			for(var i=0,l=formattedManagers.length;i<l;i++) {
 				if(i===0) {
 					theList.append('<li class="round-marker fixed">Round</br><span class="round-number">'+tmpRound+'</span>');
@@ -128,7 +142,7 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 					theList.append('<li class="round-marker">Round</br><span class="round-number">'+tmpRound+'</span>');
 					currentPick = 1;
 				}
-				var teamLi = $('<li data-id="'+formattedManagers[i].getID()+'"></li>').html($.template(templatelib.getTemplateByID(templateEnums.PICK_CAROUSEL_TEAM), {teamName: formattedManagers[i].getName(),round: tmpRound, pick: currentPick, gearIconPath: gearIconPath}, true));
+				var teamLi = $('<li data-id="'+formattedManagers[i].getID()+'"></li>').html($.template(templatelib.getTemplateByID(templateEnums.PICK_CAROUSEL_TEAM), {teamName: formattedManagers[i].getName(),round: tmpRound, pick: currentPick, gearIconPathGrey: gearIconPathGrey, gearIconPathWhite: gearIconPathWhite}, true));
 				if(formattedManagers[i].getID() === _myTeamID) {
 					teamLi.addClass("my-team");
 				}
@@ -148,10 +162,16 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 		init: function(div, template) {
 			this._super(div, template);
 
+			//pass image path of gear icon to the auto-draft input (hacky)
+			this.element.find("img.gear-icon").attr("src", dataPathManager.getImagePath("auto-draft-gear-grey.png"));
+
 			this.connect([{event:eventEnums.DRAFTED_DATA_LOADED, handler:$.proxy(this.handleDraftedDataLoaded, this)},
 						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)}]);
 
 			this.addViewListeners();
+
+			//uncheck auto-pick
+			$("#auto-pick input").prop("checked", false);
 		}
 	});
 });

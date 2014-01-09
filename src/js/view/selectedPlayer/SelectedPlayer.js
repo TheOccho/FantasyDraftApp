@@ -82,13 +82,24 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			this.element.find("table td.proj").html(playerData.getProjectedStats().getPoints());
 			this.element.find("table td.avg").html(playerData.getThreeYearAvgStats().getPoints());
 		},
+		handlePlayerDrafted: function(evt, args) {
+			var playerDrafted = args;
+			//selected player has been drafted, kill draft and add to queue buttons
+			if(this.currentlySelectedPlayerID === playerDrafted.getPlayerID()) {
+				this.element.find("#draft-btn").addClass("disabled");
+				this.element.find("#add-to-queue-btn").addClass("disabled");
+			}
+		},
 		init: function(div, template) {
 			this._super(div, template);
 
-			this.connect([{event:eventEnums.PLAYER_GRID_PLAYER_SELECTED, handler:$.proxy(this.handlePlayerSelected, this)},
-						  {event:eventEnums.PLAYER_QUEUE_PLAYER_SELECTED, handler:$.proxy(this.handlePlayerSelected, this)},
-						  {event:eventEnums.DRAFT_RESULTS_PLAYER_SELECTED, handler:$.proxy(this.handlePlayerSelected, this)},
-						  {event:eventEnums.PLAYER_REMOVED_FROM_QUEUE, handler:$.proxy(this.handlePlayerRemovedFromQueue, this)}]);
+			var handlePlayerSelectedFunction = $.proxy(this.handlePlayerSelected, this);
+
+			this.connect([{event:eventEnums.PLAYER_GRID_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
+						  {event:eventEnums.PLAYER_QUEUE_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
+						  {event:eventEnums.DRAFT_RESULTS_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
+						  {event:eventEnums.PLAYER_REMOVED_FROM_QUEUE, handler:$.proxy(this.handlePlayerRemovedFromQueue, this)},
+						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)}]);
 
 			this.addViewListeners();
 		}

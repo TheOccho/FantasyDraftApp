@@ -31,11 +31,11 @@ define("model/Drafted", function( require, exports, module ) {
 
 	function setData(data) {
 		_data = data;
+		_numManagers = _controller.getLeague().getNumManagers();
 		if(typeof _data.player === "undefined") {
 			return;
 		}
 		_controller.setDraftHasBegun(true);
-		_numManagers = _controller.getLeague().getNumManagers();
 		for(var i=0,l=_data.player.length;i<l;i++) {
 			handleIndividualPlayerDrafted(_data.player[i], i);
 		}
@@ -52,7 +52,7 @@ define("model/Drafted", function( require, exports, module ) {
 		}
 		//set player as drafted
 		_controller.getPlayerRoster().setPlayerDrafted(tmpPlayer.getPlayerID());
-		//update manager's draft tally
+		//update the draft tally
 		if(tmpPlayer.getPosition().toLowerCase() !== "bn") {
 			_controller.getLeague().updateDraftedPlayerTally(tmpPlayer.getOwner(), tmpPlayer.getPosition().toLowerCase());
 		} else {
@@ -125,9 +125,6 @@ define("model/Drafted", function( require, exports, module ) {
 	};
 
 	exports.setPlayerDrafted = function(pid, pos, owner, round, pick) {
-		//mark player drafted in Player Roster
-		_controller.getPlayerRoster().setPlayerDrafted(pid);
-
 		//do the actual adding of the drafted player by creating a DraftedPlayerVO and appending him to our internal array
 		handleIndividualPlayerDrafted({round: round, pick: pick, owner: owner, pid: pid, pos: pos}, _dataArray.length);
 

@@ -27,7 +27,12 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 				that.element.find(".wrapper div.view").hide();
 				that.element.find(".wrapper #" + that.currentFilter + "-view").show();
 
-				if(that.currentFilter === "round") {
+				if(that.currentFilter === "team") {
+					//get my team ID and force team view to default to me
+					var myTeamID = controller.getManagerID();
+					$("#team-view select").val(myTeamID);
+					that.renderTeamTableByOwnerID(myTeamID);
+				} else if(that.currentFilter === "round") {
 					//clear out and update round drop-down
 					var roundDropdown = that.element.find("#round-select");
 					roundDropdown.empty();
@@ -41,7 +46,6 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 					//render the current round of players drafted
 					that.renderRoundTable(currentRound);
 				} else if(that.currentFilter === "tally") {
-
 					//render the tally table
 					that.renderTallyTable();
 				}
@@ -160,7 +164,24 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 			this.element.find("table tbody tr").removeClass("selected");
 		},
 		handlePlayerDrafted: function(evt, args) {
-			
+			switch(this.currentFilter) {
+				case "team":
+					var selectedManagerID = $("#team-view select").val();
+					this.renderTeamTableByOwnerID(selectedManagerID);
+					break;
+				case "round":
+					var currentRound = controller.getDrafted().getCurrentRound();
+					//add the current round option (if it isn't there)
+					if($("#round-view select option[value="+currentRound+"]").length === 0) {
+						$("#round-view select").append('<option value="'+currentRound+'">Round '+currentRound+'</option>');
+						$("#round-view select").val(currentRound);
+					}
+					this.renderRoundTable(currentRound);
+					break;
+				case "tally":
+					this.renderTallyTable();
+					break;
+			}
 		},
 		init: function(div, template) {
 			this._super(div, template);
