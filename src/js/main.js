@@ -20,6 +20,10 @@ define("main", function( require, exports, module ) {
 		_leagueID = leagueID;
 		_managerID = managerID;
 
+		//set leagueID/managerID on the controller
+		controller.setLeagueID(_leagueID);
+		controller.setManagerID(_managerID);
+
 		//load data sequentially
 		controller.bind(eventEnums.TEMPLATE_DATA_LOADED, function(e) {
 

@@ -54,7 +54,7 @@
 #player-grid #search-filter {
 	display: none;
 	background-color: #585858;
-	height: 36px;
+	height: 38px;
 	position: relative;
 	top: 29px;
 	width: 100%;
@@ -67,14 +67,14 @@
 		font-weight: bold;
 		left: 14px;
 		position: absolute;
-		top: 9px;
+		top: 11px;
 		width: 200px;
 	}
 
 	input#search-input {
 		left: 170px;
 		position: absolute;
-		top: 7px;
+		top: 8px;
 		width: 250px;
 	}
 
@@ -92,7 +92,7 @@
 
 #player-grid-table_wrapper {
 	position: absolute;
-	top: 65px;
+	top: 67px;
 }
 
 #player-grid-table_filter {
@@ -110,10 +110,6 @@
 	font-size: 12px;
 	border-collapse: collapse;
 
-	thead tr {
-		display: block;
-	}
-
 	th, td {
 		border: 1px solid #e1e1e1;
 		text-align:center;
@@ -125,48 +121,58 @@
 		padding: 2px 5px;
 	}
 
-	td.sorting_1 {
-		font-weight: bold;
-		color: #666;
-	}
+	thead {
+		th {
+			cursor: pointer;
+		}
 
-	td.player-name {
-		width: 160px;
-	}
+		th:first-child {
+			text-align: center;
+		}
 
-	thead th:first-child {
-		text-align: center;
-	}
-
-	tbody td:first-child {
-		text-align: center;
-	}
-
-	tbody tr:first-child td {
-		border-top: none;
+		tr {
+			display: block;
+		}
 	}
 
 	tbody {
 		display: block;
 		overflow: auto;
 		width: 100%;
-	}
 
-	tbody tr.selected td {
-		background-color: #EEE;
-	}
+		tr {
+			cursor: pointer;
 
-	tbody tr.drafted td {
-		color: #d3d3d3;
-	}
+			td:nth-child(2) {
+				text-align: left;
+				line-height: 15px;
+			}
 
-	thead th, tbody tr {
-		cursor: pointer;
-	}
+			td.sorting_1 {
+				font-weight: bold;
+				color: #666;
+			}
+		}
 
-	tbody tr td:nth-child(2) {
-		text-align: left;
-		line-height: 15px;
+		tr:first-child td {
+			border-top: none;
+		}
+
+		tr.selected td {
+			background-color: #EEE;
+		}
+
+		tr.drafted td {
+			color: #d3d3d3;
+		}
+
+		td.player-name {
+			width: 160px;
+		}
+
+		td:first-child {
+			text-align: center;
+		}
 	}
 
 	span.player-team-pos {

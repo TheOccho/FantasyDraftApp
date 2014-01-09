@@ -78,35 +78,35 @@ define("model/PlayerRoster", function( require, exports, module ) {
 	};
 
 	exports.getAllPitchers = function() {
-		return _pitchers;
+		return _pitchers.slice(0);
 	};
 
 	exports.getAllHitters = function() {
-		return _hitters;
+		return _hitters.slice(0);
 	};
 
 	exports.getCatchers = function() {
-		return _catchers;
+		return _catchers.slice(0);
 	};
 
 	exports.getFirstBasemen = function() {
-		return _firstBasemen;
+		return _firstBasemen.slice(0);
 	};
 
 	exports.getSecondBasemen = function() {
-		return _secondBasemen;
+		return _secondBasemen.slice(0);
 	};
 
 	exports.getShortstops = function() {
-		return _shortstops;
+		return _shortstops.slice(0);
 	};
 
 	exports.getThirdBasemen = function() {
-		return _thirdBasemen;
+		return _thirdBasemen.slice(0);
 	};
 
 	exports.getOutfielders = function() {
-		return _outfielders;
+		return _outfielders.slice(0);
 	};
 
 	exports.getPlayerByID = function(pid) {

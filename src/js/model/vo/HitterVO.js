@@ -36,6 +36,9 @@ define("model/vo/HitterVO", function( require, exports, module ) {
 		getLastName: function() {
 			return this._data.last || "";
 		},
+		getFullName: function() {
+			return this._data.first + " " + this._data.last;
+		},
 		getAge: function() {
 			return this._data.age || "";
 		},

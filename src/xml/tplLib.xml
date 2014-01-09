@@ -41,16 +41,26 @@
 <tpl id="header-strip.tpl">
 <![CDATA[
 {%
-
 %}
 <span class="title">MLB.COM FANTASY BASEBALL 2014 LIVE DRAFT</span>
+<div id="header-links"><span class="draft-order">Draft Order</span> | <span class="league-rules">League Rules</span></div>
 ]]>
 </tpl>
 <tpl id="pick-carousel.tpl">
 <![CDATA[
 {%
-
 %}
+<div id="timer-area">
+	<div id="header">DRAFT BEGINS IN:</div>
+	<div id="clock">12:30</div>
+	<div id="picks-until-turn">Picks until your turn:</div>
+</div>
+<div id="pick-list-mask">
+	<ul id="pick-list"></ul>
+</div>
+<div id="last-pick-ticker">
+	<span class="header">Last Player Selected: </span><span class="info"></span>
+</div>
 ]]>
 </tpl>
 <tpl id="player-grid.tpl">
@@ -143,7 +153,7 @@
 <tr data-pid="{%= playerData.getPlayerID() %}">
 	<td>{%= player.getPickNum() %}</td>
 	<td>{%= playerData.getFirstName().charAt(0) + ". " + playerData.getLastName() %}<br/><span class="player-team-pos">{%= playerData.getTeamAbbrev().toUpperCase() %} - {%= playerData.getQualifiedPositions().join(", ") %}</span></td>
-	<td>{%= ownerData.getName().substr(0, 14)+"..." %}</td>
+	<td>{%= (ownerData.getName().length > 14) ? ownerData.getName().substr(0, 14)+"..." : ownerData.getName() %}</td>
 </tr>
 ]]>
 </tpl>
@@ -165,11 +175,11 @@
 <tpl id="draft-results-tally-row.tpl">
 <![CDATA[
 {%
-	var manager = this.manager;
+	var ownerData = this.manager;
 	var tally = this.tally;
 %}
 <tr class="empty">
-	<td>{%= manager.getName().substr(0, 12)+"..." %}</td>
+	<td>{%= (ownerData.getName().length > 12) ? ownerData.getName().substr(0, 12)+"..." : ownerData.getName() %}</td>
 	<td>{%= tally["c"] %}</td>
 	<td>{%= tally["1b"] %}</td>
 	<td>{%= tally["2b"] %}</td>
@@ -284,6 +294,20 @@
 	</tr>
 </tbody>
 </table>
+]]>
+</tpl>
+<tpl id="pick-carousel-team.tpl">
+<![CDATA[
+{%
+	var teamName = this.teamName;
+	var round = this.round;
+	var pick = this.pick;
+	var gearIconPath = this.gearIconPath;
+%}
+<img class="auto-draft-icon hidden" src="{%= gearIconPath %}" />
+<span class="team-name">{%= teamName %}</span>
+</br>
+<div class="footer"><span class="round" data-id="{%= round %}">R{%= round %}</span>: <span class="pick" data-id="{%= pick %}">Pick {%= pick %}</span></div>
 ]]>
 </tpl>
 <tpl id="player-queue-row.tpl">

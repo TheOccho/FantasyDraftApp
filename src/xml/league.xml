@@ -1,17 +1,17 @@
 <league id="30871" name="MLB-30871" total_rounds="16">
    <managers>
-      <m id="347558" name="Test-Live-347558 8/9 1:01 PM" logo="" />
-      <m id="347548" name="Test-Live-347548 8/9 1:01 PM" logo="" />
-      <m id="347556" name="Test-Live-347556 8/9 1:01 PM" logo="" />
-      <m id="347557" name="Test-Live-347557 8/9 1:01 PM" logo="" />
-      <m id="347555" name="Test-Live-347555 8/9 1:01 PM" logo="" />
-      <m id="347553" name="Test-Live-347553 8/9 1:01 PM" logo="" />
-      <m id="347554" name="Test-Live-347554 8/9 1:01 PM" logo="" />
-      <m id="347549" name="Test-Live-347549 8/9 1:01 PM" logo="" />
-      <m id="347552" name="Test-Live-347552 8/9 1:01 PM" logo="" />
-      <m id="347550" name="Test-Live-347550 8/9 1:01 PM" logo="" />
-      <m id="347559" name="Test-Live-347559 8/9 1:01 PM" logo="" />
-      <m id="347551" name="Test-Live-347551 8/9 1:01 PM" logo="" />
+      <m id="347558" name="TheOccho" logo="" />
+      <m id="347548" name="Yankee Master" logo="" />
+      <m id="347556" name="kedro" logo="" />
+      <m id="347557" name="SoxWS4713" logo="" />
+      <m id="347555" name="Sweet Singer" logo="" />
+      <m id="347553" name="Bad News Bears" logo="" />
+      <m id="347554" name="ZulloStars" logo="" />
+      <m id="347549" name="BayGiantsFan777" logo="" />
+      <m id="347552" name="TigerMiggy" logo="" />
+      <m id="347550" name="Road Kingpin24" logo="" />
+      <m id="347559" name="Lipman All-Stars" logo="" />
+      <m id="347551" name="Sebastian (The Cat)" logo="" />
    </managers>
    <connections chat="c30871@wsfb-jabber.mlb.com" bot="b30871@wsfb-jabber.mlb.com" />
 </league>

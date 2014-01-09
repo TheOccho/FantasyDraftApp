@@ -1,9 +1,9 @@
 {%
-	var manager = this.manager;
+	var ownerData = this.manager;
 	var tally = this.tally;
 %}
 <tr class="empty">
-	<td>{%= manager.getName().substr(0, 12)+"..." %}</td>
+	<td>{%= (ownerData.getName().length > 12) ? ownerData.getName().substr(0, 12)+"..." : ownerData.getName() %}</td>
 	<td>{%= tally["c"] %}</td>
 	<td>{%= tally["1b"] %}</td>
 	<td>{%= tally["2b"] %}</td>

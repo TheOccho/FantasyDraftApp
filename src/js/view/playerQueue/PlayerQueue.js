@@ -125,6 +125,15 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 			this.element.find("table tbody tr").removeClass("selected");
 			this.element.find(".footer .button").addClass("disabled");
 		},
+		handlePlayerDrafted: function(evt, args) {
+			var draftedPlayer = args;
+			if(_queue.indexOf(draftedPlayer.getPlayerID()) !== -1) {
+				this.element.find(".footer .button").addClass("disabled");
+				
+				_queue.splice(_queue.indexOf(draftedPlayer.getPlayerID()), 1);
+				this.renderQueue();
+			}
+		},
 		init: function(div, template) {
 			this._super(div, template);
 
@@ -133,7 +142,8 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 			this.connect([{event:eventEnums.REQUEST_PLAYER_QUEUE, handler:this.handleRequestPlayerQueue},
 						  {event:eventEnums.ADD_PLAYER_TO_QUEUE, handler:$.proxy(this.handleAddPlayerToQueue, this)},
 						  {event:eventEnums.PLAYER_GRID_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
-						  {event:eventEnums.DRAFT_RESULTS_PLAYER_SELECTED, handler:handlePlayerSelectedFunction}]);
+						  {event:eventEnums.DRAFT_RESULTS_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
+						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)}]);
 
 			this.addViewListeners();
 

@@ -53,11 +53,15 @@ define("model/League", function( require, exports, module ) {
 	};
 
 	exports.getManagers = function() {
-		return _managers;
+		return _managers.slice(0);
 	};
 
 	exports.getManagerByID = function(managerID) {
 		return _managers[_managersHash[managerID]];
+	};
+
+	exports.getNumManagers = function() {
+		return _managers.length;
 	};
 
 	exports.getLeagueID = function() {

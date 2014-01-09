@@ -14,9 +14,9 @@ module.exports = function(grunt) {
 			copy: {
 			  main: {
 			    files: [
-			      {expand: true, flatten: true, src: ['src/css/fonts/*'], dest: 'builds-temp/'+version+'/src/css/fonts/', filter: 'isFile'},
-			      {expand: true, flatten: true, src: ['src/xml/*'], dest: 'builds-temp/'+version+'/src/xml/', filter: 'isFile'},
-			      {expand: true, flatten: true, src: ['src/images/*'], dest: 'builds-temp/'+version+'/src/images/', filter: 'isFile'}
+			      {expand: true, flatten: true, src: ['src/css/fonts/*'], dest: 'app-build/'+version+'/src/css/fonts/', filter: 'isFile'},
+			      {expand: true, flatten: true, src: ['src/xml/*'], dest: 'app-build/'+version+'/src/xml/', filter: 'isFile'},
+			      {expand: true, flatten: true, src: ['src/images/*'], dest: 'app-build/'+version+'/src/images/', filter: 'isFile'}
 			     ]
 			   }
 			},
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 					options: {
 						name: "main",
 						baseUrl: "src/js",
-						out: "builds-temp/"+version+"/src/js/main.js"
+						out: "app-build/"+version+"/src/js/main.js"
 					}
 				}
 			},
@@ -41,8 +41,8 @@ module.exports = function(grunt) {
 		};
 		
 	//dynamically set output path for uglify and less
-	configObject.uglify.my_target.files["builds-temp/"+version+"/src/js/external/external.min.js"] = ["bower_components/jquery/jquery.js", "src/js/external/jquery.etc.js", "src/js/external/jquery.dataTables.js", "src/js/external/jquery.dataTables.scroller.js", "src/js/external/jquery.template.js", "src/js/external/jquery.bindable.js", "src/js/external/jquery.xml2json.js", "src/js/external/jclass.js", "bower_components/requirejs/require.js"];
-	configObject.less.production.files["builds-temp/"+version+"/src/css/main.css"] = "src/css/main.less";
+	configObject.uglify.my_target.files["app-build/"+version+"/src/js/external/external.min.js"] = ["bower_components/jquery/jquery.js", "src/js/external/jquery.etc.js", "src/js/external/jquery.dataTables.js", "src/js/external/jquery.dataTables.scroller.js", "src/js/external/jquery.template.js", "src/js/external/jquery.bindable.js", "src/js/external/jquery.xml2json.js", "src/js/external/jclass.js", "bower_components/requirejs/require.js"];
+	configObject.less.production.files["app-build/"+version+"/src/css/main.css"] = "src/css/main.less";
 
 	//KICK OFF!
 	grunt.config.init(configObject);
@@ -80,13 +80,13 @@ module.exports = function(grunt) {
 		modifiedMarkup += ('<script type="text/javascript" src="'+version+'/src/js/external/external.min.js"></script><script>var requireBaseUrl="'+version+'/src/js";'+fs.readFileSync("require.config.js", FILE_ENCODING)+"</script>");
 		modifiedMarkup += postScripts;
 
-		fs.writeFileSync("builds-temp/fantasydraft.html", modifiedMarkup, FILE_ENCODING);
+		fs.writeFileSync("app-build/fantasydraft.html", modifiedMarkup, FILE_ENCODING);
 	});
 
 	grunt.registerTask("tpllib", "Create a template library file from the individual template files", function() {
 
 		//set output path and also check for -dev param
-		var outputPath = "builds-temp/"+version+"/src/xml/";
+		var outputPath = "app-build/"+version+"/src/xml/";
 			if (typeof grunt.option('dev') !== 'undefined') {
 				outputPath = "src/xml/";
 			}

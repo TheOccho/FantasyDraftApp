@@ -48,6 +48,8 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 			}
 		},
 		renderPlayerGridByCurrentFilter: function() {
+			//clear out any search queries that may have been lingering
+			oTable.fnFilter( "", 1 );
 			switch(this.currentFilter) {
 				case "all":
 					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getAllHitters());
@@ -93,6 +95,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					$("#search-filter").show();
 					$("#ranking-stat-filters").hide();
 				} else {
+					$("#search-filter input").val("");
 					$("#search-filter").hide();
 					$("#ranking-stat-filters").show();
 					that.renderPlayerGridByCurrentFilter();
@@ -161,7 +164,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getWalks());
 					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getStrikeouts());
 					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getShutouts());
-					player.push("a");
+					player.push("p");
 					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getERA());
 					player.push(players[i].getPlayerID());
 					player.push(players[i].getIsDrafted());
@@ -222,7 +225,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					],
 					"fnCreatedRow": function( nRow, aData, iDataIndex ) {
 						$(nRow).attr("data-pid", aData[11]);
-						$("td:eq(1)", nRow).addClass("player-name");
+						$(nRow).find("td:eq(1)").addClass("player-name");
 						if(aData[12]) {
 							$(nRow).addClass("drafted");
 						}
@@ -259,6 +262,15 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 		handlePlayerSelected: function(evt, args) {
 			this.element.find("table tbody tr").removeClass("selected");
 		},
+		handlePlayerDrafted: function(evt, args) {
+			var playerDrafted = args;
+			//mark player as drafted in table
+			this.element.find("table tbody tr[data-pid="+playerDrafted.getPlayerID()+"]").removeClass("selected").addClass("drafted");
+			//redraw the table to remove the row since the user has "hide drafted" checked
+			if($(".hide-drafted input").prop("checked")) {
+				oTable.fnDraw();
+			}
+		},
 		init: function(div, template) {
 			this._super(div, template);
 
@@ -266,7 +278,8 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 
 			this.connect([{event:eventEnums.DRAFTED_DATA_LOADED, handler:$.proxy(this.handleDraftedDataLoaded, this)},
 						  {event:eventEnums.PLAYER_QUEUE_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
-						  {event:eventEnums.DRAFT_RESULTS_PLAYER_SELECTED, handler:handlePlayerSelectedFunction}]);
+						  {event:eventEnums.DRAFT_RESULTS_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
+						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)}]);
 
 			this.addViewListeners();
 

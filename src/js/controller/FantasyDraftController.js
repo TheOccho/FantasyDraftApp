@@ -2,6 +2,7 @@ define("controller/FantasyDraftController", function( require, exports, module )
 	var instance = null,
 		_leagueID,
 		_managerID,
+		_draftHasBegun = false,
 		templatelib = require("model/TemplateLibrary"),
 		league = require("model/League"),
 		manager = require("model/Manager"),
@@ -23,11 +24,9 @@ define("controller/FantasyDraftController", function( require, exports, module )
 			templatelib.loadTemplates(instance);
 		},
 		loadLeague: function(leagueID) {
-			_leagueID = leagueID;
 			league.loadLeague(leagueID, instance);
 		},
 		loadManager: function(managerID) {
-			_managerID = managerID;
 			manager.loadManager(managerID, instance);
 		},
 		loadPlayerRoster: function() {
@@ -42,6 +41,12 @@ define("controller/FantasyDraftController", function( require, exports, module )
 		getManager: function() {
 			return manager;
 		},
+		getDraftHasBegun: function() {
+			return _draftHasBegun;
+		},
+		setDraftHasBegun: function(bool) {
+			_draftHasBegun = bool;
+		},
 		getPlayerRoster: function() {
 			return playerroster;
 		},
@@ -51,8 +56,14 @@ define("controller/FantasyDraftController", function( require, exports, module )
 		getLeagueID: function() {
 			return _leagueID;
 		},
+		setLeagueID: function(leagueID) {
+			_leagueID = leagueID;
+		},
 		getManagerID: function() {
 			return _managerID;
+		},
+		setManagerID: function(managerID) {
+			_managerID = managerID;
 		}
 	};
 	FantasyDraftController.getInstance = function() {

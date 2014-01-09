@@ -66,7 +66,7 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			this.element.find("img").attr("src", "http://gdx.mlb.com/images/gameday/mugshots/mlb/"+this.currentlySelectedPlayerID+".jpg");
 
 			//update player name
-			this.element.find(".player-name").html(playerData.getFirstName() + " " + playerData.getLastName());
+			this.element.find(".player-name").html(playerData.getFullName());
 
 			//update team name
 			this.element.find(".team-name").html("<b>Team:</b> "+playerData.getTeamAbbrev().toUpperCase());

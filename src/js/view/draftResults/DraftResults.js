@@ -159,6 +159,9 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 		handlePlayerSelected: function(evt, args) {
 			this.element.find("table tbody tr").removeClass("selected");
 		},
+		handlePlayerDrafted: function(evt, args) {
+			
+		},
 		init: function(div, template) {
 			this._super(div, template);
 
@@ -167,7 +170,8 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 			this.connect([{event:eventEnums.MANAGER_DATA_LOADED, handler:$.proxy(this.handleManagerDataLoaded, this)},
 						  {event:eventEnums.DRAFTED_DATA_LOADED, handler:$.proxy(this.handleDraftedDataLoaded, this)},
 						  {event:eventEnums.PLAYER_GRID_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
-						  {event:eventEnums.PLAYER_QUEUE_PLAYER_SELECTED, handler:handlePlayerSelectedFunction}]);
+						  {event:eventEnums.PLAYER_QUEUE_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
+						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)}]);
 
 			this.addViewListeners();
 		}
