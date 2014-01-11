@@ -41,7 +41,7 @@ module.exports = function(grunt) {
 		};
 		
 	//dynamically set output path for uglify and less
-	configObject.uglify.my_target.files["app-build/"+version+"/src/js/external/external.min.js"] = ["bower_components/jquery/jquery.js", "src/js/external/jquery.etc.js", "src/js/external/jquery.dataTables.js", "src/js/external/jquery.dataTables.scroller.js", "src/js/external/jquery.template.js", "src/js/external/jquery.bindable.js", "src/js/external/jquery.xml2json.js", "src/js/external/jclass.js", "bower_components/requirejs/require.js"];
+	configObject.uglify.my_target.files["app-build/"+version+"/src/js/external/external.min.js"] = ["bower_components/jquery/jquery.js", "src/js/external/jquery.etc.js", "src/js/external/jquery.dataTables.js", "src/js/external/jquery.dataTables.scroller.js", "src/js/external/jquery.template.js", "src/js/external/jquery.bindable.js", "src/js/external/jquery.xml2json.js", "src/js/external/jclass.js", "src/js/external/strophe.js", "src/js/external/strophe.muc.js", "bower_components/requirejs/require.js"];
 	configObject.less.production.files["app-build/"+version+"/src/css/main.css"] = "src/css/main.less";
 
 	//KICK OFF!

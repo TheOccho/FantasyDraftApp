@@ -35,9 +35,9 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			$(document).on("change", this.__targetDiv + " #auto-pick input", function(e) {
 				var autoPick = $(this).prop("checked");
 				if(autoPick) {
-					that.element.find("li.my-team img.auto-draft-icon").removeClass("hidden");
+					that.element.find("li.my-team img.auto-draft-icon").removeClass("hidden").parent().attr("data-auto-draft", true);
 				} else {
-					that.element.find("li.my-team img.auto-draft-icon").addClass("hidden");
+					that.element.find("li.my-team img.auto-draft-icon").addClass("hidden").parent().attr("data-auto-draft", false);
 				}
 			});
 		},
@@ -142,7 +142,7 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 					theList.append('<li class="round-marker">Round</br><span class="round-number">'+tmpRound+'</span>');
 					currentPick = 1;
 				}
-				var teamLi = $('<li data-id="'+formattedManagers[i].getID()+'"></li>').html($.template(templatelib.getTemplateByID(templateEnums.PICK_CAROUSEL_TEAM), {teamName: formattedManagers[i].getName(),round: tmpRound, pick: currentPick, gearIconPathGrey: gearIconPathGrey, gearIconPathWhite: gearIconPathWhite}, true));
+				var teamLi = $('<li data-id="'+formattedManagers[i].getID()+'" data-auto-draft="false"></li>').html($.template(templatelib.getTemplateByID(templateEnums.PICK_CAROUSEL_TEAM), {teamName: formattedManagers[i].getName(),round: tmpRound, pick: currentPick, gearIconPathGrey: gearIconPathGrey, gearIconPathWhite: gearIconPathWhite}, true));
 				if(formattedManagers[i].getID() === _myTeamID) {
 					teamLi.addClass("my-team");
 				}

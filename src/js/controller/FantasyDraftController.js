@@ -66,6 +66,7 @@ define("controller/FantasyDraftController", function( require, exports, module )
 			_managerID = managerID;
 		}
 	};
+	
 	FantasyDraftController.getInstance = function() {
 		// Gets an instance of the singleton. It is better to use
 		if(instance === null){

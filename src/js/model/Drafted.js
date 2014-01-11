@@ -54,14 +54,14 @@ define("model/Drafted", function( require, exports, module ) {
 		_controller.getPlayerRoster().setPlayerDrafted(tmpPlayer.getPlayerID());
 		//update the draft tally
 		if(tmpPlayer.getPosition().toLowerCase() !== "bn") {
-			_controller.getLeague().updateDraftedPlayerTally(tmpPlayer.getOwner(), tmpPlayer.getPosition().toLowerCase());
+			_controller.getLeague().updateDraftedPlayerTally(tmpPlayer.getOwnerID(), tmpPlayer.getPosition().toLowerCase());
 		} else {
 			var primaryPosition = _controller.getPlayerRoster().getPlayerByID(tmpPlayer.getPlayerID()).getPrimaryPosition();
-			_controller.getLeague().updateDraftedPlayerTally(tmpPlayer.getOwner(), primaryPosition.toLowerCase());
+			_controller.getLeague().updateDraftedPlayerTally(tmpPlayer.getOwnerID(), primaryPosition.toLowerCase());
 		}
 		_dataArray.push(tmpPlayer);
 		//set last owner/player to draft and be drafted
-		_lastOwnerToDraft = tmpPlayer.getOwner();
+		_lastOwnerToDraft = tmpPlayer.getOwnerID();
 		_lastPlayerDrafted = tmpPlayer.getPlayerID();
 		//set current round/pick/overall pick
 		_currentRound = (+playerObj.pick === _numManagers) ? Number(playerObj.round) + 1 : Number(playerObj.round);

@@ -16,7 +16,7 @@ define("model/vo/DraftedPlayerVO", function( require, exports, module ) {
 		getPosition: function() {
 			return this._data.pos || "";
 		},
-		getOwner: function() {
+		getOwnerID: function() {
 			return this._data.owner || "";
 		},
 		getRoundNum: function() {
