@@ -96,7 +96,7 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 				that.renderQueue();
 			});
 		},
-		renderQueue: function() {
+		renderQueue: function(isAddPlayerToQueue) {
 			var tbody = this.element.find("table tbody");
 			tbody.empty();
 			var len = (_queue.length < this.numViewableRows) ? this.numViewableRows: _queue.length;
@@ -109,6 +109,10 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 				var playerData = (typeof _queue[i] === "undefined") ? {index:i} : {index:i, player: controller.getPlayerRoster().getPlayerByID(_queue[i])};
 				tbody.append($.template(templatelib.getTemplateByID(templateEnums.PLAYER_QUEUE_ROW), playerData, true));
 			}
+			//auto-scroll to bottom (if there's more than 10 players)
+			if(_queue.length > this.numViewableRows && isAddPlayerToQueue) {
+				tbody.scrollTop(tbody[0].scrollHeight);
+			}
 		},
 		handleRequestPlayerQueue: function(evt, args) {
 			controller.dispatchEvent(eventEnums.SEND_PLAYER_QUEUE, [ {playerQueue: _queue} ]);
@@ -118,7 +122,7 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 			if(_queue.indexOf(args.playerID) === -1) {
 				_queue.push(args.playerID);
 
-				this.renderQueue();
+				this.renderQueue(true);
 			}
 		},
 		handlePlayerSelected: function(evt, args) {

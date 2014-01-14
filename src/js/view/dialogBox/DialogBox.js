@@ -43,7 +43,7 @@ define("view/dialogBox/DialogBox", function( require, exports, module ) {
 			var leagueName = controller.getLeague().getLeagueName().toUpperCase();
 			var managers = controller.getLeague().getManagers();
 			//clear out container first
-			this.element.find("#container").html($.template(templateLib.getTemplateByID(templateEnums.DIALOG_BOX_DRAFT_ORDER), {leagueName: leagueName, managers: managers}, true));
+			this.element.find("#container").html($.template(templateLib.getTemplateByID(templateEnums.DIALOG_BOX_DRAFT_ORDER), { leagueName: leagueName, managers: managers }, true));
 			//show dialog
 			this.element.show();
 		},
@@ -82,7 +82,7 @@ define("view/dialogBox/DialogBox", function( require, exports, module ) {
 		},
 		handleShowPostDraftDialog: function(evt, args) {
 			//render
-			this.element.find("#container").html($.template(templateLib.getTemplateByID(templateEnums.DIALOG_BOX_POST_DRAFT), {postDraftBgPath: dataPathManager.getImagePath("dialog-post-draft-bg.png")}, true));
+			this.element.find("#container").html($.template(templateLib.getTemplateByID(templateEnums.DIALOG_BOX_POST_DRAFT), { postDraftBgPath: dataPathManager.getImagePath("dialog-post-draft-bg.png") }, true));
 			//show dialog
 			this.element.show();
 		},

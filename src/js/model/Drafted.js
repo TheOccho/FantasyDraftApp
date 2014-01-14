@@ -3,6 +3,8 @@ define("model/Drafted", function( require, exports, module ) {
 	var _controller,
 		_data,
 		_dataArray = [],
+		_lastPick,
+		_lastRound,
 		_currentRound = 1,
 		_currentPick = 1,
 		_overallLastPick = 1,
@@ -63,6 +65,9 @@ define("model/Drafted", function( require, exports, module ) {
 		//set last owner/player to draft and be drafted
 		_lastOwnerToDraft = tmpPlayer.getOwnerID();
 		_lastPlayerDrafted = tmpPlayer.getPlayerID();
+		//set last round/pick
+		_lastRound = Number(playerObj.round);
+		_lastPick = Number(playerObj.pick);
 		//set current round/pick/overall pick
 		_currentRound = (+playerObj.pick === _numManagers) ? Number(playerObj.round) + 1 : Number(playerObj.round);
 		_currentPick = (+playerObj.pick === _numManagers) ? 1 : Number(playerObj.pick) + 1;
@@ -96,6 +101,14 @@ define("model/Drafted", function( require, exports, module ) {
 
 	exports.getCurrentPick = function() {
 		return _currentPick;
+	};
+
+	exports.getLastRound = function() {
+		return _lastRound;
+	};
+
+	exports.getLastPick = function() {
+		return _lastPick;
 	};
 
 	exports.getOverallLastPick = function(formatted) {

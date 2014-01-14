@@ -95,7 +95,7 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 		},
 		renderTeamTableByOwnerID: function(ownerID) {
 			//clear out old table and attach a new blank one
-			this.element.find("#team-view div.table-wrapper").empty().append($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_TEAM_TABLE), {}, true));
+			this.element.find("#team-view div.table-wrapper").html($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_TEAM_TABLE), {}, true));
 
 			var myDraftedPlayers = controller.getDrafted().getDraftedPlayersByOwnerID(ownerID);
 			if(typeof myDraftedPlayers === "undefined") {
@@ -108,7 +108,7 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 		},
 		renderRoundTable: function(round) {
 			//clear out old table and attach a new blank one
-			this.element.find("#round-view div.table-wrapper").empty().append($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_ROUND_TABLE) , {}, true));
+			this.element.find("#round-view div.table-wrapper").html($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_ROUND_TABLE) , {}, true));
 			
 			var playersDraftedForRound = controller.getDrafted().getDraftedPlayersByRound(round);
 			var tbody = this.element.find("#round-view div.table-wrapper table tbody");
@@ -118,7 +118,7 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 		},
 		renderTallyTable: function() {
 			//clear out old table and attach a new blank one
-			this.element.find("#tally-view div.table-wrapper").empty().append($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_TALLY_TABLE), {}, true));
+			this.element.find("#tally-view div.table-wrapper").html($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_TALLY_TABLE), {}, true));
 		
 			var managers = controller.getLeague().getManagers();
 			var tbody = this.element.find("#tally-view div.table-wrapper table tbody");
@@ -170,13 +170,13 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 					this.renderTeamTableByOwnerID(selectedManagerID);
 					break;
 				case "round":
-					var currentRound = controller.getDrafted().getCurrentRound();
+					var lastRound = controller.getDrafted().getLastRound();
 					//add the current round option (if it isn't there)
-					if($("#round-view select option[value="+currentRound+"]").length === 0) {
-						$("#round-view select").append('<option value="'+currentRound+'">Round '+currentRound+'</option>');
-						$("#round-view select").val(currentRound);
+					if($("#round-view select option[value="+lastRound+"]").length === 0) {
+						$("#round-view select").append('<option value="'+lastRound+'">Round '+lastRound+'</option>');
+						$("#round-view select").val(lastRound);
 					}
-					this.renderRoundTable(currentRound);
+					this.renderRoundTable(lastRound);
 					//auto-scroll to bottom
 					var roundViewTable = this.element.find("#round-view div.table-wrapper");
 					roundViewTable.scrollTop(roundViewTable[0].scrollHeight);
