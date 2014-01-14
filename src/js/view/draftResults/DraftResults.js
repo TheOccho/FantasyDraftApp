@@ -44,7 +44,7 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 					roundDropdown.val(currentRound);
 
 					//render the current round of players drafted
-					that.renderRoundTable(currentRound);
+					that.renderRoundTable(currentRound, true);
 				} else if(that.currentFilter === "tally") {
 					//render the tally table
 					that.renderTallyTable();
@@ -95,7 +95,8 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 		},
 		renderTeamTableByOwnerID: function(ownerID) {
 			//clear out old table and attach a new blank one
-			this.element.find("#team-view div.table-wrapper").html($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_TEAM_TABLE), {}, true));
+			var teamViewTable = this.element.find("#team-view div.table-wrapper");
+			teamViewTable.html($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_TEAM_TABLE), {}, true));
 
 			var myDraftedPlayers = controller.getDrafted().getDraftedPlayersByOwnerID(ownerID);
 			if(typeof myDraftedPlayers === "undefined") {
@@ -105,8 +106,10 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 				var player = controller.getPlayerRoster().getPlayerByID(myDraftedPlayers[i].getPlayerID());
 				this.addPlayerToRow(player, myDraftedPlayers[i].getPosition().toLowerCase());
 			}
+			//scroll to top
+			teamViewTable.scrollTop(0);
 		},
-		renderRoundTable: function(round) {
+		renderRoundTable: function(round, scrollToBottom) {
 			//clear out old table and attach a new blank one
 			this.element.find("#round-view div.table-wrapper").html($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_ROUND_TABLE) , {}, true));
 			
@@ -114,6 +117,13 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 			var tbody = this.element.find("#round-view div.table-wrapper table tbody");
 			for(var i=0,l=playersDraftedForRound.length;i<l;i++) {
 				tbody.append($.template(templatelib.getTemplateByID(templateEnums.DRAFT_RESULTS_ROUND_ROW), {player: playersDraftedForRound[i], controller: controller}, true));
+			}
+			//auto-scroll to bottom
+			var roundViewTable = this.element.find("#round-view div.table-wrapper");
+			if(scrollToBottom) {
+				roundViewTable.scrollTop(roundViewTable[0].scrollHeight);
+			} else {
+				roundViewTable.scrollTop(0);
 			}
 		},
 		renderTallyTable: function() {
@@ -176,10 +186,7 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 						$("#round-view select").append('<option value="'+lastRound+'">Round '+lastRound+'</option>');
 						$("#round-view select").val(lastRound);
 					}
-					this.renderRoundTable(lastRound);
-					//auto-scroll to bottom
-					var roundViewTable = this.element.find("#round-view div.table-wrapper");
-					roundViewTable.scrollTop(roundViewTable[0].scrollHeight);
+					this.renderRoundTable(lastRound, true);
 					break;
 				case "tally":
 					this.renderTallyTable();

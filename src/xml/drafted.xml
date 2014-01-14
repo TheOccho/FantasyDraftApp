@@ -1,5 +1,5 @@
 <drafted>
-   <!--<player pid="545361" pos="OF" owner="347558" round="1" pick="1" />
+   <player pid="545361" pos="OF" owner="347558" round="1" pick="1" />
    <player pid="408234" pos="3B" owner="347548" round="1" pick="2" />
    <player pid="461314" pos="OF" owner="347556" round="1" pick="3" />
    <player pid="429664" pos="2B" owner="347557" round="1" pick="4" />
@@ -177,7 +177,7 @@
    <player pid="425496" pos="Bn" owner="347549" round="15" pick="8" />
    <player pid="445055" pos="Bn" owner="347552" round="15" pick="9" />
    <player pid="474892" pos="Bn" owner="347550" round="15" pick="10" />
-   <player pid="456715" pos="Bn" owner="347559" round="15" pick="11" />
+   <!--<player pid="456715" pos="Bn" owner="347559" round="15" pick="11" />
    <player pid="458675" pos="Bn" owner="347551" round="15" pick="12" />
    <player pid="493364" pos="Bn" owner="347551" round="16" pick="1" />
    <player pid="435041" pos="Bn" owner="347559" round="16" pick="2" />

@@ -5,7 +5,7 @@ define("data/DataPathManager", function( require, exports, module ) {
 			"drafted": "drafted.xml",
 			"league": "league.xml",
 			"manager": "manager.xml",
-			"player_roster": "player_roster_top100.xml"
+			"player_roster": "player_roster.xml"
 		},
 		version = requireBaseUrl.split("/")[0];
 
@@ -41,10 +41,12 @@ define("data/DataPathManager", function( require, exports, module ) {
 		var path;
 		if(location.href.indexOf("localhost") !== -1) {
 			if(location.pathname.indexOf("app-build/") !== -1) {
-				path = "../proxy.php?url=http://mlb.mlb.com/"+path;
+				path = "../proxy.php?url=http://mlb.mlb.com"+path;
 			} else {
-				path = "proxy.php?url=http://mlb.mlb.com/"+path;
+				path = "proxy.php?url=http://mlb.mlb.com"+path;
 			}
+		} else {
+			path = decodeURIComponent(path);
 		}
 		return path;
 	};

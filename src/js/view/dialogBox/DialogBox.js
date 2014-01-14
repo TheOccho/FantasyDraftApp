@@ -53,9 +53,9 @@ define("view/dialogBox/DialogBox", function( require, exports, module ) {
 
 			var playerID = args.playerID,
 				playerVO = controller.getPlayerRoster().getPlayerByID(playerID),
-				fantasyNews = $.ajax({url:dataPathManager.getProxyPath("fantasylookup/json/named.wsfb_fantasy_news_byplayer.bam?playerid="+playerID), dataType:"json"}),
-				previewBlurb = $.ajax({url:dataPathManager.getProxyPath("fantasylookup/json/named.preview_player_info.bam?player_id="+playerID+"&year=2013"), dataType:"json"}),
-				twentyTwelveStats = $.ajax({url:dataPathManager.getProxyPath(encodeURIComponent("lookup/json/named.mlb_individual_hitting_season.bam?game_type='R'&season=2012&player_id="+playerID)), dataType:"json"});
+				fantasyNews = $.ajax({url:dataPathManager.getProxyPath("/fantasylookup/json/named.wsfb_fantasy_news_byplayer.bam?playerid="+playerID), dataType:"json"}),
+				previewBlurb = $.ajax({url:dataPathManager.getProxyPath("/fantasylookup/json/named.preview_player_info.bam?player_id="+playerID+"&year=2013"), dataType:"json"}),
+				twentyTwelveStats = $.ajax({url:dataPathManager.getProxyPath(encodeURIComponent("/lookup/json/named.mlb_individual_hitting_season.bam?game_type='R'&season=2012&player_id="+playerID)), dataType:"json"});
 			
 			//load necessary lookups
 			var that = this;

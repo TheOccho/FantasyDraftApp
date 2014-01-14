@@ -21,7 +21,7 @@
 	}
 %}
 <div class="playercard-wrapper">
-	<img class="mugshot" src="{%= mugshotURL %}" onerror="this.setAttribute('src','http://mlb.com/mlb/fantasy/wsfb/images/mugshots/default/default_62x75.jpg');" />
+	<img class="mugshot" src="{%= mugshotURL %}" onerror="this.setAttribute('src','http://mlb.mlb.com/images/players/mugshot/ph_default.jpg');" />
 	<span class="player-name">{%= playerData.getFullName() %}</span>
 	<img class="icon injury" style="{% if(hasInjury) { %}display:block;{% } %}" src="{%= injuryIconPath %}"/>
 	<img class="icon news" style="{% if(hasNews) { %}display:block;{% } %}" src="{%= newsIconPath %}" />
