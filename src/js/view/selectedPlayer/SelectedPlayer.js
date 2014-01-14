@@ -2,6 +2,7 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 
 	var AbstractFantasyDraftView = require("view/AbstractFantasyDraftView"),
 		controller = require("controller/FantasyDraftController"),
+		dataPathManager = require("data/DataPathManager"),
 		eventEnums = require("enums/EventEnums");
 
 	return AbstractFantasyDraftView.extend({
@@ -11,6 +12,7 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			//playercard link click
 			$(document).on("click", this.__targetDiv + " .playercard-link", function(e) {
 				var playerID = $(this).attr("data-pid");
+				controller.dispatchEvent(eventEnums.SHOW_PLAYER_CARD_DIALOG, [ {playerID: playerID} ]);
 			});
 
 			//draft player click
@@ -63,7 +65,7 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			this.element.find("#add-to-queue-btn").attr("data-pid", this.currentlySelectedPlayerID);
 
 			//update mugshot
-			this.element.find("img").attr("src", "http://gdx.mlb.com/images/gameday/mugshots/mlb/"+this.currentlySelectedPlayerID+".jpg");
+			this.element.find("img.mugshot").attr("src", "http://gdx.mlb.com/images/gameday/mugshots/mlb/"+this.currentlySelectedPlayerID+".jpg");
 
 			//update player name
 			this.element.find(".player-name").html(playerData.getFullName());
@@ -95,6 +97,10 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 
 			var handlePlayerSelectedFunction = $.proxy(this.handlePlayerSelected, this);
 
+			//set news/injury icon paths after tpl has rendered (hacky)
+			//this.element.find("img.icon.injury").attr("src", dataPathManager.getImagePath("injury-report-icon.png"));
+			//this.element.find("img.icon.news").attr("src", dataPathManager.getImagePath("news-icon.png"));
+
 			this.connect([{event:eventEnums.PLAYER_GRID_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
 						  {event:eventEnums.PLAYER_QUEUE_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
 						  {event:eventEnums.DRAFT_RESULTS_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
@@ -103,5 +109,5 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 
 			this.addViewListeners();
 		}
-	});
+	}).prototype;
 });

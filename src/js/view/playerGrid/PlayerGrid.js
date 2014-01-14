@@ -3,6 +3,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 	var AbstractFantasyDraftView = require("view/AbstractFantasyDraftView"),
 		controller = require("controller/FantasyDraftController"),
 		dataPathManager = require("data/DataPathManager"),
+		templateLib = require("model/TemplateLibrary"),
 		templateEnums = require("enums/TemplateEnums"),
 		eventEnums = require("enums/EventEnums"),
 		_hitterColumnHeaders = [{label:"Rk",sort:["asc"]},
@@ -120,7 +121,8 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 			//player row clicks
 			$(document).on("click", this.__targetDiv + " table tbody tr", function(e) {
 				var selectedPlayerRow = $(this);
-				if(selectedPlayerRow.find("img").length > 0) {
+				var imageInRow = selectedPlayerRow.find("img");
+				if(!imageInRow.hasClass("icon")) {
 					return false;
 				}
 
@@ -156,7 +158,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				var player = [];
 				if(players[i].getPrimaryPosition() === "P") {
 					player.push(players[i].getRank());
-					player.push(players[i].getFirstName() + " " + players[i].getLastName() + '</br><span class="player-team-pos">' + players[i].getTeamAbbrev().toUpperCase() + ' - P</span>');
+					player.push($.template(templateLib.getTemplateByID(templateEnums.PLAYER_GRID_PLAYER_CELL), {injuryIconPath: dataPathManager.getImagePath("injury-report-icon.png"), newsIconPath: dataPathManager.getImagePath("news-icon.png"), playerData: players[i]}, true));
 					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getPoints());
 					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getWins());
 					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getInningsPitched());
@@ -171,7 +173,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					rows.push(player);
 				} else {
 					player.push(players[i].getRank());
-					player.push(players[i].getFirstName().charAt(0) + ". " + players[i].getLastName() + '</br><span class="player-team-pos">' + players[i].getTeamAbbrev().toUpperCase() + " - " + players[i].getQualifiedPositions().join(", ") + '</span>');
+					player.push($.template(templateLib.getTemplateByID(templateEnums.PLAYER_GRID_PLAYER_CELL), {injuryIconPath: dataPathManager.getImagePath("injury-report-icon.png"), newsIconPath: dataPathManager.getImagePath("news-icon.png"), playerData: players[i]}, true));
 					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getPoints());
 					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getAtBats());
 					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getRuns());
@@ -286,5 +288,5 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 			//uncheck hide drafted
 			$(".hide-drafted input").prop("checked", false);
 		}
-	});
+	}).prototype;
 });

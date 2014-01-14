@@ -150,5 +150,5 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 			//render empty queue
 			this.renderQueue();
 		}
-	});
+	}).prototype;
 });

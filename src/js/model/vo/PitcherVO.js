@@ -1,6 +1,6 @@
 define("model/vo/PitcherVO", function( require, exports, module ) {
 
-	/*<player id="147" first="New York" last="Yankees" age="0" pos="P" q_pos="P" team="nyy" rank="505"> 
+	/*<player id="147" first="New York" last="Yankees" age="0" pos="P" q_pos="P" team="nyy" rank="505" has_injury="n" has_news="n"> 
       <stats s_type="curr" pts="113" w="10" k="132" sho="3" h="162" bb="50" ip="155" era="4.01"/>
       <stats s_type="last" pts="1155" w="95" k="1318" sho="9" h="1401" bb="431" ip="1445.1" era="3.85"/>
       <stats s_type="proj" pts="1143" w="88" k="1288" sho="7" h="1410" bb="445" ip="1446" era="3.90"/>
@@ -53,6 +53,12 @@ define("model/vo/PitcherVO", function( require, exports, module ) {
 		},
 		getRank: function() {
 			return this._data.rank || "";
+		},
+		getHasInjury: function() {
+			return (typeof this._data.has_injury !== "undefined") ? this._data.has_injury : "n";
+		},
+		getHasNews: function() {
+			return (typeof this._data.has_news !== "undefined") ? this._data.has_news : "n";
 		},
 		getCurrentStats: function() {
 			return this._data.stats.curr;

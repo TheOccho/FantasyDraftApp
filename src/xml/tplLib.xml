@@ -11,6 +11,18 @@
 ]]>
 </tpl>
 
+<tpl id="dialog-box.tpl">
+<![CDATA[
+{%
+%}
+<div class="backdrop"></div>
+<div id="wrapper">
+	<img id="close-btn" src=""/>
+	<img id="spinner" src=""></img>
+	<div id="container"></div>
+</div>
+]]>
+</tpl>
 <tpl id="draft-results.tpl">
 <![CDATA[
 {%
@@ -118,11 +130,12 @@
 <tpl id="selected-player.tpl">
 <![CDATA[
 {%
-
 %}
 <span class="title">SELECTED PLAYER</span>
-<img class="mugshot" src="http://mlb.com/mlb/fantasy/wsfb/images/mugshots/default/default_62x75.jpg" onerror="(function(img){img.onerror='';img.src = 'http://mlb.com/mlb/fantasy/wsfb/images/mugshots/default/default_62x75.jpg';})(this);"/>
+<img class="mugshot" src="http://mlb.com/mlb/fantasy/wsfb/images/mugshots/default/default_62x75.jpg" onerror="this.setAttribute('src','http://mlb.com/mlb/fantasy/wsfb/images/mugshots/default/default_62x75.jpg');"/>
 <span class="player-name">No Player Selected</span>
+<img class="icon injury" src=""/>
+<img class="icon news" src="" />
 <span class="team-name"><b>Team:</b> --</span>
 <span class="positions"><b>Qualifies at:</b> --</span>
 <span data-pid="" class="playercard-link">View Playercard >></span>
@@ -143,7 +156,93 @@
 <div class="button disabled" id="draft-btn" data-pid="">DRAFT</div>
 <div class="button disabled" id="add-to-queue-btn" data-pid="">Add to Queue</div>
 ]]>
-</tpl><tpl id="draft-results-round-row.tpl">
+</tpl><tpl id="dialog-box-draft-order.tpl">
+<![CDATA[
+{%
+	var leagueName = this.leagueName;
+	var managers = this.managers;
+%}
+<span class="title">{%= leagueName %} DRAFT ORDER</span>
+<table id="draft-order-table">
+	<thead>
+		<th>Pick</th>
+		<th>Team Name</th>
+	</thead>
+	<tbody>
+		{% for(var i=0,l=managers.length;i<l;i++) { %}
+			<tr><td>{%= i+1 %}</td><td>{%= managers[i].getName() %}</td></tr>
+		{% } %}
+	<tbody>
+</table>
+]]>
+</tpl>
+<tpl id="dialog-box-player-card.tpl">
+<![CDATA[
+{%
+	var playerData = this.playerData;
+	var hasInjury = playerData.getHasInjury() === "y";
+	var hasNews = playerData.getHasNews() === "y";
+	var injuryIconPath = this.injuryIconPath;
+	var newsIconPath = this.newsIconPath;
+	var stats = this.stats;
+	var news = this.news;
+	var preview = this.preview;
+	var mugshotURL = "http://mlb.mlb.com/images/players/mugshot/ph_"+playerData.getPlayerID()+".jpg";
+
+	function getYear(i) {
+		switch(i) {
+			case 0:
+				return "2012";
+			case 1:
+				return "2013";
+			case 2:
+				return "2014<sup>*</sup>";
+		}
+	}
+%}
+<div class="playercard-wrapper">
+	<img class="mugshot" src="{%= mugshotURL %}" onerror="this.setAttribute('src','http://mlb.com/mlb/fantasy/wsfb/images/mugshots/default/default_62x75.jpg');" />
+	<span class="player-name">{%= playerData.getFullName() %}</span>
+	<img class="icon injury" style="{% if(hasInjury) { %}display:block;{% } %}" src="{%= injuryIconPath %}"/>
+	<img class="icon news" style="{% if(hasNews) { %}display:block;{% } %}" src="{%= newsIconPath %}" />
+	<span class="player-pos-team">{%= playerData.getQualifiedPositions().join(", ") %} - {%= playerData.getTeamAbbrev().toUpperCase() %}</span>
+	<span class="player-age">Age: {%= playerData.getAge() %}</span>
+	<table id="player-card-table">
+		<thead>
+			<th>Year</th>
+			<th>AVG</th>
+			<th>HR</th>
+			<th>RBI</th>
+			<th>SB</th>
+			<th>Pts</th>
+		</thead>
+		<tbody>
+			{% for(var i=0;i<3;i++) { %}
+				<tr><td>{%= getYear(i) %}</td><td>{%= stats[i].getAVG() %}</td><td>{%= stats[i].getHomeruns() %}</td><td>{%= stats[i].getRBI() %}</td><td>{%= stats[i].getStolenBases() %}</td><td>{%= stats[i].getPoints() %}</td></tr>
+			{% } %}
+		<tbody>
+	</table>
+	<span class="asterisk-desc"><sup>*</sup> Based on 2014 projections</span>
+	<ul id="news-tabs">
+		<li data-id="preview" class="tab selected">2014 Preview</li>
+		<li data-id="fantasy" class="tab">Notes</li>
+	</ul>
+	<div id="preview-notes" class="notes">{%= preview.preview %}{% if(typeof preview.one_liner !== "undefined" && preview.one_liner !== "") { %}</br></br><b>Fantasy Bottom Line:</b> {%= preview.one_liner %}{% } %}</div>
+	<div id="fantasy-notes" class="notes"><b>{%= news.display_ts_closer_fmt %}</b> - {%= news.spin %}</div>
+</div>
+]]>
+</tpl>
+<tpl id="dialog-box-post-draft.tpl">
+<![CDATA[
+{%
+	var postDraftBgPath = this.postDraftBgPath;
+%}
+<img id="post-draft-bg" src="{%= postDraftBgPath %}" />
+<div id="post-draft-text"><span class="title" style="font-weight:normal;font-size:14px;">YOUR DRAFT IS COMPLETE!</span>Thank you for participating. Live chat will be available for 15 minutes.</br><span class="kicker">Check out your league homepage for complete draft results, schedule information and more!</span></div>
+<div id="league-homepage-btn">LEAGUE  HOMEPAGE</div>
+]]>
+</tpl>
+<tpl id="draft-results-round-row.tpl">
 <![CDATA[
 {%
 	var player = this.player;
@@ -311,6 +410,22 @@
 <span class="team-name">{%= teamName %}</span>
 </br>
 <div class="footer"><span class="round" data-id="{%= round %}">R{%= round %}</span>: <span class="pick" data-id="{%= pick %}">Pick {%= pick %}</span></div>
+]]>
+</tpl>
+<tpl id="player-grid-player-cell.tpl">
+<![CDATA[
+{%
+	var playerData = this.playerData;
+	var hasInjury = playerData.getHasInjury() === "y";
+	var hasNews = playerData.getHasNews() === "y";
+	var injuryIconPath = this.injuryIconPath;
+	var newsIconPath = this.newsIconPath;
+%}
+{%= playerData.getFirstName().charAt(0) %}. {%= playerData.getLastName() %}
+<img class="icon injury" style="{% if(hasInjury) { %}display:inline-block;{% } %}" src="{%= injuryIconPath %}"/>
+<img class="icon news" style="{% if(hasNews) { %}display:inline-block;{% } %}" src="{%= newsIconPath %}" />
+</br>
+<span class="player-team-pos">{%= playerData.getTeamAbbrev().toUpperCase() %} - {%= playerData.getQualifiedPositions().join(", ") %}</span>
 ]]>
 </tpl>
 <tpl id="player-queue-row.tpl">

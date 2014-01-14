@@ -5,7 +5,7 @@
       <stats s_type="proj" pts="671" ab="620" doubles="27" hr="28" h="190" rbi="80" bb="67" avg=".306" r="118" sb="47"/>
       <stats s_type="avg" pts="177" ab="152" doubles="7" hr="8" h="47" rbi="22" bb="17" avg=".309" r="33" sb="12"/>
    </player>
-   <player id="408234" first="Miguel" last="Cabrera" age="30" pos="3B" q_pos="3B|U" team="det" rank="2"> 
+   <player id="408234" first="Miguel" last="Cabrera" age="30" pos="3B" q_pos="3B|U" team="det" rank="2" has_injury="n" has_news="y">
       <stats s_type="curr" pts="80" ab="76" doubles="3" hr="2" h="27" rbi="18" bb="9" avg=".355" r="13" sb="1"/>
       <stats s_type="last" pts="698" ab="622" doubles="40" hr="44" h="205" rbi="139" bb="66" avg=".330" r="109" sb="4"/>
       <stats s_type="proj" pts="668" ab="599" doubles="44" hr="39" h="195" rbi="116" bb="80" avg=".326" r="110" sb="3"/>
@@ -17,7 +17,7 @@
       <stats s_type="proj" pts="641" ab="574" doubles="34" hr="36" h="180" rbi="105" bb="59" avg=".314" r="102" sb="27"/>
       <stats s_type="avg" pts="655" ab="593" doubles="40" hr="33" h="189" rbi="109" bb="59" avg=".319" r="106" sb="26"/>
    </player>
-   <player id="461314" first="Matt" last="Kemp" age="29" pos="OF" q_pos="OF|U" team="lad" rank="4"> 
+   <player id="461314" first="Matt" last="Kemp" age="29" pos="OF" q_pos="OF|U" team="lad" rank="4" has_injury="y" has_news="n"> 
       <stats s_type="curr" pts="43" ab="68" doubles="4" hr="0" h="16" rbi="6" bb="4" avg=".235" r="7" sb="3"/>
       <stats s_type="last" pts="414" ab="403" doubles="22" hr="23" h="122" rbi="69" bb="40" avg=".303" r="74" sb="9"/>
       <stats s_type="proj" pts="616" ab="554" doubles="32" hr="32" h="176" rbi="100" bb="63" avg=".318" r="100" sb="26"/>
@@ -35,7 +35,7 @@
       <stats s_type="proj" pts="613" ab="580" doubles="42" hr="35" h="177" rbi="116" bb="60" avg=".305" r="100" sb="7"/>
       <stats s_type="avg" pts="621" ab="591" doubles="39" hr="36" h="175" rbi="107" bb="72" avg=".296" r="102" sb="10"/>
    </player>
-   <player id="471865" first="Carlos" last="Gonzalez" age="28" pos="OF" q_pos="OF|U" team="col" rank="7"> 
+   <player id="471865" first="Carlos" last="Gonzalez" age="28" pos="OF" q_pos="OF|U" team="col" rank="7" has_injury="n" has_news="y"> 
       <stats s_type="curr" pts="93" ab="66" doubles="6" hr="4" h="24" rbi="12" bb="10" avg=".364" r="19" sb="4"/>
       <stats s_type="last" pts="529" ab="518" doubles="31" hr="22" h="157" rbi="85" bb="56" avg=".303" r="89" sb="20"/>
       <stats s_type="proj" pts="613" ab="550" doubles="36" hr="28" h="169" rbi="99" bb="67" avg=".307" r="103" sb="25"/>

@@ -72,7 +72,7 @@ define("controller/FantasyDraftBot", function( require, exports, module ) {
 			_connections["chat"] = chatServer;
 			_connections["bot"] = botServer;
 
-			connect();
+			//connect();
 		},
 		sendChatMessage: function(msg) {
 			_connection.muc.message(_connections["chat"], null, msg);

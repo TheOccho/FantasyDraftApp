@@ -8,13 +8,14 @@ define("main", function( require, exports, module ) {
 		bot = require("controller/FantasyDraftBot");
 
 	//view modules
-	var headerStrip = require("view/header/HeaderStrip").prototype;
-	var pickCarousel = require("view/pickCarousel/PickCarousel").prototype;
-	var selectedPlayer = require("view/selectedPlayer/SelectedPlayer").prototype;
-	var playerQueue = require("view/playerQueue/PlayerQueue").prototype;
-	var playerGrid = require("view/playerGrid/PlayerGrid").prototype;
-	var draftResults = require("view/draftResults/DraftResults").prototype;
-	var chat = require("view/chat/Chat").prototype;
+	var dialogBox = require("view/dialogBox/DialogBox"),
+		headerStrip = require("view/header/HeaderStrip"),
+		pickCarousel = require("view/pickCarousel/PickCarousel"),
+		selectedPlayer = require("view/selectedPlayer/SelectedPlayer"),
+		playerQueue = require("view/playerQueue/PlayerQueue"),
+		playerGrid = require("view/playerGrid/PlayerGrid"),
+		draftResults = require("view/draftResults/DraftResults"),
+		chat = require("view/chat/Chat");
 
 	exports.init = function(leagueID, managerID) {
 		//set manager/league specific vars
@@ -29,6 +30,7 @@ define("main", function( require, exports, module ) {
 		controller.bind(eventEnums.TEMPLATE_DATA_LOADED, function(e) {
 
 			//init the view modules by passing them their respective element IDs
+			dialogBox.init("#dialog-box", templateEnums.DIALOG_BOX);
 			headerStrip.init("#header-strip", templateEnums.HEADER_STRIP);
 			pickCarousel.init("#pick-carousel", templateEnums.PICK_CAROUSEL);
 			selectedPlayer.init("#selected-player", templateEnums.SELECTED_PLAYER);

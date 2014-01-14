@@ -53,5 +53,5 @@ define("view/chat/Chat", function( require, exports, module ) {
 
 			this.addViewListeners();
 		}
-	});
+	}).prototype;
 });

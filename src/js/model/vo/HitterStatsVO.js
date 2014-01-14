@@ -14,34 +14,34 @@ define("model/vo/HitterStatsVO", function( require, exports, module ) {
 			return this._data.s_type || "";
 		},
 		getPoints: function() {
-			return this._data.pts || "";
+			return this._data.pts || "--";
 		},
 		getAtBats: function() {
-			return this._data.ab || "";
+			return this._data.ab || "--";
 		},
 		getDoubles: function() {
-			return this._data.doubles || "";
+			return this._data.doubles || "--";
 		},
 		getHomeruns: function() {
-			return this._data.hr || "";
+			return this._data.hr || "--";
 		},
 		getHits: function() {
-			return this._data.h || "";
+			return this._data.h || "--";
 		},
 		getRBI: function() {
-			return this._data.rbi || "";
+			return this._data.rbi || "--";
 		},
 		getBB: function() {
-			return this._data.bb || "";
+			return this._data.bb || "--";
 		},
 		getAVG: function() {
-			return this._data.avg || "";
+			return this._data.avg || "--";
 		},
 		getRuns: function() {
-			return this._data.r || "";
+			return this._data.r || "--";
 		},
 		getStolenBases: function() {
-			return this._data.sb || "";
+			return this._data.sb || "--";
 		},
 		getStatByPropName: function(prop) {
 			switch(prop) {

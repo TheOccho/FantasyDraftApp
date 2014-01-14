@@ -177,6 +177,9 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 						$("#round-view select").val(currentRound);
 					}
 					this.renderRoundTable(currentRound);
+					//auto-scroll to bottom
+					var roundViewTable = this.element.find("#round-view div.table-wrapper");
+					roundViewTable.scrollTop(roundViewTable[0].scrollHeight);
 					break;
 				case "tally":
 					this.renderTallyTable();
@@ -196,5 +199,5 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 
 			this.addViewListeners();
 		}
-	});
+	}).prototype;
 });

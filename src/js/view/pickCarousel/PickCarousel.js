@@ -173,5 +173,5 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			//uncheck auto-pick
 			$("#auto-pick input").prop("checked", false);
 		}
-	});
+	}).prototype;
 });

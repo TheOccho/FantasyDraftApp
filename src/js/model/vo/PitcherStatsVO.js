@@ -32,7 +32,7 @@ define("model/vo/PitcherStatsVO", function( require, exports, module ) {
 			return this._data.bb || "";
 		},
 		getInningsPitched: function() {
-			return this._data.ip || "";
+			return Math.floor(this._data.ip) || "";
 		},
 		getERA: function() {
 			return this._data.era || "";

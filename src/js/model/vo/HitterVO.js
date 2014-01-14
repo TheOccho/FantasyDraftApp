@@ -1,6 +1,6 @@
 define("model/vo/HitterVO", function( require, exports, module ) {
 
-	/*<player id="545361" first="Mike" last="Trout" age="22" pos="OF" q_pos="OF|U" team="laa" rank="1"> 
+	/*<player id="545361" first="Mike" last="Trout" age="22" pos="OF" q_pos="OF|U" team="laa" rank="1" has_injury="n" has_news="n">
       <stats s_type="curr" pts="72" ab="75" doubles="7" hr="2" h="23" rbi="11" bb="5" avg=".307" r="12" sb="3" />
       <stats s_type="last" pts="687" ab="559" doubles="27" hr="30" h="182" rbi="83" bb="67" avg=".326" r="129" sb="49" />
       <stats s_type="proj" pts="671" ab="620" doubles="27" hr="28" h="190" rbi="80" bb="67" avg=".306" r="118" sb="47" />
@@ -56,6 +56,12 @@ define("model/vo/HitterVO", function( require, exports, module ) {
 		},
 		getRank: function() {
 			return this._data.rank || "";
+		},
+		getHasInjury: function() {
+			return (typeof this._data.has_injury !== "undefined") ? this._data.has_injury : "n";
+		},
+		getHasNews: function() {
+			return (typeof this._data.has_news !== "undefined") ? this._data.has_news : "n";
 		},
 		getCurrentStats: function() {
 			return this._data.stats.curr;
