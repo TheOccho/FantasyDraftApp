@@ -19,7 +19,7 @@
    <player pid="547180" pos="OF" owner="347554" round="2" pick="6" />
    <player pid="434670" pos="SS" owner="347553" round="2" pick="7" />
    <player pid="408314" pos="SS" owner="347555" round="2" pick="8" />
-   <player pid="456030" pos="U" owner="347557" round="2" pick="9" />
+   <!--<player pid="456030" pos="U" owner="347557" round="2" pick="9" />
    <player pid="457763" pos="C" owner="347556" round="2" pick="10" />
    <player pid="475582" pos="U" owner="347548" round="2" pick="11" />
    <player pid="430945" pos="OF" owner="347558" round="2" pick="12" />
@@ -177,7 +177,7 @@
    <player pid="425496" pos="Bn" owner="347549" round="15" pick="8" />
    <player pid="445055" pos="Bn" owner="347552" round="15" pick="9" />
    <player pid="474892" pos="Bn" owner="347550" round="15" pick="10" />
-   <!--<player pid="456715" pos="Bn" owner="347559" round="15" pick="11" />
+   <player pid="456715" pos="Bn" owner="347559" round="15" pick="11" />
    <player pid="458675" pos="Bn" owner="347551" round="15" pick="12" />
    <player pid="493364" pos="Bn" owner="347551" round="16" pick="1" />
    <player pid="435041" pos="Bn" owner="347559" round="16" pick="2" />

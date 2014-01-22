@@ -10,6 +10,7 @@ define("model/vo/HitterVO", function( require, exports, module ) {
     var statsvo = require("model/vo/HitterStatsVO"); 
 
 	function HitterVO() {
+		this._type = "hitter";
 		this._data;
 		this._isDrafted = false;
 	}
@@ -26,6 +27,9 @@ define("model/vo/HitterVO", function( require, exports, module ) {
 				tmpStatsHash[data.stats[i].s_type] = tmpStatsVO;
 			}
 			this._data.stats = tmpStatsHash;
+		},
+		getType: function() {
+			return this._type;
 		},
 		getPlayerID: function() {
 			return this._data.id || "";

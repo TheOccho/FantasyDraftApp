@@ -7,15 +7,7 @@ define("model/PlayerRoster", function( require, exports, module ) {
 		hitterVO = require("model/vo/HitterVO"),
 		pitcherVO = require("model/vo/PitcherVO"),
 		eventEnums = require("enums/EventEnums"),
-		dataPathManager = require("data/DataPathManager"),
-		_hitters = [],
-		_pitchers = [],
-		_catchers = [],
-		_firstBasemen = [],
-		_secondBasemen = [],
-		_shortstops = [],
-		_thirdBasemen = [],
-		_outfielders = [];
+		dataPathManager = require("data/DataPathManager");
 
 	function loadPlayerRoster() {
 		$.ajax({
@@ -43,32 +35,6 @@ define("model/PlayerRoster", function( require, exports, module ) {
 			tmpPlayer.setData(_data.player[i]);
 			_playerIndices[_data.player[i].id] = i;
 			_dataArray.push(tmpPlayer);
-			//add to _hitters/_pitchers
-			if(_data.player[i].pos !== "P") {
-				_hitters.push(tmpPlayer);
-			} else {
-				_pitchers.push(tmpPlayer);
-			}
-			switch(tmpPlayer.getPrimaryPosition().toLowerCase()) {
-				case "c":
-					_catchers.push(tmpPlayer);
-					break;
-				case "1b":
-					_firstBasemen.push(tmpPlayer);
-					break;
-				case "2b":
-					_secondBasemen.push(tmpPlayer);
-					break;
-				case "ss":
-					_shortstops.push(tmpPlayer);
-					break;
-				case "3b":
-					_thirdBasemen.push(tmpPlayer);
-					break;
-				case "of":
-					_outfielders.push(tmpPlayer);
-					break;
-			}
 		}
 	}
 	
@@ -77,40 +43,16 @@ define("model/PlayerRoster", function( require, exports, module ) {
 		loadPlayerRoster();
 	};
 
-	exports.getAllPitchers = function() {
-		return _pitchers.slice(0);
-	};
-
-	exports.getAllHitters = function() {
-		return _hitters.slice(0);
-	};
-
-	exports.getCatchers = function() {
-		return _catchers.slice(0);
-	};
-
-	exports.getFirstBasemen = function() {
-		return _firstBasemen.slice(0);
-	};
-
-	exports.getSecondBasemen = function() {
-		return _secondBasemen.slice(0);
-	};
-
-	exports.getShortstops = function() {
-		return _shortstops.slice(0);
-	};
-
-	exports.getThirdBasemen = function() {
-		return _thirdBasemen.slice(0);
-	};
-
-	exports.getOutfielders = function() {
-		return _outfielders.slice(0);
+	exports.getAllPlayers = function() {
+		return _dataArray.slice(0);
 	};
 
 	exports.getPlayerByID = function(pid) {
 		return _dataArray[_playerIndices[pid]];
+	};
+
+	exports.getPlayerIndexByPID = function(pid) {
+		return _playerIndices[pid];
 	};
 
 	exports.setPlayerDrafted = function(pid) {

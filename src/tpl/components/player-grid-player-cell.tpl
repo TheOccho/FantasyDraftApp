@@ -5,7 +5,7 @@
 	var injuryIconPath = this.injuryIconPath;
 	var newsIconPath = this.newsIconPath;
 %}
-{%= playerData.getFirstName().charAt(0) %}. {%= playerData.getLastName() %}
+{%= playerData.getFullName() %}
 <img class="icon injury" style="{% if(hasInjury) { %}display:inline-block;{% } %}" src="{%= injuryIconPath %}"/>
 <img class="icon news" style="{% if(hasNews) { %}display:inline-block;{% } %}" src="{%= newsIconPath %}" />
 </br>

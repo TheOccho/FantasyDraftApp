@@ -6,28 +6,10 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 		templateLib = require("model/TemplateLibrary"),
 		templateEnums = require("enums/TemplateEnums"),
 		eventEnums = require("enums/EventEnums"),
-		_hitterColumnHeaders = [{label:"Rk",sort:["asc"]},
-								{label:"Player Name",sort:['asc','desc']},
-								{label:"Pts",sort:["desc"]},
-								{label:"AB",sort:["desc"]},
-								{label:"R",sort:["desc"]},
-								{label:"HR",sort:["desc"]},
-								{label:"RBI",sort:["desc"]},
-								{label:"BB",sort:["desc"]},
-								{label:"SB",sort:["desc"]},
-								{label:"AVG",sort:["desc"]}],
-		_pitcherColumnHeaders = [{label:"Rk",sort:["asc"]},
-								{label:"Player Name",sort:['asc','desc']},
-								{label:"Pts",sort:["desc"]},
-								{label:"W",sort:["desc"]},
-								{label:"IP",sort:["desc"]},
-								{label:"H",sort:["desc"]},
-								{label:"BB",sort:["desc"]},
-								{label:"K",sort:["desc"]},
-								{label:"SHO",sort:["desc"]},
-								{label:"ERA",sort:["asc"]}],
-		oTable,
-		oSettings;
+		_hitterColumnHeaders = ["Rk","Player Name","","Pts","Pts","AB","AB","R","R","HR","HR","RBI","RBI","BB","BB","SB","SB","AVG","AVG"],
+		_pitcherColumnHeaders = ["Rk","Player Name","","Pts","Pts","W","W","IP","IP","H","H","BB","BB","K","K","SHO","SHO","ERA","ERA"],
+		_searchInterval,
+		oTable;
 
 	return AbstractFantasyDraftView.extend({
 		label: "player grid",
@@ -43,63 +25,113 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				case "ss":
 				case "3b":
 				case "of":
+				case "search":
 					return "b";
 				case "p":
 					return "p";
 			}
 		},
-		renderPlayerGridByCurrentFilter: function() {
-			//clear out any search queries that may have been lingering
-			oTable.fnFilter( "", 1 );
-			switch(this.currentFilter) {
-				case "all":
-					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getAllHitters());
-					break;
-				case "c":
-					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getCatchers());
-					break;
-				case "1b":
-					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getFirstBasemen());
-					break;
-				case "2b":
-					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getSecondBasemen());
-					break;
-				case "ss":
-					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getShortstops());
-					break;
-				case "3b":
-					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getThirdBasemen());
-					break;
-				case "of":
-					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getOutfielders());
-					break;
-				case "p":
-					this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getAllPitchers());
-					break;
+		adjustColumnHeaders: function() {
+			var b_or_p = this.getBatterOrPitcher();
+			var columnHeaders = (b_or_p === "b") ? _hitterColumnHeaders : _pitcherColumnHeaders;
+			for(var i=0,l=columnHeaders.length;i<l;i++) {
+				$(oTable.fnSettings().aoColumns[i].nTh).html(columnHeaders[i]);
 			}
+		},
+		showHideColumns: function() {
+			if(this.currentStatsFilter === "proj") {
+				oTable.fnSetColumnVis(3, true, false);
+				oTable.fnSetColumnVis(4, false, false);
+				oTable.fnSetColumnVis(5, true, false);
+				oTable.fnSetColumnVis(6, false, false);
+				oTable.fnSetColumnVis(7, true, false);
+				oTable.fnSetColumnVis(8, false, false);
+				oTable.fnSetColumnVis(9, true, false);
+				oTable.fnSetColumnVis(10, false, false);
+				oTable.fnSetColumnVis(11, true, false);
+				oTable.fnSetColumnVis(12, false, false);
+				oTable.fnSetColumnVis(13, true, false);
+				oTable.fnSetColumnVis(14, false, false);
+				oTable.fnSetColumnVis(15, true, false);
+				oTable.fnSetColumnVis(16, false, false);
+			} else if(this.currentStatsFilter === "last") {
+				oTable.fnSetColumnVis(3, false, false);
+				oTable.fnSetColumnVis(4, true, false);
+				oTable.fnSetColumnVis(5, false, false);
+				oTable.fnSetColumnVis(6, true, false);
+				oTable.fnSetColumnVis(7, false, false);
+				oTable.fnSetColumnVis(8, true, false);
+				oTable.fnSetColumnVis(9, false, false);
+				oTable.fnSetColumnVis(10, true, false);
+				oTable.fnSetColumnVis(11, false, false);
+				oTable.fnSetColumnVis(12, true, false);
+				oTable.fnSetColumnVis(13, false, false);
+				oTable.fnSetColumnVis(14, true, false);
+				oTable.fnSetColumnVis(15, false, false);
+				oTable.fnSetColumnVis(16, true, false);
+			}
+			if(this.getBatterOrPitcher() === "b") {
+				if(this.currentStatsFilter === "proj") {
+					oTable.fnSetColumnVis(17, true, false);
+					oTable.fnSetColumnVis(18, false, false);
+				} else if(this.currentStatsFilter === "last") {
+					oTable.fnSetColumnVis(17, false, false);
+					oTable.fnSetColumnVis(18, true, false);
+				}
+				oTable.fnSetColumnVis(19, false, false);
+				oTable.fnSetColumnVis(20, false, false);
+			} else {
+				oTable.fnSetColumnVis(17, false, false);
+				oTable.fnSetColumnVis(18, false, false);
+				if(this.currentStatsFilter === "proj") {
+					oTable.fnSetColumnVis(19, true, false);
+					oTable.fnSetColumnVis(20, false, false);
+				} else if(this.currentStatsFilter === "last") {
+					oTable.fnSetColumnVis(19, false, false);
+					oTable.fnSetColumnVis(20, true, false);
+				}
+			}
+			$("#player-grid-table_wrapper th:not(.player-name)").width(30);
 		},
 		addViewListeners: function() {
 			var that = this;
 			$(document).on("click", this.__targetDiv + " #position-filter li.tab", function(e) {
+				var sortByRank = false;
 				var filterClicked = $(this);
 				if(filterClicked.attr("data-id") === that.currentFilter) {
 					return false;
+				}
+				if(that.currentFilter === "p" || filterClicked.attr("data-id") === "p") {
+					sortByRank = true;
+					that.currentFilter = filterClicked.attr("data-id");
+					that.showHideColumns();
+					//adjust column headers
+					that.adjustColumnHeaders();
 				}
 				that.currentFilter = filterClicked.attr("data-id");
 				that.element.find("#position-filter li.tab").removeClass("selected");
 				filterClicked.addClass("selected");
 
 				if(that.currentFilter === "search") {
-					that.currentFilter = "all";
-					that.renderPlayerGrid(that.element.find("table tbody"), controller.getPlayerRoster().getAllHitters());
-					that.currentFilter = "search";
 					$("#search-filter").show();
 					$("#ranking-stat-filters").hide();
 				} else {
-					$("#search-filter input").val("");
+					if($("#search-filter input").val() !== "") {
+						$("#search-filter input").val("");
+						//clear out any search queries that may have been lingering
+						oTable.fnFilter( "", 1 );
+					}
 					$("#search-filter").hide();
 					$("#ranking-stat-filters").show();
-					that.renderPlayerGridByCurrentFilter();
+				}
+				if(sortByRank) {
+					//force table to sort by first column ("rank")
+					oTable.fnSort( [ [0, 'asc'] ] );
+				}
+				if(that.currentFilter === "all" || that.currentFilter === "search") {
+					oTable.fnFilter( "c|1b|2b|ss|3b|of", 23, true );
+				} else {
+					oTable.fnFilter( that.currentFilter, 23 );
 				}
 			});
 
@@ -114,7 +146,18 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					that.currentStatsFilter = filterClickedID;
 					$("#ranking-stat-filters #stats span.filter").removeClass("selected");
 					$("#ranking-stat-filters #stats span.filter[data-id="+filterClickedID+"]").addClass("selected");
-					that.renderPlayerGridByCurrentFilter();
+					$("#player-grid-table").removeClass("proj last").addClass(that.currentStatsFilter);
+					that.showHideColumns();
+					//sort on whatever column was being sorted on
+					var previousSort = oTable.fnSettings().aaSorting;
+					if(oTable.fnSettings().aaSorting[0][0] > 2) {
+						if(that.currentStatsFilter === "proj") {
+							previousSort[0][0]--;
+						} else if(that.currentStatsFilter === "last") {
+							previousSort[0][0]++;
+						}
+						oTable.fnSort( previousSort );
+					}
 				}
 			});
 
@@ -144,134 +187,163 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 
 			//search for player listener
 			$(document).on("keyup", this.__targetDiv + " #search-filter input", function(e) {
-				oTable.fnFilter( this.value, 1 );
+				var that = this;
+				clearInterval(_searchInterval);
+				_searchInterval = setTimeout(function() {
+					oTable.fnFilter( that.value, 1 );
+				}, 500);
 			});			
+		},
+		handleTableCellSort: function(data, type, full) {
+			if(type === "display") {
+				return data;
+			}
+			if(type === "filter" || type === "sort") {
+				var elem = $(data);
+				if(elem.length === 0) {
+					return "";
+				} else {
+					return (this.currentStatsFilter === "proj") ? elem[0].innerHTML : elem[1].innerHTML;
+				}
+			}
 		},
 	    renderPlayerGrid: function(table, players) {
 	    	var that = this;
-	    	if(typeof oTable !== "undefined") {
-	    		var table = $('#player-grid-table').dataTable();
-				table.fnClearTable();
-	    	}	
+	    	var handleTableCellSortProxied = $.proxy(this.handleTableCellSort, this);
 	    	var rows = [];
 			for(var i=0,l=players.length;i<l;i++) {
 				var player = [];
-				if(players[i].getPrimaryPosition() === "P") {
+				if(players[i].getType() === "pitcher") {
 					player.push(players[i].getRank());
 					player.push($.template(templateLib.getTemplateByID(templateEnums.PLAYER_GRID_PLAYER_CELL), {injuryIconPath: dataPathManager.getImagePath("injury-report-icon.png"), newsIconPath: dataPathManager.getImagePath("news-icon.png"), playerData: players[i]}, true));
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getPoints());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getWins());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getInningsPitched());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getHits());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getWalks());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getStrikeouts());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getShutouts());
-					player.push("p");
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getERA());
+					player.push(players[i].getFirstName());
+					player.push(players[i].getProjectedStats().getPoints());
+					player.push(players[i].getLastYearStats().getPoints());
+					player.push(players[i].getProjectedStats().getWins());
+					player.push(players[i].getLastYearStats().getWins());
+					player.push(players[i].getProjectedStats().getInningsPitched());
+					player.push(players[i].getLastYearStats().getInningsPitched());
+					player.push(players[i].getProjectedStats().getHits());
+					player.push(players[i].getLastYearStats().getHits());
+					player.push(players[i].getProjectedStats().getWalks());
+					player.push(players[i].getLastYearStats().getWalks());
+					player.push(players[i].getProjectedStats().getStrikeouts());
+					player.push(players[i].getLastYearStats().getStrikeouts());
+					player.push(players[i].getProjectedStats().getShutouts());
+					player.push(players[i].getLastYearStats().getShutouts());
+					player.push("p1");
+					player.push("p2");
+					player.push(players[i].getProjectedStats().getERA());
+					player.push(players[i].getLastYearStats().getERA());
 					player.push(players[i].getPlayerID());
 					player.push(players[i].getIsDrafted());
+					player.push(players[i].getPrimaryPosition().toLowerCase());
 					rows.push(player);
 				} else {
 					player.push(players[i].getRank());
 					player.push($.template(templateLib.getTemplateByID(templateEnums.PLAYER_GRID_PLAYER_CELL), {injuryIconPath: dataPathManager.getImagePath("injury-report-icon.png"), newsIconPath: dataPathManager.getImagePath("news-icon.png"), playerData: players[i]}, true));
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getPoints());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getAtBats());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getRuns());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getHomeruns());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getRBI());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getBB());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getStolenBases());
-					player.push(players[i][(that.currentStatsFilter === "proj") ? "getProjectedStats" : "getLastYearStats"]().getAVG());
-					player.push("b");
+					player.push(players[i].getLastName());
+					player.push(players[i].getProjectedStats().getPoints());
+					player.push(players[i].getLastYearStats().getPoints());
+					player.push(players[i].getProjectedStats().getAtBats());
+					player.push(players[i].getLastYearStats().getAtBats());
+					player.push(players[i].getProjectedStats().getRuns());
+					player.push(players[i].getLastYearStats().getRuns());
+					player.push(players[i].getProjectedStats().getHomeruns());
+					player.push(players[i].getLastYearStats().getHomeruns());
+					player.push(players[i].getProjectedStats().getRBI());
+					player.push(players[i].getLastYearStats().getRBI());
+					player.push(players[i].getProjectedStats().getBB());
+					player.push(players[i].getLastYearStats().getBB());
+					player.push(players[i].getProjectedStats().getStolenBases());
+					player.push(players[i].getLastYearStats().getStolenBases());
+					player.push(players[i].getProjectedStats().getAVG());
+					player.push(players[i].getLastYearStats().getAVG());
+					player.push("b1");
+					player.push("b2");
 					player.push(players[i].getPlayerID());
 					player.push(players[i].getIsDrafted());
+					player.push(players[i].getPrimaryPosition().toLowerCase());
 					rows.push(player);
 				}
-				if(typeof oTable !== "undefined") {
-					table.oApi._fnAddData(oSettings, player);
-				}
 			}
-			if(typeof oTable === "undefined") {
-				//set filtering for showing/hiding drafted players
-				$.fn.dataTableExt.afnFiltering.push(
-					function( oSettings, aData, iDataIndex ) {
-						var nTr = oSettings.aoData[iDataIndex].nTr;
-						if(nTr === null) {
-							return true;
-						}
-						if(nTr.className.match("drafted") && $($(".hide-drafted input")[0]).prop("checked")) {
-							return false;
-						} else {
-							return true;
-						}
+			oTable = $('#player-grid-table').dataTable( {
+				"sScrollY": "411px",
+				"aaData": rows,
+				"oLanguage": {
+					"sZeroRecords": '<img src="'+dataPathManager.getImagePath("no-results.png")+'">'
+		        },
+				"aoColumns": [
+					{ "sTitle": "Rk", "asSorting": [ "asc" ], "sType": "numeric" },
+					{ "sTitle": "Player Name", "sClass": "player-name", "asSorting": ['asc','desc'], "sType": "string", "iDataSort": 2 },
+					{ "bVisible": false},
+					{ "sTitle": "Pts", "asSorting": [ "desc" ], "sType": "numeric" },
+					{ "sTitle": "Pts", "asSorting": [ "desc" ], "sType": "numeric", "bVisible": false },
+					{ "sTitle": "AB", "asSorting": [ "desc" ], "sType": "numeric" },
+					{ "sTitle": "AB", "asSorting": [ "desc" ], "sType": "numeric", "bVisible": false },
+					{ "sTitle": "R", "asSorting": [ "desc" ], "sType": "numeric" },
+					{ "sTitle": "R", "asSorting": [ "desc" ], "sType": "numeric", "bVisible": false },
+					{ "sTitle": "HR", "asSorting": [ "desc" ], "sType": "numeric" },
+					{ "sTitle": "HR", "asSorting": [ "desc" ], "sType": "numeric", "bVisible": false },
+					{ "sTitle": "RBI", "asSorting": [ "desc" ], "sType": "numeric" },
+					{ "sTitle": "RBI", "asSorting": [ "desc" ], "sType": "numeric", "bVisible": false },
+					{ "sTitle": "BB", "asSorting": [ "desc" ], "sType": "numeric" },
+					{ "sTitle": "BB", "asSorting": [ "desc" ], "sType": "numeric", "bVisible": false },
+					{ "sTitle": "SB", "asSorting": [ "desc" ], "sType": "numeric" },
+					{ "sTitle": "SB", "asSorting": [ "desc" ], "sType": "numeric", "bVisible": false },
+					{ "sTitle": "AVG", "asSorting": [ "desc" ], "sType": "numeric" },
+					{ "sTitle": "AVG", "asSorting": [ "desc" ], "sType": "numeric", "bVisible": false },
+					{ "sTitle": "ERA", "asSorting": [ "asc" ], "sType": "numeric", "bVisible": false },
+					{ "sTitle": "ERA", "asSorting": [ "asc" ], "sType": "numeric", "bVisible": false },
+					{ "bVisible": false },
+					{ "bVisible": false },
+					{ "bVisible": false }
+				],
+				
+				"fnRowCallback": function(nRow, aData) {
+					$(nRow).attr("data-pid", aData[21]);
+					$(nRow, "td:eq(1)").addClass("player-name");
+					if(aData[22]) {
+						$(nRow).addClass("drafted");
 					}
-				);
-				oTable = $('#player-grid-table').dataTable( {
-					"sScrollY": "411px",
-					"aaData": rows,
-					"oLanguage": {
-						"sZeroRecords": '<img src="'+dataPathManager.getImagePath("no-results.png")+'">'
-			        },
-					"aoColumns": [
-						{ "sTitle": "Rk", "asSorting": [ "asc" ] },
-						{ "sTitle": "Player Name", "sClass": "player-name", "asSorting": ['asc','desc'] },
-						{ "sTitle": "Pts", "asSorting": [ "desc" ] },
-						{ "sTitle": "AB", "asSorting": [ "desc" ] },
-						{ "sTitle": "R", "asSorting": [ "desc" ] },
-						{ "sTitle": "HR", "asSorting": [ "desc" ] },
-						{ "sTitle": "RBI", "asSorting": [ "desc" ] },
-						{ "sTitle": "BB", "asSorting": [ "desc" ] },
-						{ "sTitle": "SB", "asSorting": [ "desc" ] },
-						{ "sTitle": "AVG", "asSorting": [ "desc" ] },
-						{ "sTitle": "ERA", "asSorting": [ "asc" ], "bVisible": false }
-					],
-					"fnCreatedRow": function( nRow, aData, iDataIndex ) {
-						$(nRow).attr("data-pid", aData[11]);
-						$(nRow).find("td:eq(1)").addClass("player-name");
-						if(aData[12]) {
-							$(nRow).addClass("drafted");
-						}
-					},
-					"fnDrawCallback": function( oSettings ) {
-						$("th.player-name").width(160);
-					},
-					"sDom": "ftS",
-					"bDeferRender": true
-				} );
-				oSettings = oTable.fnSettings();
-			} else {
-				var b_or_p = this.getBatterOrPitcher();
-				var columnHeaders = (b_or_p === "b") ? _hitterColumnHeaders : _pitcherColumnHeaders;
-				for(var i=0,l=columnHeaders.length;i<l;i++) {
-					$(oSettings.aoColumns[i].nTh).html(columnHeaders[i].label);
+				},	
+				"fnDrawCallback": function( oSettings ) {
+					$("#player-grid-table_wrapper th.player-name").width(160);
+					$("#player-grid-table_wrapper th:not(.player-name)").width(30);
+					$("#player-grid-table").removeClass("proj last").addClass(that.currentStatsFilter);
+				},
+				"sDom": "tSr",
+				"bDeferRender": true
+			} );
+			//set custom filtering for showing/hiding drafted players
+			$.fn.dataTableExt.afnFiltering.push(
+				function( oSettings, aData, iDataIndex ) {
+					var nTr = oSettings.aoData[iDataIndex].nTr;
+					if(nTr === null) {
+						return true;
+					}
+					if($($(".hide-drafted input")[0]).prop("checked") && nTr.className.match("drafted")) {
+						return false;
+					} else {
+						return true;
+					}
 				}
-				oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-				table.fnDraw();
-				if(b_or_p === "b") {
-					table.fnSetColumnVis(9, true);
-					table.fnSetColumnVis(10, false);
-				} else {
-					table.fnSetColumnVis(9, false);
-					table.fnSetColumnVis(10, true);
-				}
-				//force table to sort by first column ("rank")
-				table.fnSort( [ [0, 'asc'] ] );
-			}
+			);
+			//filter out pitchers since we know we default to the "all hitters" tab
+			oTable.fnFilter( "c|1b|2b|ss|3b|of", 23, true );
 		},
 		handleDraftedDataLoaded: function(evt, args) {
-			this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getAllHitters());
+			this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getAllPlayers());
 		},
 		handlePlayerSelected: function(evt, args) {
 			this.element.find("table tbody tr").removeClass("selected");
 		},
 		handlePlayerDrafted: function(evt, args) {
-			var playerDrafted = args;
-			//mark player as drafted in table
-			this.element.find("table tbody tr[data-pid="+playerDrafted.getPlayerID()+"]").removeClass("selected").addClass("drafted");
-			//redraw the table to remove the row since the user has "hide drafted" checked
-			if($(".hide-drafted input").prop("checked")) {
-				oTable.fnDraw();
-			}
+			var playerDraftedID = args.getPlayerID();
+			//mark player as drafted in table via updating internal aoData
+			oTable.fnUpdate(true, controller.getPlayerRoster().getPlayerIndexByPID(playerDraftedID), 12);
+			//unselect row
+			this.element.find("table tbody tr[data-pid="+playerDraftedID+"]").removeClass("selected");
 		},
 		init: function(div, template) {
 			this._super(div, template);

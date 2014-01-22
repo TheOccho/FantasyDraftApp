@@ -22,5 +22,6 @@
 	</tr>
 </tbody>
 </table>
+<span class="drafted-by"></span>
 <div class="button disabled" id="draft-btn" data-pid="">DRAFT</div>
 <div class="button disabled" id="add-to-queue-btn" data-pid="">Add to Queue</div>

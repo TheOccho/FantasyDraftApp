@@ -10,6 +10,7 @@ define("model/vo/PitcherVO", function( require, exports, module ) {
     var statsvo = require("model/vo/PitcherStatsVO"); 
 
 	function PitcherVO() {
+		this._type = "pitcher";
 		this._data;
 		this._isDrafted = false;
 	}
@@ -26,6 +27,9 @@ define("model/vo/PitcherVO", function( require, exports, module ) {
 				tmpStatsHash[data.stats[i].s_type] = tmpStatsVO;
 			}
 			this._data.stats = tmpStatsHash;
+		},
+		getType: function() {
+			return this._type;
 		},
 		getPlayerID: function() {
 			return this._data.id || "";
@@ -49,6 +53,11 @@ define("model/vo/PitcherVO", function( require, exports, module ) {
 			return (this._data.q_pos) ? [ this._data.q_pos ] : [];
 		},
 		getTeamAbbrev: function() {
+			if(this._data.team === "lad") {
+				return "la";
+			} else if(this._data.team === "laa") {
+				return "ana";
+			}
 			return this._data.team || "";
 		},
 		getRank: function() {

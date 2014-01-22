@@ -50,17 +50,34 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 
 				var elemToPop = this.element.find("li:eq(1)").removeClass("on-the-clock");
 				elemToPop.find(".round").html("R"+(this.currentRound+1));
-				this.element.find("#pick-list").append(elemToPop);
+				if(this.currentRound < 15) {
+					this.element.find("#pick-list").append(elemToPop);
+				} else {
+					elemToPop.remove();
+				}
 				elemToPop = this.element.find("li:eq(1)");
 				elemToPop.html('Round</br><span class="round-number">'+(this.currentRound+2)+'</span>');
-				this.element.find("#pick-list").append(elemToPop);
+				if(this.currentRound < 15) {
+					this.element.find("#pick-list").append(elemToPop);
+				} else {
+					elemToPop.remove();
+				}
 
 				this.element.find("li:eq(1)").addClass("on-the-clock");
 			} else {
 				var elemToPop = this.element.find("li:eq(1)");
 				elemToPop.removeClass("on-the-clock").find(".round").html("R"+(this.currentRound+2));
-				this.element.find("#pick-list").append(elemToPop);
-				this.element.find("li:eq(1)").addClass("on-the-clock");
+				if(this.currentRound < 15) {
+					this.element.find("#pick-list").append(elemToPop);
+				} else {
+					elemToPop.remove();
+				}
+				//check if the draft is over
+				if(this.element.find("li:eq(1)").length > 0) {
+					this.element.find("li:eq(1)").addClass("on-the-clock");
+				} else {
+					this.element.find("li:eq(0)").remove();
+				}
 			}
 			//render last player selected a la Bud Selig
 			this.renderLastPlayerPickedTicker();
@@ -71,7 +88,6 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			this.updatePickCarousel();
 		},
 		renderLastPlayerPickedTicker: function() {
-			//console.log(controller.getDrafted().getOverallLastPick(), controller.getDrafted().getOverallLastPick(true));
 			var lastPickFormatted = controller.getDrafted().getOverallLastPick(true);
 			var lastPickTeamName = controller.getLeague().getManagerByID(controller.getDrafted().getLastOwnerToDraft()).getName();
 			var lastPickPlayer = controller.getPlayerRoster().getPlayerByID(controller.getDrafted().getLastPlayerDrafted());
@@ -87,6 +103,7 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 					break;
 				}
 			}
+			if(typeof picksUntilTurn === "undefined") picksUntilTurn = "--";
 			this.element.find("#timer-area #picks-until-turn").html("Picks until your turn: "+picksUntilTurn);
 		},
 		handleDraftedDataLoaded: function(evt, args) {
@@ -135,11 +152,11 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			var gearIconPathGrey = dataPathManager.getImagePath("auto-draft-gear-grey.png");
 			var gearIconPathWhite = dataPathManager.getImagePath("auto-draft-gear-white.png");
 			for(var i=0,l=formattedManagers.length;i<l;i++) {
-				if(i===0) {
+				if(i===0 && tmpRound !== 17) {
 					theList.append('<li class="round-marker fixed">Round</br><span class="round-number">'+tmpRound+'</span>');
 				} else if(i > 0 && formattedManagers[i-1].getID() === formattedManagers[i].getID()) {
 					tmpRound = tmpRound+1;
-					theList.append('<li class="round-marker">Round</br><span class="round-number">'+tmpRound+'</span>');
+					if(tmpRound <= 16) theList.append('<li class="round-marker">Round</br><span class="round-number">'+tmpRound+'</span>');
 					currentPick = 1;
 				}
 				var teamLi = $('<li data-id="'+formattedManagers[i].getID()+'" data-auto-draft="false"></li>').html($.template(templatelib.getTemplateByID(templateEnums.PICK_CAROUSEL_TEAM), {teamName: formattedManagers[i].getName(),round: tmpRound, pick: currentPick, gearIconPathGrey: gearIconPathGrey, gearIconPathWhite: gearIconPathWhite}, true));
@@ -149,9 +166,9 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 				if(i===0) {
 					teamLi.addClass("on-the-clock");
 				}
-				theList.append(teamLi);
+				if(tmpRound <= 16) theList.append(teamLi);
 				currentPick++;
-				if(i===l-1 && formattedManagers[0].getID() === formattedManagers[l-1].getID()) {
+				if(i===l-1 && formattedManagers[0].getID() === formattedManagers[l-1].getID() && tmpRound !== 18) {
 					tmpRound = tmpRound+1;
 					theList.append('<li class="round-marker">Round</br><span class="round-number">'+tmpRound+'</span>');
 				}

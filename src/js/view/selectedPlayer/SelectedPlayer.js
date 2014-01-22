@@ -48,6 +48,11 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			this.element.find("#draft-btn").removeClass("disabled");
 			if(playerData.getIsDrafted()) {
 				this.element.find("#draft-btn").addClass("disabled");
+				var draftedPlayerVO = controller.getDrafted().getDraftedPlayerByPlayerID(playerData.getPlayerID());
+				var managerData = controller.getLeague().getManagerByID(draftedPlayerVO.getOwnerID());
+				this.element.find("span.drafted-by").html("<b>Drafted By:</b> "+managerData.getName()).show();
+			} else {
+				this.element.find("span.drafted-by").hide();
 			}
 			
 			//fetch the player queue to check if we should disable the add to queue button
@@ -65,7 +70,11 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			this.element.find("#add-to-queue-btn").attr("data-pid", this.currentlySelectedPlayerID);
 
 			//update mugshot
-			this.element.find("img.mugshot").attr("src", "http://gdx.mlb.com/images/gameday/mugshots/mlb/"+this.currentlySelectedPlayerID+".jpg");
+			if(playerData.getType() === "hitter") {
+				this.element.find("img.mugshot").attr("src", "http://gdx.mlb.com/images/gameday/mugshots/mlb/"+this.currentlySelectedPlayerID+".jpg");
+			} else if(playerData.getType() === "pitcher") {
+				this.element.find("img.mugshot").attr("src", "http://mlb.mlb.com/mlb/fantasy/wsfb/images/mugshots/"+playerData.getTeamAbbrev()+"_staff_62x75.jpg");
+			}
 
 			//update player name
 			this.element.find(".player-name").html(playerData.getFullName());

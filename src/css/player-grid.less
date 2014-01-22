@@ -103,6 +103,25 @@
 	visibility: hidden;
 }
 
+/** projected/last season stats */
+#player-grid table.proj {
+	td span.proj {
+		display: block;
+	}
+	td span.last {
+		display: none;
+	}
+}
+
+#player-grid table.last {
+	td span.last {
+		display: block;
+	}
+	td span.proj {
+		display: none;
+	}
+}
+
 #player-grid table {
 	width: 556px;
 	color: #6a6a6a;
@@ -119,6 +138,10 @@
 	td {
 		width: 30px;
 		padding: 2px 5px;
+
+		span.proj, span.last {
+			display: none;
+		}
 	}
 
 	thead {

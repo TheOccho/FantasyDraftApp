@@ -103,14 +103,6 @@ define("model/Drafted", function( require, exports, module ) {
 		return _currentPick;
 	};
 
-	exports.getLastRound = function() {
-		return _lastRound;
-	};
-
-	exports.getLastPick = function() {
-		return _lastPick;
-	};
-
 	exports.getOverallLastPick = function(formatted) {
 		if(formatted) {
 			var j = _overallLastPick % 10;
@@ -127,6 +119,14 @@ define("model/Drafted", function( require, exports, module ) {
 		} else {
 			return _overallLastPick;
 		}
+	};
+
+	exports.getLastRound = function() {
+		return _lastRound;
+	};
+
+	exports.getLastPick = function() {
+		return _lastPick;
 	};
 
 	exports.getLastOwnerToDraft = function() {

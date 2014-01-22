@@ -689,7 +689,7 @@
       <stats s_type="proj" pts="1085" w="79" k="1320" sho="5" h="1401" bb="519" ip="1438" era="4.22"/>
       <stats s_type="avg" pts="1071" w="85" k="1306" sho="10" h="1431" bb="516" ip="1444.2" era="4.15"/>
    </player>
-   <player id="108" first="Los Angeles" last="Angels" age="0" pos="P" q_pos="P" team="laa" rank="510"> 
+   <player id="108" first="Los Angeles" last="Angels" age="0" pos="P" q_pos="P" team="laa" rank="510">
       <stats s_type="curr" pts="96" w="7" k="119" sho="1" h="161" bb="69" ip="155.1" era="4.58"/>
       <stats s_type="last" pts="1138" w="89" k="1157" sho="16" h="1339" bb="483" ip="1433.1" era="4.02"/>
       <stats s_type="proj" pts="1078" w="84" k="1163" sho="8" h="1425" bb="450" ip="1469" era="4.10"/>
