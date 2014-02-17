@@ -1,6 +1,20 @@
 define("model/vo/HitterStatsVO", function( require, exports, module ) {
 
-	/*<stats s_type="curr" pts="72" ab="75" doubles="7" hr="2" h="23" rbi="11" bb="5" avg=".307" r="12" sb="3" />*/
+	/*
+		{
+		    "b_ab": "600",
+		    "r_sb": "36",
+		    "b_bb": "96",
+		    "b_doubles": "35",
+		    "b_avg": ".318",
+		    "b_h": "191",
+		    "s_type": "season_projected",
+		    "b_rbi": "88",
+		    "r_r": "112",
+		    "b_hr": "29",
+		    "pts": "687"
+		}
+	*/
 
 	function HitterStatsVO() {
 		this._data;
@@ -17,31 +31,47 @@ define("model/vo/HitterStatsVO", function( require, exports, module ) {
 			return this._data.pts || "--";
 		},
 		getAtBats: function() {
-			return this._data.ab || "--";
+			return this._data.b_ab || "--";
 		},
 		getDoubles: function() {
-			return this._data.doubles || "--";
+			return this._data.b_doubles || "--";
 		},
 		getHomeruns: function() {
-			return this._data.hr || "--";
+			//check if we're modeling stats from a named lookup
+			if(typeof this._data.hr !== "undefined") {
+				return this._data.hr;
+			}
+			return this._data.b_hr || "--";
 		},
 		getHits: function() {
-			return this._data.h || "--";
+			return this._data.b_h || "--";
 		},
 		getRBI: function() {
-			return this._data.rbi || "--";
+			//check if we're modeling stats from a named lookup
+			if(typeof this._data.rbi !== "undefined") {
+				return this._data.rbi;
+			}
+			return this._data.b_rbi || "--";
 		},
 		getBB: function() {
-			return this._data.bb || "--";
+			return this._data.b_bb || "--";
 		},
 		getAVG: function() {
-			return this._data.avg || "--";
+			//check if we're modeling stats from a named lookup
+			if(typeof this._data.avg !== "undefined") {
+				return this._data.avg;
+			}
+			return this._data.b_avg || "--";
 		},
 		getRuns: function() {
-			return this._data.r || "--";
+			return this._data.r_r || "--";
 		},
 		getStolenBases: function() {
-			return this._data.sb || "--";
+			//check if we're modeling stats from a named lookup
+			if(typeof this._data.sb !== "undefined") {
+				return this._data.sb;
+			}
+			return this._data.r_sb || "--";
 		},
 		getStatByPropName: function(prop) {
 			switch(prop) {

@@ -6,9 +6,10 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 		templateLib = require("model/TemplateLibrary"),
 		templateEnums = require("enums/TemplateEnums"),
 		eventEnums = require("enums/EventEnums"),
-		_hitterColumnHeaders = ["Rk","Player Name","","Pts","Pts","AB","AB","R","R","HR","HR","RBI","RBI","BB","BB","SB","SB","AVG","AVG"],
-		_pitcherColumnHeaders = ["Rk","Player Name","","Pts","Pts","W","W","IP","IP","H","H","BB","BB","K","K","SHO","SHO","ERA","ERA"],
+		_hitterColumnHeaders = ["Rk","Rk","Player Name","","Pts","Pts","AB","AB","R","R","HR","HR","RBI","RBI","BB","BB","SB","SB","AVG","AVG"],
+		_pitcherColumnHeaders = ["Rk","Rk","Player Name","","Pts","Pts","W","W","IP","IP","H","H","BB","BB","K","K","SHO","SHO","ERA","ERA"],
 		_searchInterval,
+		_hideDraftedChecked = false,
 		oTable;
 
 	return AbstractFantasyDraftView.extend({
@@ -39,23 +40,16 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 			}
 		},
 		showHideColumns: function() {
+			//check rankings type
+			if(this.currentRankFilter === "default") {
+				oTable.fnSetColumnVis(0, true, false);
+				oTable.fnSetColumnVis(1, false, false);
+			} else if(this.currentRankFilter === "custom") {
+				oTable.fnSetColumnVis(0, false, false);
+				oTable.fnSetColumnVis(1, true, false);
+			}
+			//check stats type
 			if(this.currentStatsFilter === "proj") {
-				oTable.fnSetColumnVis(3, true, false);
-				oTable.fnSetColumnVis(4, false, false);
-				oTable.fnSetColumnVis(5, true, false);
-				oTable.fnSetColumnVis(6, false, false);
-				oTable.fnSetColumnVis(7, true, false);
-				oTable.fnSetColumnVis(8, false, false);
-				oTable.fnSetColumnVis(9, true, false);
-				oTable.fnSetColumnVis(10, false, false);
-				oTable.fnSetColumnVis(11, true, false);
-				oTable.fnSetColumnVis(12, false, false);
-				oTable.fnSetColumnVis(13, true, false);
-				oTable.fnSetColumnVis(14, false, false);
-				oTable.fnSetColumnVis(15, true, false);
-				oTable.fnSetColumnVis(16, false, false);
-			} else if(this.currentStatsFilter === "last") {
-				oTable.fnSetColumnVis(3, false, false);
 				oTable.fnSetColumnVis(4, true, false);
 				oTable.fnSetColumnVis(5, false, false);
 				oTable.fnSetColumnVis(6, true, false);
@@ -69,26 +63,42 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				oTable.fnSetColumnVis(14, true, false);
 				oTable.fnSetColumnVis(15, false, false);
 				oTable.fnSetColumnVis(16, true, false);
+				oTable.fnSetColumnVis(17, false, false);
+			} else if(this.currentStatsFilter === "last") {
+				oTable.fnSetColumnVis(4, false, false);
+				oTable.fnSetColumnVis(5, true, false);
+				oTable.fnSetColumnVis(6, false, false);
+				oTable.fnSetColumnVis(7, true, false);
+				oTable.fnSetColumnVis(8, false, false);
+				oTable.fnSetColumnVis(9, true, false);
+				oTable.fnSetColumnVis(10, false, false);
+				oTable.fnSetColumnVis(11, true, false);
+				oTable.fnSetColumnVis(12, false, false);
+				oTable.fnSetColumnVis(13, true, false);
+				oTable.fnSetColumnVis(14, false, false);
+				oTable.fnSetColumnVis(15, true, false);
+				oTable.fnSetColumnVis(16, false, false);
+				oTable.fnSetColumnVis(17, true, false);
 			}
 			if(this.getBatterOrPitcher() === "b") {
 				if(this.currentStatsFilter === "proj") {
-					oTable.fnSetColumnVis(17, true, false);
-					oTable.fnSetColumnVis(18, false, false);
-				} else if(this.currentStatsFilter === "last") {
-					oTable.fnSetColumnVis(17, false, false);
 					oTable.fnSetColumnVis(18, true, false);
-				}
-				oTable.fnSetColumnVis(19, false, false);
-				oTable.fnSetColumnVis(20, false, false);
-			} else {
-				oTable.fnSetColumnVis(17, false, false);
-				oTable.fnSetColumnVis(18, false, false);
-				if(this.currentStatsFilter === "proj") {
-					oTable.fnSetColumnVis(19, true, false);
-					oTable.fnSetColumnVis(20, false, false);
-				} else if(this.currentStatsFilter === "last") {
 					oTable.fnSetColumnVis(19, false, false);
+				} else if(this.currentStatsFilter === "last") {
+					oTable.fnSetColumnVis(18, false, false);
+					oTable.fnSetColumnVis(19, true, false);
+				}
+				oTable.fnSetColumnVis(20, false, false);
+				oTable.fnSetColumnVis(21, false, false);
+			} else {
+				oTable.fnSetColumnVis(18, false, false);
+				oTable.fnSetColumnVis(19, false, false);
+				if(this.currentStatsFilter === "proj") {
 					oTable.fnSetColumnVis(20, true, false);
+					oTable.fnSetColumnVis(21, false, false);
+				} else if(this.currentStatsFilter === "last") {
+					oTable.fnSetColumnVis(20, false, false);
+					oTable.fnSetColumnVis(21, true, false);
 				}
 			}
 			$("#player-grid-table_wrapper th:not(.player-name)").width(30);
@@ -119,7 +129,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					if($("#search-filter input").val() !== "") {
 						$("#search-filter input").val("");
 						//clear out any search queries that may have been lingering
-						oTable.fnFilter( "", 1 );
+						oTable.fnFilter( "", 2 );
 					}
 					$("#search-filter").hide();
 					$("#ranking-stat-filters").show();
@@ -129,9 +139,9 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					oTable.fnSort( [ [0, 'asc'] ] );
 				}
 				if(that.currentFilter === "all" || that.currentFilter === "search") {
-					oTable.fnFilter( "c|1b|2b|ss|3b|of", 23, true );
+					oTable.fnFilter( "c|1b|2b|ss|3b|of", 24, true );
 				} else {
-					oTable.fnFilter( that.currentFilter, 23 );
+					oTable.fnFilter( that.currentFilter, 24 );
 				}
 			});
 
@@ -142,15 +152,16 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					that.currentRankFilter = filterClickedID;
 					$("#ranking-stat-filters #ranking span.filter").removeClass("selected");
 					$("#ranking-stat-filters #ranking span.filter[data-id="+filterClickedID+"]").addClass("selected");
+					that.showHideColumns();
+					oTable.fnSort( [ [(that.currentRankFilter === "default") ? 0 : 1, 'asc'] ] );
 				} else if((filterClickedID === "proj" || filterClickedID === "last") && that.currentStatsFilter !== filterClickedID) {
 					that.currentStatsFilter = filterClickedID;
 					$("#ranking-stat-filters #stats span.filter").removeClass("selected");
 					$("#ranking-stat-filters #stats span.filter[data-id="+filterClickedID+"]").addClass("selected");
-					$("#player-grid-table").removeClass("proj last").addClass(that.currentStatsFilter);
 					that.showHideColumns();
 					//sort on whatever column was being sorted on
 					var previousSort = oTable.fnSettings().aaSorting;
-					if(oTable.fnSettings().aaSorting[0][0] > 2) {
+					if(previousSort[0][0] > 2) {
 						if(that.currentStatsFilter === "proj") {
 							previousSort[0][0]--;
 						} else if(that.currentStatsFilter === "last") {
@@ -182,6 +193,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 			$(document).on("change", this.__targetDiv + " .hide-drafted input", function(e) {
 				//force filter of drafted players
 				$(".hide-drafted input").prop("checked", $(this).prop("checked"));
+				_hideDraftedChecked = $(this).prop("checked");
 				oTable.fnDraw();
 			});
 
@@ -190,7 +202,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				var that = this;
 				clearInterval(_searchInterval);
 				_searchInterval = setTimeout(function() {
-					oTable.fnFilter( that.value, 1 );
+					oTable.fnFilter( that.value, 2 );
 				}, 500);
 			});			
 		},
@@ -215,6 +227,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				var player = [];
 				if(players[i].getType() === "pitcher") {
 					player.push(players[i].getRank());
+					player.push(players[i].getCustomRank());
 					player.push($.template(templateLib.getTemplateByID(templateEnums.PLAYER_GRID_PLAYER_CELL), {injuryIconPath: dataPathManager.getImagePath("injury-report-icon.png"), newsIconPath: dataPathManager.getImagePath("news-icon.png"), playerData: players[i]}, true));
 					player.push(players[i].getFirstName());
 					player.push(players[i].getProjectedStats().getPoints());
@@ -241,6 +254,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					rows.push(player);
 				} else {
 					player.push(players[i].getRank());
+					player.push(players[i].getCustomRank());
 					player.push($.template(templateLib.getTemplateByID(templateEnums.PLAYER_GRID_PLAYER_CELL), {injuryIconPath: dataPathManager.getImagePath("injury-report-icon.png"), newsIconPath: dataPathManager.getImagePath("news-icon.png"), playerData: players[i]}, true));
 					player.push(players[i].getLastName());
 					player.push(players[i].getProjectedStats().getPoints());
@@ -275,7 +289,8 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 		        },
 				"aoColumns": [
 					{ "sTitle": "Rk", "asSorting": [ "asc" ], "sType": "numeric" },
-					{ "sTitle": "Player Name", "sClass": "player-name", "asSorting": ['asc','desc'], "sType": "string", "iDataSort": 2 },
+					{ "sTitle": "Rk", "asSorting": [ "asc" ], "sType": "numeric", "bVisible": false },
+					{ "sTitle": "Player Name", "sClass": "player-name", "asSorting": ['asc','desc'], "sType": "string", "iDataSort": 3 },
 					{ "bVisible": false},
 					{ "sTitle": "Pts", "asSorting": [ "desc" ], "sType": "numeric" },
 					{ "sTitle": "Pts", "asSorting": [ "desc" ], "sType": "numeric", "bVisible": false },
@@ -301,9 +316,9 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				],
 				
 				"fnRowCallback": function(nRow, aData) {
-					$(nRow).attr("data-pid", aData[21]);
+					$(nRow).attr("data-pid", aData[22]);
 					$(nRow, "td:eq(1)").addClass("player-name");
-					if(aData[22]) {
+					if(aData[23]) {
 						$(nRow).addClass("drafted");
 					}
 				},	
@@ -322,7 +337,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					if(nTr === null) {
 						return true;
 					}
-					if($($(".hide-drafted input")[0]).prop("checked") && nTr.className.match("drafted")) {
+					if(_hideDraftedChecked && nTr.className.match("drafted")) {
 						return false;
 					} else {
 						return true;
@@ -330,7 +345,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				}
 			);
 			//filter out pitchers since we know we default to the "all hitters" tab
-			oTable.fnFilter( "c|1b|2b|ss|3b|of", 23, true );
+			oTable.fnFilter( "c|1b|2b|ss|3b|of", 24, true );
 		},
 		handleDraftedDataLoaded: function(evt, args) {
 			this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getAllPlayers());
@@ -341,9 +356,11 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 		handlePlayerDrafted: function(evt, args) {
 			var playerDraftedID = args.getPlayerID();
 			//mark player as drafted in table via updating internal aoData
-			oTable.fnUpdate(true, controller.getPlayerRoster().getPlayerIndexByPID(playerDraftedID), 12);
+			oTable.fnUpdate(true, controller.getPlayerRoster().getPlayerIndexByPID(playerDraftedID), 23, false);
 			//unselect row
 			this.element.find("table tbody tr[data-pid="+playerDraftedID+"]").removeClass("selected");
+			//redraw table (forces afnFiltering)
+			oTable.fnDraw();
 		},
 		init: function(div, template) {
 			this._super(div, template);

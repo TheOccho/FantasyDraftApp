@@ -11,10 +11,10 @@ define("model/PlayerRoster", function( require, exports, module ) {
 
 	function loadPlayerRoster() {
 		$.ajax({
-			url: dataPathManager.getDataPath("player_roster"),/*"/mlb/fantasy/wsfb/draft/live/gen/player_roster.xml*/
-			dataType: "xml",
+			url: dataPathManager.getDataPath("player_roster"),/*"/fantasylookup/rawjson/named.wsfb_draft_roster_player_tpl.bam*/
+			dataType: "json",
 			success: function(resp) {
-				setData($.xml2json(resp));
+				setData(resp);
 				_controller.dispatchEvent(eventEnums.PLAYER_ROSTER_DATA_LOADED);
 			},
 			error: function(error) {
@@ -24,16 +24,19 @@ define("model/PlayerRoster", function( require, exports, module ) {
 	}
 
 	function setData(data) {
-		_data = data;
-		for(var i=0,l=_data.player.length;i<l;i++) {
+		_data = data.row;
+		var hasCustomRanks = _controller.getManager().hasCustomRanks();
+		for(var i=0,l=_data.length;i<l;i++) {
 			var tmpPlayer;
-			if(_data.player[i].pos === "P") {
+			if(_data[i].pos === "PS") {
 				tmpPlayer = new pitcherVO();
 			} else {
 				tmpPlayer = new hitterVO();
 			}
-			tmpPlayer.setData(_data.player[i]);
-			_playerIndices[_data.player[i].id] = i;
+			//add custom rank to player data object
+			_data[i].custom_rank = (hasCustomRanks) ? _controller.getManager().getCustomRankByPlayerID(_data[i].player_id) : _data[i].rank;
+			tmpPlayer.setData(_data[i]);
+			_playerIndices[_data[i].player_id] = i;
 			_dataArray.push(tmpPlayer);
 		}
 	}

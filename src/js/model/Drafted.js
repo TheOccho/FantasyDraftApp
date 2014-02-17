@@ -13,16 +13,18 @@ define("model/Drafted", function( require, exports, module ) {
 		_lastPlayerDrafted,
 		_playersByOwner = {},
 		_playerIndices = {},
+		_currentManagerOnClock,
 		eventEnums = require("enums/EventEnums"),
+		botEnums = require("enums/BotCommandEnums"),
 		dataPathManager = require("data/DataPathManager"),
 		draftedplayerVO = require("model/vo/DraftedPlayerVO");
 
 	function loadDrafted(leagueID) {
 		$.ajax({
-			url: dataPathManager.getDataPath("drafted"),/*"/mlb/fantasy/wsfb/draft/live/oob/drafted.jsp?lid="+leagueID*/
-			dataType: "xml",
+			url: dataPathManager.getDataPath("drafted")+"?lid="+leagueID,
+			dataType: "json",
 			success: function(resp) {
-				setData($.xml2json(resp));
+				setData(resp);
 				_controller.dispatchEvent(eventEnums.DRAFTED_DATA_LOADED);
 			},
 			error: function(error) {
@@ -32,21 +34,25 @@ define("model/Drafted", function( require, exports, module ) {
 	}
 
 	function setData(data) {
-		_data = data;
+		_data = data.wsfb_drafted.queryResults.row;
 		_numManagers = _controller.getLeague().getNumManagers();
-		if(typeof _data.player === "undefined") {
+		if(+data.wsfb_drafted.queryResults.totalSize === 0) {
+			_controller.setDraftIsLive(false);
 			return;
 		}
-		_controller.setDraftHasBegun(true);
-		for(var i=0,l=_data.player.length;i<l;i++) {
-			handleIndividualPlayerDrafted(_data.player[i], i);
+		for(var i=0,l=_data.length;i<l;i++) {
+			handleIndividualPlayerDrafted(_data[i], i);
+		}
+		//check if draft has ended
+		if(+data.wsfb_drafted.queryResults.totalSize === (_numManagers * _controller.getLeague().getTotalRounds())) {
+			_controller.setDraftIsLive(false);
 		}
 	}
 
 	function handleIndividualPlayerDrafted(playerObj, index) {
 		var tmpPlayer = new draftedplayerVO();
 		tmpPlayer.setData(playerObj);
-		_playerIndices[playerObj.pid] = index;
+		_playerIndices[tmpPlayer.getPlayerID()] = index;
 		if(typeof _playersByOwner[playerObj.owner] === "undefined") {
 			_playersByOwner[playerObj.owner] = [ tmpPlayer ];
 		} else {
@@ -66,15 +72,21 @@ define("model/Drafted", function( require, exports, module ) {
 		_lastOwnerToDraft = tmpPlayer.getOwnerID();
 		_lastPlayerDrafted = tmpPlayer.getPlayerID();
 		//set last round/pick
-		_lastRound = Number(playerObj.round);
-		_lastPick = Number(playerObj.pick);
+		_lastRound = Number(tmpPlayer.getRoundNum());
+		_lastPick = Number(tmpPlayer.getPickNum());
 		//set current round/pick/overall pick
-		_currentRound = (+playerObj.pick === _numManagers) ? Number(playerObj.round) + 1 : Number(playerObj.round);
-		_currentPick = (+playerObj.pick === _numManagers) ? 1 : Number(playerObj.pick) + 1;
+		_currentRound = (+playerObj.pick === _numManagers) ? _lastRound + 1 : _lastRound;
+		_currentPick = (+playerObj.pick === _numManagers) ? 1 : _lastPick + 1;
 		if(_currentRound > 1) {
 			_overallLastPick = ((_currentRound - 1) * _numManagers) + (Number(_currentPick) - 1);
 		} else {
 			_overallLastPick = Number(_currentPick) - 1;
+		}
+		if(_overallLastPick === _controller.getLeague().getTotalPicks()) {
+			//draft is over
+			_controller.setDraftIsLive(false);
+			_controller.dispatchEvent(botEnums.SET_CLOCK_HEADER, [ "DRAFT IS OVER" ]);
+			//_controller.dispatchEvent(botEnums.SHOW_POST_DRAFT_DIALOG);
 		}
 	}
 	
@@ -117,7 +129,7 @@ define("model/Drafted", function( require, exports, module ) {
 	        }
 	        return _overallLastPick + "th";
 		} else {
-			return _overallLastPick;
+			return +_overallLastPick;
 		}
 	};
 

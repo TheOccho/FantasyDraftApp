@@ -1,7 +1,5 @@
 define("model/vo/DraftedPlayerVO", function( require, exports, module ) {
 
-	/*<player pid="545361" pos="OF" owner="347558" round="1" pick="1" />*/
-
 	function DraftedPlayerVO() {
 		this._data;
 	}

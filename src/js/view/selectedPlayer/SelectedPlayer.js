@@ -3,12 +3,16 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 	var AbstractFantasyDraftView = require("view/AbstractFantasyDraftView"),
 		controller = require("controller/FantasyDraftController"),
 		dataPathManager = require("data/DataPathManager"),
-		eventEnums = require("enums/EventEnums");
+		eventEnums = require("enums/EventEnums"),
+		botEnums = require("enums/BotCommandEnums"),
+		bot = require("bot/FantasyDraftBot"),
+		_managerOnTheClock;
 
 	return AbstractFantasyDraftView.extend({
 		label: "selected player",
 		currentlySelectedPlayerID: null,
 		addViewListeners: function() {
+			var that = this;
 			//playercard link click
 			$(document).on("click", this.__targetDiv + " .playercard-link", function(e) {
 				var playerID = $(this).attr("data-pid");
@@ -21,6 +25,7 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 					return false;
 				}
 				//draft player action
+				bot.sendBotMessage("pick "+that.currentlySelectedPlayerID);
 			});
 
 			//add to queue click
@@ -37,6 +42,16 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 				this.element.find("#add-to-queue-btn").removeClass("disabled");
 			}
 		},
+		handleManagerOnTheClock: function(evt, args) {
+			_managerOnTheClock = args;
+			if(!this.currentlySelectedPlayerID) {
+				return;
+			}
+			var playerData = controller.getPlayerRoster().getPlayerByID(this.currentlySelectedPlayerID);
+			if(!playerData.getIsDrafted() && _managerOnTheClock === controller.getManagerID()) {
+				this.element.find("#draft-btn").removeClass("disabled");
+			}
+		},
 		handlePlayerSelected: function(evt, args) {
 			this.currentlySelectedPlayerID = args.playerID;
 			var playerData = controller.getPlayerRoster().getPlayerByID(this.currentlySelectedPlayerID);
@@ -44,8 +59,11 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			//assume add to queue is enabled
 			this.element.find("#add-to-queue-btn").removeClass("disabled");
 
-			//assume draft btn is enabled
-			this.element.find("#draft-btn").removeClass("disabled");
+			if(!playerData.getIsDrafted() && _managerOnTheClock === controller.getManagerID()) {
+				this.element.find("#draft-btn").removeClass("disabled");
+			}
+
+			//check if the player has been drafted
 			if(playerData.getIsDrafted()) {
 				this.element.find("#draft-btn").addClass("disabled");
 				var draftedPlayerVO = controller.getDrafted().getDraftedPlayerByPlayerID(playerData.getPlayerID());
@@ -56,8 +74,9 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			}
 			
 			//fetch the player queue to check if we should disable the add to queue button
-			controller.unbind(eventEnums.SEND_PLAYER_QUEUE);
 			controller.bind(eventEnums.SEND_PLAYER_QUEUE, $.proxy(function(evt, args) {
+				//unbind from SEND_PLAYER_QUEUE
+				controller.unbind(eventEnums.SEND_PLAYER_QUEUE);
 				//check if player exists in queue OR if he's been drafted
 				if(args.playerQueue.indexOf(this.currentlySelectedPlayerID) !== -1 || playerData.getIsDrafted()) {
 					this.element.find("#add-to-queue-btn").addClass("disabled");
@@ -106,15 +125,12 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 
 			var handlePlayerSelectedFunction = $.proxy(this.handlePlayerSelected, this);
 
-			//set news/injury icon paths after tpl has rendered (hacky)
-			//this.element.find("img.icon.injury").attr("src", dataPathManager.getImagePath("injury-report-icon.png"));
-			//this.element.find("img.icon.news").attr("src", dataPathManager.getImagePath("news-icon.png"));
-
 			this.connect([{event:eventEnums.PLAYER_GRID_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
 						  {event:eventEnums.PLAYER_QUEUE_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
 						  {event:eventEnums.DRAFT_RESULTS_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
 						  {event:eventEnums.PLAYER_REMOVED_FROM_QUEUE, handler:$.proxy(this.handlePlayerRemovedFromQueue, this)},
-						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)}]);
+						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)},
+						  {event:botEnums.MANAGER_ON_THE_CLOCK, handler:$.proxy(this.handleManagerOnTheClock, this)}]);
 
 			this.addViewListeners();
 		}

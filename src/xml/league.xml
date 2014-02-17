@@ -1,17 +1,17 @@
-<league id="30871" name="MLB-30871" total_rounds="16">
+<league id="1026" name="MLB-1025" total_rounds="16">
    <managers>
-      <m id="347558" name="TheOccho" logo="" />
-      <m id="347548" name="Yankee Master" logo="" />
-      <m id="347556" name="kedro" logo="" />
-      <m id="347557" name="SoxWS4713" logo="" />
-      <m id="347555" name="Frosty Snowmen" logo="" />
-      <m id="347553" name="Bad News Bears" logo="" />
-      <m id="347554" name="ZulloStars" logo="" />
-      <m id="347549" name="BayGiantsFan777" logo="" />
-      <m id="347552" name="TigerMiggy" logo="" />
-      <m id="347550" name="Road Kingpin24" logo="" />
-      <m id="347559" name="Lipman All-Stars" logo="" />
-      <m id="347551" name="Sebastian (The Cat)" logo="" />
+      <m id="1260" name="TheOccho" logo="" />
+      <m id="1262" name="Yankee Master" logo="" />
+      <m id="1264" name="kedro" logo="" />
+      <m id="1266" name="SoxWS4713" logo="" />
+      <m id="1268" name="Frosty Snowmen" logo="" />
+      <m id="1270" name="Bad News Bears" logo="" />
+      <m id="1261" name="ZulloStars" logo="" />
+      <m id="1263" name="BayGiantsFan777" logo="" />
+      <m id="1265" name="TigerMiggy" logo="" />
+      <m id="1267" name="Road Kingpin24" logo="" />
+      <m id="1269" name="Lipman All-Stars" logo="" />
+      <m id="1271" name="Sebastian (The Cat)" logo="" />
    </managers>
-   <connections chat="c30871@conference.d1engbuild01.dev.mlbam.com" bot="b30871@d1engbuild01.dev.mlbam.com" />
+   <connections chat="c1026@conference.d1engbuild01.dev.mlbam.com" bot="b1026@d1engbuild01.dev.mlbam.com/Smack" />
 </league>

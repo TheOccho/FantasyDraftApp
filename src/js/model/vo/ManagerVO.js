@@ -1,7 +1,5 @@
 define("model/vo/ManagerVO", function( require, exports, module ) {
 
-	/*<<m id="347558" name="Test-Live-347558 8/9 1:01 PM" logo="" />*/
-
 	function ManagerVO() {
 		this._data;
 		this._draftedTally = {"c":0,"1b":0,"2b":0,"ss":0,"3b":0,"of":0,"u":0,"p":0};
@@ -12,13 +10,13 @@ define("model/vo/ManagerVO", function( require, exports, module ) {
 			this._data = data;
 		},
 		getID: function() {
-			return this._data.id || "";
+			return this._data.team_id || "";
 		},
 		getName: function() {
-			return this._data.name || "";
+			return this._data.team_name || "";
 		},
 		getLogo: function() {
-			return this._data.logo || "";
+			return this._data.team_logo || "";
 		},
 		updateDraftedPlayerTally: function(position) {
 			this._draftedTally[position]++;

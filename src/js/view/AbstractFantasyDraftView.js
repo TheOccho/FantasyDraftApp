@@ -7,14 +7,14 @@ define("view/AbstractFantasyDraftView", function( require, exports, module ) {
 		__addListeners: function(listeners) {
 			var lngth = listeners.length;
 			for (var i = 0; i < lngth; i++) {
-				console.log(this.label + " is subscribing to " + listeners[i].event);
+				if ( window.console && console.log ) console.log(this.label + " is subscribing to " + listeners[i].event);
 				controller.bind(listeners[i].event, listeners[i].handler);
 			};
 		},
 		__removeListeners: function(disinterests) {
 			var lngth = disinterests.length;
 			for (var i = 0; i < lngth; i++) {
-				console.log(this.label + " is unsubscribing to " + disinterests[i].event);
+				if ( window.console && console.log ) console.log(this.label + " is unsubscribing to " + disinterests[i].event);
 				controller.unbind(disinterests[i].event, disinterests[i].handler);
 			};
 		},

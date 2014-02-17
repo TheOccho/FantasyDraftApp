@@ -5,7 +5,7 @@ define("main", function( require, exports, module ) {
 		templateEnums = require("enums/TemplateEnums"),
 		eventEnums = require("enums/EventEnums"),
 		controller = require("controller/FantasyDraftController"),
-		bot = require("controller/FantasyDraftBot");
+		bot = require("bot/FantasyDraftBot");
 
 	//view modules
 	var dialogBox = require("view/dialogBox/DialogBox"),
@@ -42,9 +42,6 @@ define("main", function( require, exports, module ) {
 			controller.loadLeague(_leagueID);
 		});
 		controller.bind(eventEnums.LEAGUE_DATA_LOADED, function(e) {
-			//init bot
-			bot.init(_leagueID, _managerID, controller.getLeague().getChatServer(), controller.getLeague().getBotServer());
-
 			controller.loadManager(_managerID);
 		});
 		controller.bind(eventEnums.MANAGER_DATA_LOADED, function(e) {
@@ -52,6 +49,11 @@ define("main", function( require, exports, module ) {
 		});
 		controller.bind(eventEnums.PLAYER_ROSTER_DATA_LOADED, function(e) {
 			controller.loadDrafted(_leagueID);
+		});
+		controller.bind(eventEnums.DRAFTED_DATA_LOADED, function(e) {
+			
+			//init bot
+			bot.init(_leagueID, _managerID);
 		});
 		controller.loadTemplates();
 	}

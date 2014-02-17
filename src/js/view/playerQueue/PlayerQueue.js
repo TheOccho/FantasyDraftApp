@@ -6,6 +6,8 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 		dataPathManager = require("data/DataPathManager"),
 		templateEnums = require("enums/TemplateEnums"),
 		eventEnums = require("enums/EventEnums"),
+		botEnums = require("enums/BotCommandEnums"),
+		bot = require("bot/FantasyDraftBot"),
 		_queue = [];
 
 	return AbstractFantasyDraftView.extend({
@@ -53,15 +55,13 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 				if($(this).hasClass("disabled")) {
 					return false;
 				}
-				var selectedPlayer = that.element.find("table tbody tr.selected");
-				var selectedPlayerRank = +selectedPlayer.find("td:eq(0)").html();
-				selectedPlayerRank--;
-				var previousPlayerRank = selectedPlayerRank+1;
-				
-				selectedPlayer.find("td:eq(0)").html(selectedPlayerRank);
-				selectedPlayer.prev().find("td:eq(0)").html(previousPlayerRank).end().before(selectedPlayer);
-
-				that.handleAddRemoveButtons(selectedPlayer.index());
+				var selectedPlayerID = that.element.find("table tbody tr.selected").attr("data-pid");
+				var currentIndex = _queue.indexOf(selectedPlayerID);
+				_queue.splice(currentIndex-1, 0, _queue.splice(currentIndex, 1)[0]);
+				that.renderQueue();
+				//re-add selection css
+				that.element.find("table tbody tr[data-pid="+selectedPlayerID+"]").addClass("selected");
+				that.handleAddRemoveButtons(currentIndex-1);
 			});
 
 			//move player down button click
@@ -69,15 +69,13 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 				if($(this).hasClass("disabled")) {
 					return false;
 				}
-				var selectedPlayer = that.element.find("table tbody tr.selected");
-				var selectedPlayerRank = +selectedPlayer.find("td:eq(0)").html();
-				selectedPlayerRank++;
-				var previousPlayerRank = selectedPlayerRank-1;
-				
-				selectedPlayer.find("td:eq(0)").html(selectedPlayerRank);
-				selectedPlayer.next().find("td:eq(0)").html(previousPlayerRank).end().after(selectedPlayer);
-
-				that.handleAddRemoveButtons(selectedPlayer.index());
+				var selectedPlayerID = that.element.find("table tbody tr.selected").attr("data-pid");
+				var currentIndex = _queue.indexOf(selectedPlayerID);
+				_queue.splice(currentIndex+1, 0, _queue.splice(currentIndex, 1)[0]);
+				that.renderQueue();
+				//re-add selection css
+				that.element.find("table tbody tr[data-pid="+selectedPlayerID+"]").addClass("selected");
+				that.handleAddRemoveButtons(currentIndex+1);
 			});
 
 			//remove player button click
@@ -85,18 +83,18 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 				if($(this).hasClass("disabled")) {
 					return false;
 				}
-				var playerID = that.element.find("table tbody tr.selected").attr("data-pid");
+				var selectedPlayerID = that.element.find("table tbody tr.selected").attr("data-pid");
 
 				//dispatch player removed (for selected player)
-				controller.dispatchEvent(eventEnums.PLAYER_REMOVED_FROM_QUEUE, [ {playerID: playerID} ]);
+				controller.dispatchEvent(eventEnums.PLAYER_REMOVED_FROM_QUEUE, [ {playerID: selectedPlayerID} ]);
 
 				that.element.find(".footer .button").addClass("disabled");
 				
-				_queue.splice(_queue.indexOf(playerID), 1);
+				_queue.splice(_queue.indexOf(selectedPlayerID), 1);
 				that.renderQueue();
 			});
 		},
-		renderQueue: function(isAddPlayerToQueue) {
+		renderQueue: function(isAddPlayerToQueue, isInit) {
 			var tbody = this.element.find("table tbody");
 			tbody.empty();
 			var len = (_queue.length < this.numViewableRows) ? this.numViewableRows: _queue.length;
@@ -113,6 +111,7 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 			if(_queue.length > this.numViewableRows && isAddPlayerToQueue) {
 				tbody.scrollTop(tbody[0].scrollHeight);
 			}
+			if(!isInit) bot.sendBotMessage("q-set "+_queue.join(" "));
 		},
 		handleRequestPlayerQueue: function(evt, args) {
 			controller.dispatchEvent(eventEnums.SEND_PLAYER_QUEUE, [ {playerQueue: _queue} ]);
@@ -138,6 +137,10 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 				this.renderQueue();
 			}
 		},
+		handleRenderQList: function(evt, args) {
+			_queue = args.split(" ");
+			this.renderQueue(false, true);
+		},
 		init: function(div, template) {
 			this._super(div, template);
 
@@ -147,12 +150,13 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 						  {event:eventEnums.ADD_PLAYER_TO_QUEUE, handler:$.proxy(this.handleAddPlayerToQueue, this)},
 						  {event:eventEnums.PLAYER_GRID_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
 						  {event:eventEnums.DRAFT_RESULTS_PLAYER_SELECTED, handler:handlePlayerSelectedFunction},
-						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)}]);
+						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)},
+						  {event:botEnums.RENDER_Q_LIST, handler:$.proxy(this.handleRenderQList, this)}]);
 
 			this.addViewListeners();
 
 			//render empty queue
-			this.renderQueue();
+			this.renderQueue(false, true);
 		}
 	}).prototype;
 });

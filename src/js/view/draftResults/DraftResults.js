@@ -37,6 +37,8 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 					var roundDropdown = that.element.find("#round-select");
 					roundDropdown.empty();
 					var currentRound = controller.getDrafted().getCurrentRound();
+					//check if the draft has ended
+					if(currentRound === 17) currentRound = 16;
 					for(var i=1,l=currentRound;i<=l;i++) {
 						roundDropdown.append('<option value="'+i+'">Round '+i+'</option>');
 					}
@@ -184,9 +186,11 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 					//add the current round option (if it isn't there)
 					if($("#round-view select option[value="+lastRound+"]").length === 0) {
 						$("#round-view select").append('<option value="'+lastRound+'">Round '+lastRound+'</option>');
-						$("#round-view select").val(lastRound);
 					}
-					this.renderRoundTable(lastRound, true);
+					//only re-render the table if the incoming round is being viewed
+					if(+$("#round-view select").val() === lastRound) {
+						this.renderRoundTable(lastRound, true);
+					}
 					break;
 				case "tally":
 					this.renderTallyTable();

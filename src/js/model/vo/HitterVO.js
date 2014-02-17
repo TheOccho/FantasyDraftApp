@@ -1,11 +1,51 @@
 define("model/vo/HitterVO", function( require, exports, module ) {
 
-	/*<player id="545361" first="Mike" last="Trout" age="22" pos="OF" q_pos="OF|U" team="laa" rank="1" has_injury="n" has_news="n">
-      <stats s_type="curr" pts="72" ab="75" doubles="7" hr="2" h="23" rbi="11" bb="5" avg=".307" r="12" sb="3" />
-      <stats s_type="last" pts="687" ab="559" doubles="27" hr="30" h="182" rbi="83" bb="67" avg=".326" r="129" sb="49" />
-      <stats s_type="proj" pts="671" ab="620" doubles="27" hr="28" h="190" rbi="80" bb="67" avg=".306" r="118" sb="47" />
-      <stats s_type="avg" pts="177" ab="152" doubles="7" hr="8" h="47" rbi="22" bb="17" avg=".309" r="33" sb="12" />
-   </player>*/
+	/*{
+	    "q_pos": "OF/U",
+	    "rank": "1",
+	    "has_injury": "y",
+	    "team_abbrev": "LAA",
+	    "last": "Trout",
+	    "stats": [
+	        {
+	            "s_type": "three_year_average",
+	            "pts": "500"
+	        },
+	        {
+	            "b_ab": "600",
+	            "r_sb": "36",
+	            "b_bb": "96",
+	            "b_doubles": "35",
+	            "b_avg": ".318",
+	            "b_h": "191",
+	            "s_type": "season_projected",
+	            "b_rbi": "88",
+	            "r_r": "112",
+	            "b_hr": "29",
+	            "pts": "687"
+	        },
+	        {
+	            "b_ab": "589",
+	            "r_sb": "33",
+	            "b_bb": "110",
+	            "b_doubles": "39",
+	            "b_avg": ".323",
+	            "b_h": "190",
+	            "s_type": "last_year",
+	            "b_rbi": "97",
+	            "r_r": "109",
+	            "b_hr": "27",
+	            "pts": "703"
+	        }
+	    ],
+	    "age": "22",
+	    "has_news": "n",
+	    "player_id": "545361",
+	    "team_id": "108",
+	    "first": "Mike",
+	    "team_full": "Los Angeles Angels",
+	    "pos": "OF"
+	}*/
 
     var statsvo = require("model/vo/HitterStatsVO"); 
 
@@ -20,7 +60,7 @@ define("model/vo/HitterVO", function( require, exports, module ) {
 			this._data = data;
 
 			//create stats vo's
-			var tmpStatsHash = {curr:undefined, last:undefined, proj: undefined, avg: undefined};
+			var tmpStatsHash = {three_year_average:undefined, season_projected:undefined, last_year: undefined};
 			for(var i=0,l=data.stats.length;i<l;i++) {
 				var tmpStatsVO = new statsvo();
 				tmpStatsVO.setData(data.stats[i]);
@@ -32,7 +72,7 @@ define("model/vo/HitterVO", function( require, exports, module ) {
 			return this._type;
 		},
 		getPlayerID: function() {
-			return this._data.id || "";
+			return this._data.player_id || "";
 		},
 		getFirstName: function() {
 			return this._data.first || "";
@@ -50,16 +90,25 @@ define("model/vo/HitterVO", function( require, exports, module ) {
 			return this._data.pos || "";
 		},
 		getQualifiedPositions: function() {
-			var arr = this._data.q_pos.split("|");
+			var arr = this._data.q_pos.split("/");
 			//remove the U (but not if it's the only qualified pos)
 			if(arr.length > 1) arr.pop();
 			return (arr.length > 0) ? arr : "";
 		},
+		getTeamID: function() {
+			return this._data.team_id || "";
+		},
 		getTeamAbbrev: function() {
-			return this._data.team || "";
+			return this._data.team_abbrev || "";
+		},
+		getTeamFullName: function() {
+			return this._data.team_full || "";
 		},
 		getRank: function() {
 			return this._data.rank || "";
+		},
+		getCustomRank: function() {
+			return this._data.custom_rank || "";
 		},
 		getHasInjury: function() {
 			return (typeof this._data.has_injury !== "undefined") ? this._data.has_injury : "n";
@@ -67,17 +116,14 @@ define("model/vo/HitterVO", function( require, exports, module ) {
 		getHasNews: function() {
 			return (typeof this._data.has_news !== "undefined") ? this._data.has_news : "n";
 		},
-		getCurrentStats: function() {
-			return this._data.stats.curr;
-		},
 		getLastYearStats: function() {
-			return this._data.stats.last;
+			return this._data.stats.last_year;
 		},
 		getProjectedStats: function() {
-			return this._data.stats.proj;
+			return this._data.stats.season_projected;
 		},
 		getThreeYearAvgStats: function() {
-			return this._data.stats.avg;
+			return this._data.stats.three_year_average;
 		},
 		getIsDrafted: function() {
 			return this._isDrafted;
@@ -87,8 +133,6 @@ define("model/vo/HitterVO", function( require, exports, module ) {
 		},
 		getStatsByTypeName: function(type) {
 			switch(type) {
-				case "curr":
-					return this.getCurrentStats();
 				case "last":
 					return this.getLastYearStats();
 				case "proj":

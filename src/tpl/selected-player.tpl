@@ -3,8 +3,6 @@
 <span class="title">SELECTED PLAYER</span>
 <img class="mugshot" src="http://mlb.com/mlb/fantasy/wsfb/images/mugshots/default/default_62x75.jpg" onerror="this.setAttribute('src','http://mlb.com/mlb/fantasy/wsfb/images/mugshots/default/default_62x75.jpg');"/>
 <span class="player-name">No Player Selected</span>
-<img class="icon injury" src=""/>
-<img class="icon news" src="" />
 <span class="team-name"><b>Team:</b> --</span>
 <span class="positions"><b>Qualifies at:</b> --</span>
 <span data-pid="" class="playercard-link">View Playercard >></span>

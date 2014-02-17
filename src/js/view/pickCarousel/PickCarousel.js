@@ -6,40 +6,96 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 		controller = require("controller/FantasyDraftController"),
 		templateEnums = require("enums/TemplateEnums"),
 		eventEnums = require("enums/EventEnums"),
-		testPlayersDrafted = 0,
-		testDraftPlayers = [["545361","OF","347558","1","1"],
-							["408234","3B","347548","1","2"],
-							["461314","OF","347556","1","3"],
-							["429664","2B","347557","1","4"],
-							["405395","1B","347555","1","5"],
-							["471865","OF","347553","1","6"],
-							["457705","OF","347554","1","7"],
-							["458015","1B","347549","1","8"],
-							["453064","SS","347552","1","9"],
-							["425902","1B","347550","1","10"],
-							["430832","OF","347559","1","11"],
-							["519317","OF","347551","1","12"],
-							["457708","OF","347551","2","1"]];
+		botEnums = require("enums/BotCommandEnums"),
+		bot = require("bot/FantasyDraftBot"),
+		_myTeamID,
+		$timer,
+		_timer,
+		_incrementTime = 100,
+		_currentTime,
+		_carouselRenderDeps = [];
+
+	// Common timer functions
+	function pad(number, length) {
+	    var str = '' + number;
+	    while (str.length < length) {str = '0' + str;}
+	    return str;
+	}
+	function formatTime(time) {
+	    time = time / 10;
+	    var min = parseInt(time / 6000),
+	        sec = parseInt(time / 100) - (min * 60);
+	    return (min > 0 ? pad(min, 2) : "00") + ":" + pad(sec, 2);
+	}
 
 	return AbstractFantasyDraftView.extend({
 		label: "pick carousel",
 		currentRound: 1,
 		addViewListeners: function() {
 			var that = this;
-			$(document).on("click", this.__targetDiv + " #timer-area", function(e) {
-				controller.getDrafted().setPlayerDrafted(testDraftPlayers[testPlayersDrafted][0], testDraftPlayers[testPlayersDrafted][1], testDraftPlayers[testPlayersDrafted][2], testDraftPlayers[testPlayersDrafted][3], testDraftPlayers[testPlayersDrafted][4]);
-				testPlayersDrafted++;
-			});
-
 			//handler for autopick checkbox
 			$(document).on("change", this.__targetDiv + " #auto-pick input", function(e) {
-				var autoPick = $(this).prop("checked");
-				if(autoPick) {
-					that.element.find("li.my-team img.auto-draft-icon").removeClass("hidden").parent().attr("data-auto-draft", true);
+				var isAutoDraft = $(this).prop("checked");
+				that.updateManagerAutoDraft(_myTeamID, isAutoDraft);
+				//let the bot know the client wants to auto-draft (or not)
+				if(isAutoDraft) {
+					bot.sendBotMessage("autopick-on "+_myTeamID);
 				} else {
-					that.element.find("li.my-team img.auto-draft-icon").addClass("hidden").parent().attr("data-auto-draft", false);
+					bot.sendBotMessage("autopick-off "+_myTeamID);
 				}
 			});
+		},
+		initTimer: function() {
+			$timer = $(this.__targetDiv + " #clock");
+			_timer = $.timer($.proxy(this.updateTimer, this), _incrementTime);
+		},
+		updateTimer: function() {
+			$timer.html(formatTime(_currentTime));
+
+			//if the timer has ended 
+			if(_currentTime === 0) {
+	            _timer.stop();
+	            return;
+	        }
+
+	        // Increment timer position
+	        _currentTime -= _incrementTime;
+	        if (_currentTime < 0) _currentTime = 0;
+		},
+		handleSetClock: function(evt, args) {
+			_currentTime = args * 1000;
+			_timer.play(true);
+		},
+		handleSetClockHeader: function(evt, args) {
+			this.element.find("#timer-area #header").html(args);
+			if(args === "DRAFT IS OVER") {
+				this.renderLastPlayerPickedTicker();
+			}
+		},
+		handleAutopickOn: function(evt, args) {
+			this.updateManagerAutoDraft(args, true);
+		},
+		handleAutopickOff: function(evt, args) {
+			this.updateManagerAutoDraft(args, false);
+		},
+		handleAutopickList: function(evt, args) {
+			var autoPickers = args.split(" ");
+			for(var i=0,l=autoPickers.length;i<l;i++) {
+				if(autoPickers[i] !== "") this.updateManagerAutoDraft(autoPickers[i], true);
+			}
+		},
+		updateManagerAutoDraft: function(managerID, isAutoDraft) {
+			if(isAutoDraft) {
+				this.element.find('li[data-id="'+managerID+'"] img.auto-draft-icon').removeClass("hidden").parent().attr("data-auto-draft", true);
+				if(managerID === _myTeamID) {
+					$("#auto-pick input").prop("checked", true);
+				}
+			} else {
+				this.element.find('li[data-id="'+managerID+'"] img.auto-draft-icon').addClass("hidden").parent().attr("data-auto-draft", false);
+				if(managerID === _myTeamID) {
+					$("#auto-pick input").prop("checked", false);
+				}
+			}
 		},
 		updatePickCarousel: function() {
 			//check if we're entering a new round
@@ -62,7 +118,6 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 				} else {
 					elemToPop.remove();
 				}
-
 				this.element.find("li:eq(1)").addClass("on-the-clock");
 			} else {
 				var elemToPop = this.element.find("li:eq(1)");
@@ -84,8 +139,11 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			//render picks until your turn
 			this.renderPicksUntilYourTurn();
 		},
-		handlePlayerDrafted: function(evt, args) {
+		handlePlayerDrafted: function(evt) {
 			this.updatePickCarousel();
+		},
+		handleManagerOnTheClock: function(evt, managerID) {
+			//nothing to see here...move along
 		},
 		renderLastPlayerPickedTicker: function() {
 			var lastPickFormatted = controller.getDrafted().getOverallLastPick(true);
@@ -106,14 +164,14 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			if(typeof picksUntilTurn === "undefined") picksUntilTurn = "--";
 			this.element.find("#timer-area #picks-until-turn").html("Picks until your turn: "+picksUntilTurn);
 		},
-		handleDraftedDataLoaded: function(evt, args) {
-			var _myTeamID = controller.getManagerID();
+		renderPickCarousel: function() {
+			_myTeamID = controller.getManagerID();
 			var managers = controller.getLeague().getManagers();
 			this.currentRound = controller.getDrafted().getCurrentRound();
 			var currentPick = controller.getDrafted().getCurrentPick();
 
 			//manipulate managers array to match current state of draft
-			if(controller.getDraftHasBegun()) {
+			if(controller.getDraftIsLive()) {
 				if(currentPick !== 1) {
 					var lastOwnerToDraft = controller.getDrafted().getLastOwnerToDraft();
 					var managersAlreadyDrafted;
@@ -146,7 +204,7 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			} else {
 				formattedManagers = [].concat(managers).concat(managers.reverse());
 			}
-
+		
 			var theList = this.element.find("ul");
 			var tmpRound = this.currentRound;
 			var gearIconPathGrey = dataPathManager.getImagePath("auto-draft-gear-grey.png");
@@ -176,6 +234,20 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			//render picks until your turn
 			this.renderPicksUntilYourTurn();
 		},
+		handleDraftedDataLoaded: function(evt, args) {
+			//preventing a race condition since we need both draft data as well as time-to-start from bot
+			_carouselRenderDeps.push("draft data loaded");
+			if(_carouselRenderDeps.length === 2) {
+				this.renderPickCarousel();
+			}
+		},
+		handleTimeToStartReceived: function(evt, args) {
+			//preventing a race condition since we need both draft data as well as time-to-start from bot
+			_carouselRenderDeps.push("time to start received");
+			if(_carouselRenderDeps.length === 2) {
+				this.renderPickCarousel();
+			}
+		},
 		init: function(div, template) {
 			this._super(div, template);
 
@@ -183,12 +255,18 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			this.element.find("img.gear-icon").attr("src", dataPathManager.getImagePath("auto-draft-gear-grey.png"));
 
 			this.connect([{event:eventEnums.DRAFTED_DATA_LOADED, handler:$.proxy(this.handleDraftedDataLoaded, this)},
-						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)}]);
+						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)},
+						  {event:botEnums.SET_CLOCK, handler:$.proxy(this.handleSetClock, this)},
+						  {event:botEnums.SET_CLOCK_HEADER, handler:$.proxy(this.handleSetClockHeader, this)},
+						  {event:botEnums.SET_AUTO_PICK_ON, handler:$.proxy(this.handleAutopickOn, this)},
+						  {event:botEnums.SET_AUTO_PICK_OFF, handler:$.proxy(this.handleAutopickOff, this)},
+						  {event:botEnums.SET_AUTO_PICK_LIST, handler:$.proxy(this.handleAutopickList, this)},
+						  {event:botEnums.TIME_TO_START_RECEIVED, handler:$.proxy(this.handleTimeToStartReceived, this)},
+						  {event:botEnums.MANAGER_ON_THE_CLOCK, handler:$.proxy(this.handleManagerOnTheClock, this)}]);
 
 			this.addViewListeners();
 
-			//uncheck auto-pick
-			$("#auto-pick input").prop("checked", false);
+			this.initTimer();
 		}
 	}).prototype;
 });

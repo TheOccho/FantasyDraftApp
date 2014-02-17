@@ -2,11 +2,13 @@ define("view/dialogBox/DialogBox", function( require, exports, module ) {
 
 	var AbstractFantasyDraftView = require("view/AbstractFantasyDraftView"),
 		controller = require("controller/FantasyDraftController"),
+		pitcherstatsvo = require("model/vo/PitcherStatsVO"),
 		hitterstatsvo = require("model/vo/HitterStatsVO"),
 		dataPathManager = require("data/DataPathManager"),
 		templateLib = require("model/TemplateLibrary"),
 		templateEnums = require("enums/TemplateEnums"),
-		eventEnums = require("enums/EventEnums");
+		eventEnums = require("enums/EventEnums"),
+		botEnums = require("enums/BotCommandEnums");
 
 	return AbstractFantasyDraftView.extend({
 		label: "dialog box",
@@ -53,25 +55,32 @@ define("view/dialogBox/DialogBox", function( require, exports, module ) {
 
 			var playerID = args.playerID,
 				playerVO = controller.getPlayerRoster().getPlayerByID(playerID),
-				fantasyNews = $.ajax({url:dataPathManager.getProxyPath("/fantasylookup/json/named.wsfb_fantasy_news_byplayer.bam?playerid="+playerID), dataType:"json"}),
-				previewBlurb = $.ajax({url:dataPathManager.getProxyPath("/fantasylookup/json/named.preview_player_info.bam?player_id="+playerID+"&year=2013"), dataType:"json"}),
-				twentyTwelveStats = $.ajax({url:dataPathManager.getProxyPath(encodeURIComponent("/lookup/json/named.mlb_individual_hitting_season.bam?game_type='R'&season=2012&player_id="+playerID)), dataType:"json"});
+				playerType = playerVO.getType(),
+				fantasyNews = $.ajax({url:dataPathManager.getProxyPath(encodeURIComponent("/fantasylookup/json/named.wsfb_news_browse.bam?days_back=14&player_id="+playerID)), dataType:"json"}),
+				injuryNews = $.ajax({url:dataPathManager.getProxyPath(encodeURIComponent("/fantasylookup/json/named.wsfb_news_injury.bam?player_id="+playerID)), dataType:"json"}),
+				previewBlurb = $.ajax({url:dataPathManager.getProxyPath(encodeURIComponent("/fantasylookup/json/named.preview_player_info.bam?player_id="+playerID+"&year=2014")), dataType:"json"}),
+				twentyTwelveStats = (playerType === "pitcher") ? $.ajax({url:dataPathManager.getProxyPath(encodeURIComponent("/lookup/json/named.team_pitching_season.bam?game_type='R'&season=2012&team_id="+playerID)), dataType:"json"}) : $.ajax({url:dataPathManager.getProxyPath(encodeURIComponent("/lookup/json/named.mlb_individual_hitting_season.bam?game_type='R'&season=2012&player_id="+playerID)), dataType:"json"});
 			
 			//load necessary lookups
 			var that = this;
-			$.when(fantasyNews, previewBlurb, twentyTwelveStats).done(function(news, preview, stats) {
+			$.when(fantasyNews, injuryNews, previewBlurb, twentyTwelveStats).done(function(news, injury, preview, stats) {
 				//hide spinner
 				that.element.find("#spinner").hide();
 				
-				news = (+news[2].responseJSON.wsfb_fantasy_news_byplayer.queryResults.totalSize > 0) ? news[2].responseJSON.wsfb_fantasy_news_byplayer.queryResults.row : {};
+				news = (+news[2].responseJSON.wsfb_news_browse.queryResults.totalSize > 0) ? $.ensureArray(news[2].responseJSON.wsfb_news_browse.queryResults.row) : [];
+				injury = (+injury[2].responseJSON.wsfb_news_injury.queryResults.totalSize > 0) ? $.ensureArray(injury[2].responseJSON.wsfb_news_injury.queryResults.row) : [];
 			    preview = (+preview[2].responseJSON.preview_player_info.queryResults.totalSize > 0) ? preview[2].responseJSON.preview_player_info.queryResults.row : {};
-				stats = (+stats[2].responseJSON.mlb_individual_hitting_season.queryResults.totalSize > 0) ? stats[2].responseJSON.mlb_individual_hitting_season.queryResults.row : {};
+			    if(playerType === "pitcher") {
+			    	stats = (+stats[2].responseJSON.team_pitching_season.queryResults.totalSize > 0) ? stats[2].responseJSON.team_pitching_season.queryResults.row : {};
+			    } else if(playerType === "hitter") {
+			    	stats = (+stats[2].responseJSON.mlb_individual_hitting_season.queryResults.totalSize > 0) ? stats[2].responseJSON.mlb_individual_hitting_season.queryResults.row : {};
+			    }
+			    
+				var tmpStatsVO = (playerType === "pitcher") ? new pitcherstatsvo() : new hitterstatsvo();
+				tmpStatsVO.setData(stats);
+				statsData = [tmpStatsVO, playerVO.getLastYearStats(), playerVO.getProjectedStats()];
 
-				var tmpHitterStatsVO = new hitterstatsvo();
-				tmpHitterStatsVO.setData(stats);
-				statsData = [tmpHitterStatsVO, playerVO.getLastYearStats(), playerVO.getProjectedStats()];
-
-				that.element.find("#container").html($.template(templateLib.getTemplateByID(templateEnums.DIALOG_BOX_PLAYER_CARD), { injuryIconPath: dataPathManager.getImagePath("injury-report-icon.png"), newsIconPath: dataPathManager.getImagePath("news-icon.png"), playerData: playerVO, news: news, preview: preview, stats: statsData }, true));
+				that.element.find("#container").html($.template(templateLib.getTemplateByID(templateEnums.DIALOG_BOX_PLAYER_CARD), { playerData: playerVO, news: news, injury: injury, preview: preview, stats: statsData }, true));
 
 				//show dialog
 				that.element.show();
@@ -95,7 +104,7 @@ define("view/dialogBox/DialogBox", function( require, exports, module ) {
 
 			this.connect([{event:eventEnums.SHOW_DRAFT_ORDER_DIALOG, handler:$.proxy(this.handleShowDraftOrderDialog, this)},
 						  {event:eventEnums.SHOW_PLAYER_CARD_DIALOG, handler:$.proxy(this.handleShowPlayercardDialog, this)},
-						  {event:eventEnums.SHOW_POST_DRAFT_DIALOG, handler:$.proxy(this.handleShowPostDraftDialog, this)}]);
+						  {event:botEnums.SHOW_POST_DRAFT_DIALOG, handler:$.proxy(this.handleShowPostDraftDialog, this)}]);
 
 			this.addViewListeners();
 		}

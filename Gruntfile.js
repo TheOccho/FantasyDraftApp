@@ -16,6 +16,7 @@ module.exports = function(grunt) {
 			    files: [
 			      {expand: true, flatten: true, src: ['src/css/fonts/*'], dest: 'app-build/'+version+'/src/css/fonts/', filter: 'isFile'},
 			      {expand: true, flatten: true, src: ['src/xml/*'], dest: 'app-build/'+version+'/src/xml/', filter: 'isFile'},
+			      {expand: true, flatten: true, src: ['src/json/*'], dest: 'app-build/'+version+'/src/json/', filter: 'isFile'},
 			      {expand: true, flatten: true, src: ['src/images/*'], dest: 'app-build/'+version+'/src/images/', filter: 'isFile'}
 			     ]
 			   }
@@ -41,24 +42,11 @@ module.exports = function(grunt) {
 		};
 		
 	//dynamically set output path for uglify and less
-	configObject.uglify.my_target.files["app-build/"+version+"/src/js/external/external.min.js"] = ["bower_components/jquery/jquery.js", "src/js/external/jquery.etc.js", "src/js/external/jquery.dataTables.js", "src/js/external/jquery.dataTables.scroller.js", "src/js/external/jquery.template.js", "src/js/external/jquery.bindable.js", "src/js/external/jquery.xml2json.js", "src/js/external/jclass.js", "src/js/external/strophe.js", "src/js/external/strophe.muc.js", "bower_components/requirejs/require.js"];
+	configObject.uglify.my_target.files["app-build/"+version+"/src/js/external/external.min.js"] = ["src/js/external/jquery.etc.js", "src/js/external/jquery.dataTables.js", "src/js/external/jquery.dataTables.scroller.js", "src/js/external/jquery.template.js", "src/js/external/jquery.timer.js", "src/js/external/jquery.bindable.js", "src/js/external/jquery.xml2json.js", "src/js/external/jclass.js", "src/js/external/strophe.js", "src/js/external/strophe.muc.js"];
 	configObject.less.production.files["app-build/"+version+"/src/css/main.css"] = "src/css/main.less";
 
 	//KICK OFF!
 	grunt.config.init(configObject);
-
-	/*var config = require('load-grunt-config')(grunt, {
-        configPath: path.join(process.cwd(), 'grunt'), //path to task.js files, defaults to grunt dir
-        init: false, //auto grunt.initConfig
-        config: { //additional config vars
-            test: false
-        },
-        loadGruntTasks: { //can optionally pass options to load-grunt-tasks.  If you set to false, it will disable auto loading tasks.
-            pattern: 'grunt-',
-            config: require('./package.json'),
-            scope: 'devDependencies'
-        }
-    });*/
 
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
@@ -75,9 +63,9 @@ module.exports = function(grunt) {
 		var postScripts = originalMarkup.substr(originalMarkup.indexOf("<!-- SCRIPTS END -->")+20);
 
 		modifiedMarkup = preCSS;
-		modifiedMarkup += '<link type="text/css" rel="stylesheet" href="'+version+'/src/css/main.css" />';
+		modifiedMarkup += '<link type="text/css" rel="stylesheet" href="/mlb/components/fantasy/fb/draft/'+version+'/src/css/main.css" />';
 		modifiedMarkup += preScripts;
-		modifiedMarkup += ('<script type="text/javascript" src="'+version+'/src/js/external/external.min.js"></script><script>var requireBaseUrl="'+version+'/src/js";'+fs.readFileSync("require.config.js", FILE_ENCODING)+"</script>");
+		modifiedMarkup += ('<script type="text/javascript" src="/mlb/components/fantasy/fb/draft/'+version+'/src/js/external/external.min.js"></script><script>var appVersion="'+version+'";var requireBaseUrl="/mlb/components/fantasy/fb/draft/'+version+'/src/js";'+fs.readFileSync("require.config.js", FILE_ENCODING)+"</script>");
 		modifiedMarkup += postScripts;
 
 		fs.writeFileSync("app-build/fantasydraft.html", modifiedMarkup, FILE_ENCODING);

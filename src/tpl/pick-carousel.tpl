@@ -1,9 +1,9 @@
 {%
 %}
 <div id="timer-area">
-	<div id="header">DRAFT BEGINS IN:</div>
-	<div id="clock">12:30</div>
-	<div id="picks-until-turn">Picks until your turn:</div>
+	<div id="header"></div>
+	<div id="clock">00:00</div>
+	<div id="picks-until-turn">Picks until your turn: --</div>
 </div>
 <div id="pick-list-mask">
 	<ul id="pick-list"></ul>

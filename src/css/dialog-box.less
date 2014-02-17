@@ -8,9 +8,12 @@
 	z-index: 999;
 
 	.backdrop {
+		-moz-opacity: 0.50;
+		opacity: 0.5;
+		filter: alpha(opacity=50);
+
 		background-color: #bebebe;
 		height: inherit;
-		opacity: 0.5;
 		width: inherit;
 	}
 
@@ -76,7 +79,7 @@
 			tbody {
 				td {
 					border: 1px solid #e9e9e9;
-					padding: 4px;
+					padding: 4.5px;
 				}
 
 				td:first-child {
@@ -134,21 +137,16 @@
 			font-size: 14px;
 			position: relative;
 
+			h3 {
+				margin: 5px 0 10px 0;
+			}
+
 			.player-name {
 				font-size: 18px;
 				font-weight: bold;
 				left: 103px;
 				position: absolute;
 				top: 2px;
-			}
-
-			img.icon {
-				display: none;
-				left: 327px;
-				pointer-events: none;
-				position: absolute;
-				top: 166px;
-				z-index: 1;
 			}
 
 			.player-pos-team {

@@ -2,23 +2,35 @@ define("data/DataPathManager", function( require, exports, module ) {
 
 	var _ids = {
 			"templates": "tplLib.xml",
-			"drafted": "drafted.xml",
-			"league": "league.xml",
-			"manager": "manager.xml",
-			"player_roster": "player_roster.xml"
+			"drafted": "/fantasylookup/json/named.wsfb_drafted.bam",
+			"league": "/fantasylookup/json/named.wsfb_league.bam",
+			"manager": "/fantasylookup/json/named.wsfb_manager.bam",
+			"player_roster": "/fantasylookup/rawjson/named.wsfb_draft_roster_player_tpl.bam"
 		},
-		version = requireBaseUrl.split("/")[0];
+		version = appVersion;
 
 	exports.getDataPath = function(id) {
 		var path;
 		if(location.href.indexOf("localhost") !== -1) {
 			if(location.pathname.indexOf("app-build/") !== -1) {
-				path = version+"/src/xml/"+_ids[id];
+				if(id === "templates") {
+					path = version+"/src/xml/"+_ids[id];
+				} else {
+					path = "proxy.php?url=http://qa.mlb.com"+_ids[id];
+				}
 			} else {
-				path = "/FantasyDraft2014/src/xml/"+_ids[id];
+				if(id === "templates") {
+					path = "/FantasyDraft2014/src/xml/"+_ids[id];
+				} else {
+					path = "proxy.php?url=http://qa.mlb.com"+_ids[id];
+				}
 			}
 		} else {
-			path = version+"/src/xml/"+_ids[id];
+			if(id === "templates") {
+				path = "/mlb/components/fantasy/fb/draft/"+version+"/src/xml/"+_ids[id];
+			} else {
+				path = _ids[id];
+			}
 		}
 		return path;
 	};
@@ -32,7 +44,7 @@ define("data/DataPathManager", function( require, exports, module ) {
 				path = "/FantasyDraft2014/src/images/"+image;
 			}
 		} else {
-			path = version+"/src/images/"+image;
+			path = "/mlb/components/fantasy/fb/draft/"+version+"/src/images/"+image;
 		}
 		return path;
 	};

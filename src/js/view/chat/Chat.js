@@ -2,7 +2,7 @@ define("view/chat/Chat", function( require, exports, module ) {
 
 	var AbstractFantasyDraftView = require("view/AbstractFantasyDraftView"),
 		controller = require("controller/FantasyDraftController"),
-		bot = require("controller/FantasyDraftBot"),
+		bot = require("bot/FantasyDraftBot"),
 		eventEnums = require("enums/EventEnums"),
 		botEnums = require("enums/BotCommandEnums");
 
@@ -11,13 +11,7 @@ define("view/chat/Chat", function( require, exports, module ) {
 		addViewListeners: function() {
 			var that = this;
 			//send chat button click
-			$(document).on("click", this.__targetDiv + " #chat-btn", function(e) {
-				var msg = that.element.find("#chat-input").val();
-				bot.sendChatMessage(msg);
-				//clear out send message field and disable send button
-				that.element.find("#chat-input").val("");
-				$(this).addClass("disabled");
-			});
+			$(document).on("click", this.__targetDiv + " #chat-btn", $.proxy(this.sendChatMessage, this));
 
 			//keyup listener to enable/disable send chat button
 			$(document).on("keyup", this.__targetDiv + " #chat-input", function(e) {
@@ -27,6 +21,29 @@ define("view/chat/Chat", function( require, exports, module ) {
 					that.element.find("#chat-btn").addClass("disabled");
 				}
 			});
+
+			//enter key handler to send chat
+			$(document).on("focus", this.__targetDiv + " #chat-input", function(e) {
+				var chatInput = $(this);
+				$(window).on("keydown", function(e) {
+					if(e.keyCode === 13 && chatInput.val() !== "") {
+						that.sendChatMessage();
+					}
+				});
+			});
+
+			//remove handler when chat input loses focus
+			$(document).on("blur", this.__targetDiv + " #chat-input", function(e) {
+				$(window).off("keydown");
+			});
+		},
+		sendChatMessage: function() {
+			var msg = this.element.find("#chat-input").val();
+			bot.sendChatMessage(msg);
+			//clear out send message field and disable send button
+			this.element.find("#chat-input").val("");
+			$(this.__targetDiv + " #chat-btn").addClass("disabled");
+			this.element.find("#chat-input").blur();
 		},
 		renderChatMessage: function(msg) {
 			var chatBoxElement = this.element.find("#chatbox");
@@ -35,21 +52,18 @@ define("view/chat/Chat", function( require, exports, module ) {
 			chatBoxElement.scrollTop(chatBoxElement[0].scrollHeight);
 		},
 		handleRenderNewChatMessage: function(evt, args) {
-			var msgObj = args;
-			var managerData = controller.getLeague().getManagerByID(msgObj.managerID);
-			this.renderChatMessage('<div class="chat-message"><b>'+managerData.getName()+'</b>: '+msgObj.message+'</div>');
-		},
-		handlePlayerDrafted: function(evt, args) {
-			var playerDrafted = args;
-			var managerData = controller.getLeague().getManagerByID(playerDrafted.getOwnerID());
-			var playerData = controller.getPlayerRoster().getPlayerByID(playerDrafted.getPlayerID());
-			this.renderChatMessage('<div class="chat-message bot"><b>'+managerData.getName()+" selects "+playerData.getFullName()+ " ("+playerData.getTeamAbbrev().toUpperCase()+", "+playerData.getPrimaryPosition()+')</b></div>')
+			var botMessageVO = args;
+			if(botMessageVO.getFrom() === "bot") {
+				this.renderChatMessage('<div class="chat-message bot"><b>'+botMessageVO.getBody()+'</b></div>');
+			} else {
+				var managerData = controller.getLeague().getManagerByID(botMessageVO.getFrom());
+				this.renderChatMessage('<div class="chat-message"><b>'+managerData.getName()+'</b>: '+botMessageVO.getBody()+'</div>');
+			}
 		},
 		init: function(div, template) {
 			this._super(div, template);
 
-			this.connect([{event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)},
-						  {event:botEnums.RENDER_NEW_CHAT_MESSAGE, handler:$.proxy(this.handleRenderNewChatMessage, this)}]);
+			this.connect([{event:botEnums.RENDER_NEW_CHAT_MESSAGE, handler:$.proxy(this.handleRenderNewChatMessage, this)}]);
 
 			this.addViewListeners();
 		}

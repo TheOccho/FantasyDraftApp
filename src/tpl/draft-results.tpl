@@ -4,7 +4,7 @@
 <ul id="results-filter">
 	<li data-id="team" class="tab selected">By Team</li>
 	<li data-id="round" class="tab">By Round</li>
-	<li data-id="tally" class="tab">Tally</li>
+	<li data-id="tally" class="tab last-child">Tally</li>
 </ul>
 <div class="wrapper">
 	<div class="view" id="team-view">

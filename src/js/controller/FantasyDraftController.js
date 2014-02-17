@@ -2,7 +2,7 @@ define("controller/FantasyDraftController", function( require, exports, module )
 	var instance = null,
 		_leagueID,
 		_managerID,
-		_draftHasBegun = false,
+		_draftIsLive = false,
 		templatelib = require("model/TemplateLibrary"),
 		league = require("model/League"),
 		manager = require("model/Manager"),
@@ -41,11 +41,11 @@ define("controller/FantasyDraftController", function( require, exports, module )
 		getManager: function() {
 			return manager;
 		},
-		getDraftHasBegun: function() {
-			return _draftHasBegun;
+		getDraftIsLive: function() {
+			return _draftIsLive;
 		},
-		setDraftHasBegun: function(bool) {
-			_draftHasBegun = bool;
+		setDraftIsLive: function(bool) {
+			_draftIsLive = bool;
 		},
 		getPlayerRoster: function() {
 			return playerroster;
@@ -71,6 +71,7 @@ define("controller/FantasyDraftController", function( require, exports, module )
 		// Gets an instance of the singleton. It is better to use
 		if(instance === null){
 			instance = new FantasyDraftController();
+			//window.fantasyController = instance;
 		}
 		return instance;
 	};
