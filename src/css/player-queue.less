@@ -8,10 +8,13 @@
 
 #player-queue .table-wrapper {
 	height: 350px;
-	overflow: hidden;
 	position: absolute;
 	top: 37px;
 	width: 198px;
+}
+
+#player-queue table.no-scroll tbody {
+	overflow-y: hidden;
 }
 
 #player-queue table {
@@ -55,9 +58,11 @@
 	}
 
 	tbody {
+		-webkit-overflow-scrolling: touch;
 		display: block;
 		height: 330px;
-		overflow: auto;
+		overflow-x: hidden;
+		overflow-y: auto;
 		width: 100%;
 	}
 

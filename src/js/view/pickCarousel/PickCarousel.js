@@ -8,12 +8,11 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 		eventEnums = require("enums/EventEnums"),
 		botEnums = require("enums/BotCommandEnums"),
 		bot = require("bot/FantasyDraftBot"),
-		_myTeamID,
+		_managerOnTheClock,
 		$timer,
 		_timer,
 		_incrementTime = 100,
-		_currentTime,
-		_carouselRenderDeps = [];
+		_currentTime;
 
 	// Common timer functions
 	function pad(number, length) {
@@ -35,6 +34,7 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			var that = this;
 			//handler for autopick checkbox
 			$(document).on("change", this.__targetDiv + " #auto-pick input", function(e) {
+				var _myTeamID = controller.getManagerID();
 				var isAutoDraft = $(this).prop("checked");
 				that.updateManagerAutoDraft(_myTeamID, isAutoDraft);
 				//let the bot know the client wants to auto-draft (or not)
@@ -69,6 +69,10 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 		handleSetClockHeader: function(evt, args) {
 			this.element.find("#timer-area #header").html(args);
 			if(args === "DRAFT IS OVER") {
+				//kill the timer
+				_timer.stop();
+				$timer.html("00:00");
+				//render last player (in case someone comes in post-draft state)
 				this.renderLastPlayerPickedTicker();
 			}
 		},
@@ -85,6 +89,7 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			}
 		},
 		updateManagerAutoDraft: function(managerID, isAutoDraft) {
+			var _myTeamID = controller.getManagerID();
 			if(isAutoDraft) {
 				this.element.find('li[data-id="'+managerID+'"] img.auto-draft-icon').removeClass("hidden").parent().attr("data-auto-draft", true);
 				if(managerID === _myTeamID) {
@@ -106,7 +111,7 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 
 				var elemToPop = this.element.find("li:eq(1)").removeClass("on-the-clock");
 				elemToPop.find(".round").html("R"+(this.currentRound+1));
-				if(this.currentRound < 15) {
+				if(this.currentRound < 16) {
 					this.element.find("#pick-list").append(elemToPop);
 				} else {
 					elemToPop.remove();
@@ -143,7 +148,9 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			this.updatePickCarousel();
 		},
 		handleManagerOnTheClock: function(evt, managerID) {
-			//nothing to see here...move along
+			if(managerID !== $("#pick-list li.on-the-clock").attr("data-id")) {
+				this.updatePickCarousel();
+			}
 		},
 		renderLastPlayerPickedTicker: function() {
 			var lastPickFormatted = controller.getDrafted().getOverallLastPick(true);
@@ -176,7 +183,7 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 					var lastOwnerToDraft = controller.getDrafted().getLastOwnerToDraft();
 					var managersAlreadyDrafted;
 					var managersRemaining = [];
-					var formmattedManagers;
+					var formattedManagers;
 					var ownerFound = false;
 					if(this.currentRound%2 === 0) {
 						managers.reverse();
@@ -218,7 +225,7 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 					currentPick = 1;
 				}
 				var teamLi = $('<li data-id="'+formattedManagers[i].getID()+'" data-auto-draft="false"></li>').html($.template(templatelib.getTemplateByID(templateEnums.PICK_CAROUSEL_TEAM), {teamName: formattedManagers[i].getName(),round: tmpRound, pick: currentPick, gearIconPathGrey: gearIconPathGrey, gearIconPathWhite: gearIconPathWhite}, true));
-				if(formattedManagers[i].getID() === _myTeamID) {
+				if(formattedManagers[i].getID() === controller.getManagerID()) {
 					teamLi.addClass("my-team");
 				}
 				if(i===0) {
@@ -234,19 +241,8 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			//render picks until your turn
 			this.renderPicksUntilYourTurn();
 		},
-		handleDraftedDataLoaded: function(evt, args) {
-			//preventing a race condition since we need both draft data as well as time-to-start from bot
-			_carouselRenderDeps.push("draft data loaded");
-			if(_carouselRenderDeps.length === 2) {
-				this.renderPickCarousel();
-			}
-		},
 		handleTimeToStartReceived: function(evt, args) {
-			//preventing a race condition since we need both draft data as well as time-to-start from bot
-			_carouselRenderDeps.push("time to start received");
-			if(_carouselRenderDeps.length === 2) {
-				this.renderPickCarousel();
-			}
+			this.renderPickCarousel();
 		},
 		init: function(div, template) {
 			this._super(div, template);
@@ -254,8 +250,7 @@ define("view/pickCarousel/PickCarousel", function( require, exports, module ) {
 			//pass image path of gear icon to the auto-draft input (hacky)
 			this.element.find("img.gear-icon").attr("src", dataPathManager.getImagePath("auto-draft-gear-grey.png"));
 
-			this.connect([{event:eventEnums.DRAFTED_DATA_LOADED, handler:$.proxy(this.handleDraftedDataLoaded, this)},
-						  {event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)},
+			this.connect([{event:eventEnums.PLAYER_DRAFTED, handler:$.proxy(this.handlePlayerDrafted, this)},
 						  {event:botEnums.SET_CLOCK, handler:$.proxy(this.handleSetClock, this)},
 						  {event:botEnums.SET_CLOCK_HEADER, handler:$.proxy(this.handleSetClockHeader, this)},
 						  {event:botEnums.SET_AUTO_PICK_ON, handler:$.proxy(this.handleAutopickOn, this)},

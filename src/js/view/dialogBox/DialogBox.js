@@ -8,7 +8,8 @@ define("view/dialogBox/DialogBox", function( require, exports, module ) {
 		templateLib = require("model/TemplateLibrary"),
 		templateEnums = require("enums/TemplateEnums"),
 		eventEnums = require("enums/EventEnums"),
-		botEnums = require("enums/BotCommandEnums");
+		botEnums = require("enums/BotCommandEnums"),
+		_isShowNotes = false;
 
 	return AbstractFantasyDraftView.extend({
 		label: "dialog box",
@@ -84,10 +85,20 @@ define("view/dialogBox/DialogBox", function( require, exports, module ) {
 
 				//show dialog
 				that.element.show();
+
+				//check if we're launching into the Notes tab
+				if(_isShowNotes) {
+					_isShowNotes = false;
+					$(that.element.selector + " ul#news-tabs li[data-id='fantasy']").click();
+				}
 			}).fail(function(error) {
 				//hide spinner
 				that.element.find("#spinner").hide();
 			});
+		},
+		handleShowPlayercardDialogNotes: function(evt, args) {
+			_isShowNotes = true;
+			this.handleShowPlayercardDialog.apply(this, [evt, args]);
 		},
 		handleShowPostDraftDialog: function(evt, args) {
 			//render
@@ -104,6 +115,7 @@ define("view/dialogBox/DialogBox", function( require, exports, module ) {
 
 			this.connect([{event:eventEnums.SHOW_DRAFT_ORDER_DIALOG, handler:$.proxy(this.handleShowDraftOrderDialog, this)},
 						  {event:eventEnums.SHOW_PLAYER_CARD_DIALOG, handler:$.proxy(this.handleShowPlayercardDialog, this)},
+						  {event:eventEnums.SHOW_PLAYER_CARD_DIALOG_NOTES, handler:$.proxy(this.handleShowPlayercardDialogNotes, this)},
 						  {event:botEnums.SHOW_POST_DRAFT_DIALOG, handler:$.proxy(this.handleShowPostDraftDialog, this)}]);
 
 			this.addViewListeners();

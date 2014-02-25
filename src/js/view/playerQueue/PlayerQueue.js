@@ -138,8 +138,10 @@ define("view/playerQueue/PlayerQueue", function( require, exports, module ) {
 			}
 		},
 		handleRenderQList: function(evt, args) {
-			_queue = args.split(" ");
-			this.renderQueue(false, true);
+			if(args !== "") {
+				_queue = args.split(" ");
+				this.renderQueue(false, true);
+			}
 		},
 		init: function(div, template) {
 			this._super(div, template);

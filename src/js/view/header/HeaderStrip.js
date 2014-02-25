@@ -16,7 +16,7 @@ define("view/header/HeaderStrip", function( require, exports, module ) {
 			//league rules link click
 			$(document).on("click", this.__targetDiv + " span.league-rules", function(e) {
 				//open the user's league homepage in a new tab
-				window.open("/mlb/fantasy/fb/info/rules.jsp", "_blank");
+				window.open("/mlb/fantasy/fb/info/settings.jsp", "_blank");
 			});
 		},
 		init: function(div, template) {

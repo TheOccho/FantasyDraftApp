@@ -83,7 +83,7 @@ define("model/vo/PitcherVO", function( require, exports, module ) {
 			return this._data.age || "";
 		},
 		getPrimaryPosition: function() {
-			return this._data.pos || "";
+			return "P";
 		},
 		getQualifiedPositions: function() {
 			return (this._data.q_pos) ? [ this._data.q_pos ] : [];

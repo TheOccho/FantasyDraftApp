@@ -93,7 +93,7 @@ define("model/vo/HitterVO", function( require, exports, module ) {
 			var arr = this._data.q_pos.split("/");
 			//remove the U (but not if it's the only qualified pos)
 			if(arr.length > 1) arr.pop();
-			return (arr.length > 0) ? arr : "";
+			return arr;
 		},
 		getTeamID: function() {
 			return this._data.team_id || "";

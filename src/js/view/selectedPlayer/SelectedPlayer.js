@@ -59,7 +59,8 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			//assume add to queue is enabled
 			this.element.find("#add-to-queue-btn").removeClass("disabled");
 
-			if(!playerData.getIsDrafted() && _managerOnTheClock === controller.getManagerID()) {
+			var myTeamID = controller.getManagerID();
+			if(controller.getDraftIsLive() && !playerData.getIsDrafted() && (_managerOnTheClock === myTeamID || $("#pick-list li.on-the-clock").attr("data-id") === myTeamID)) {
 				this.element.find("#draft-btn").removeClass("disabled");
 			}
 
@@ -68,15 +69,14 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 				this.element.find("#draft-btn").addClass("disabled");
 				var draftedPlayerVO = controller.getDrafted().getDraftedPlayerByPlayerID(playerData.getPlayerID());
 				var managerData = controller.getLeague().getManagerByID(draftedPlayerVO.getOwnerID());
-				this.element.find("span.drafted-by").html("<b>Drafted By:</b> "+managerData.getName()).show();
+				var managerName = (managerData.getName().length > 20) ? managerData.getName().substr(0, 20)+"..." : managerData.getName();
+				this.element.find("span.drafted-by").html("<b>Drafted By:</b> "+managerName).show();
 			} else {
 				this.element.find("span.drafted-by").hide();
 			}
 			
 			//fetch the player queue to check if we should disable the add to queue button
-			controller.bind(eventEnums.SEND_PLAYER_QUEUE, $.proxy(function(evt, args) {
-				//unbind from SEND_PLAYER_QUEUE
-				controller.unbind(eventEnums.SEND_PLAYER_QUEUE);
+			controller.one(eventEnums.SEND_PLAYER_QUEUE, $.proxy(function(evt, args) {
 				//check if player exists in queue OR if he's been drafted
 				if(args.playerQueue.indexOf(this.currentlySelectedPlayerID) !== -1 || playerData.getIsDrafted()) {
 					this.element.find("#add-to-queue-btn").addClass("disabled");
@@ -102,7 +102,7 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			this.element.find(".team-name").html("<b>Team:</b> "+playerData.getTeamAbbrev().toUpperCase());
 
 			//update qualified positions
-			this.element.find(".positions").html("<b>Qualifies at:</b> "+playerData.getQualifiedPositions().join(", "));
+			(playerData.getQualifiedPositions().length < 4) ? this.element.find(".positions").html("<b>Qualifies at:</b> "+playerData.getQualifiedPositions().join(", ")) : this.element.find(".positions").html("<b>Qual. at:</b> "+playerData.getQualifiedPositions().join(", "));
 
 			//set (and show) player link
 			this.element.find(".playercard-link").attr("data-pid", this.currentlySelectedPlayerID).show();

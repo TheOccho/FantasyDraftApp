@@ -11,7 +11,7 @@ define("model/PlayerRoster", function( require, exports, module ) {
 
 	function loadPlayerRoster() {
 		$.ajax({
-			url: dataPathManager.getDataPath("player_roster"),/*"/fantasylookup/rawjson/named.wsfb_draft_roster_player_tpl.bam*/
+			url: dataPathManager.getDataPath("player_roster"),
 			dataType: "json",
 			success: function(resp) {
 				setData(resp);

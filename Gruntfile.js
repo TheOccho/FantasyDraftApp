@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 		modifiedMarkup = preCSS;
 		modifiedMarkup += '<link type="text/css" rel="stylesheet" href="/mlb/components/fantasy/fb/draft/'+version+'/src/css/main.css" />';
 		modifiedMarkup += preScripts;
-		modifiedMarkup += ('<script type="text/javascript" src="/mlb/components/fantasy/fb/draft/'+version+'/src/js/external/external.min.js"></script><script>var appVersion="'+version+'";var requireBaseUrl="/mlb/components/fantasy/fb/draft/'+version+'/src/js";'+fs.readFileSync("require.config.js", FILE_ENCODING)+"</script>");
+		modifiedMarkup += ('<script type="text/javascript" src="/mlb/components/fantasy/fb/draft/'+version+'/src/js/external/jquery-1.11.0.js"></script><script type="text/javascript" src="/mlb/components/fantasy/fb/draft/'+version+'/src/js/external/external.min.js"></script><script type="text/javascript" src="/mlb/components/fantasy/fb/draft/'+version+'/src/js/external/requirejs-2.1.9.js"></script><script>var appVersion="'+version+'";var requireBaseUrl="/mlb/components/fantasy/fb/draft/'+version+'/src/js";'+fs.readFileSync("require.config.js", FILE_ENCODING)+"</script>");
 		modifiedMarkup += postScripts;
 
 		fs.writeFileSync("app-build/fantasydraft.html", modifiedMarkup, FILE_ENCODING);
@@ -160,8 +160,6 @@ module.exports = function(grunt) {
 	});
 
 	grunt.loadTasks('./node_modules/bam-grunt-tasks/tasks/common');
-
-	//grunt.initConfig(config);
 
 	grunt.registerTask('default', ['uglify', 'copy', 'requirejs', 'less', 'tpllib', 'markup']);
 };

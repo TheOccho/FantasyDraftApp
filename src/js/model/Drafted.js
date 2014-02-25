@@ -7,13 +7,13 @@ define("model/Drafted", function( require, exports, module ) {
 		_lastRound,
 		_currentRound = 1,
 		_currentPick = 1,
-		_overallLastPick = 1,
+		_overallLastPick = -1,
+		_managerOnTheClock,
 		_numManagers,
 		_lastOwnerToDraft,
 		_lastPlayerDrafted,
 		_playersByOwner = {},
 		_playerIndices = {},
-		_currentManagerOnClock,
 		eventEnums = require("enums/EventEnums"),
 		botEnums = require("enums/BotCommandEnums"),
 		dataPathManager = require("data/DataPathManager"),
@@ -49,17 +49,20 @@ define("model/Drafted", function( require, exports, module ) {
 		}
 	}
 
-	function handleIndividualPlayerDrafted(playerObj, index) {
+	function handleIndividualPlayerDrafted(playerObj, index, botUpdated) {
 		var tmpPlayer = new draftedplayerVO();
 		tmpPlayer.setData(playerObj);
 		_playerIndices[tmpPlayer.getPlayerID()] = index;
+
 		if(typeof _playersByOwner[playerObj.owner] === "undefined") {
 			_playersByOwner[playerObj.owner] = [ tmpPlayer ];
 		} else {
 			_playersByOwner[playerObj.owner].push(tmpPlayer);
 		}
+
 		//set player as drafted
 		_controller.getPlayerRoster().setPlayerDrafted(tmpPlayer.getPlayerID());
+
 		//update the draft tally
 		if(tmpPlayer.getPosition().toLowerCase() !== "bn") {
 			_controller.getLeague().updateDraftedPlayerTally(tmpPlayer.getOwnerID(), tmpPlayer.getPosition().toLowerCase());
@@ -67,26 +70,32 @@ define("model/Drafted", function( require, exports, module ) {
 			var primaryPosition = _controller.getPlayerRoster().getPlayerByID(tmpPlayer.getPlayerID()).getPrimaryPosition();
 			_controller.getLeague().updateDraftedPlayerTally(tmpPlayer.getOwnerID(), primaryPosition.toLowerCase());
 		}
-		_dataArray.push(tmpPlayer);
-		//set last owner/player to draft and be drafted
-		_lastOwnerToDraft = tmpPlayer.getOwnerID();
-		_lastPlayerDrafted = tmpPlayer.getPlayerID();
-		//set last round/pick
-		_lastRound = Number(tmpPlayer.getRoundNum());
-		_lastPick = Number(tmpPlayer.getPickNum());
-		//set current round/pick/overall pick
-		_currentRound = (+playerObj.pick === _numManagers) ? _lastRound + 1 : _lastRound;
-		_currentPick = (+playerObj.pick === _numManagers) ? 1 : _lastPick + 1;
-		if(_currentRound > 1) {
-			_overallLastPick = ((_currentRound - 1) * _numManagers) + (Number(_currentPick) - 1);
-		} else {
-			_overallLastPick = Number(_currentPick) - 1;
-		}
-		if(_overallLastPick === _controller.getLeague().getTotalPicks()) {
-			//draft is over
-			_controller.setDraftIsLive(false);
-			_controller.dispatchEvent(botEnums.SET_CLOCK_HEADER, [ "DRAFT IS OVER" ]);
-			//_controller.dispatchEvent(botEnums.SHOW_POST_DRAFT_DIALOG);
+
+		//set player in our internal array
+		_dataArray[index] = tmpPlayer;
+
+		//don't do any of these prop adjustments if this player was added via the bot "picks-since-position"
+		if(typeof botUpdated === "undefined") {
+			//set last owner/player to draft and be drafted
+			_lastOwnerToDraft = tmpPlayer.getOwnerID();
+			_lastPlayerDrafted = tmpPlayer.getPlayerID();
+			//set last round/pick
+			_lastRound = Number(tmpPlayer.getRoundNum());
+			_lastPick = Number(tmpPlayer.getPickNum());
+			//set current round/pick/overall pick
+			_currentRound = (+playerObj.pick === _numManagers) ? _lastRound + 1 : _lastRound;
+			_currentPick = (+playerObj.pick === _numManagers) ? 1 : _lastPick + 1;
+			if(_currentRound > 1) {
+				_overallLastPick = ((_currentRound - 1) * _numManagers) + (Number(_currentPick) - 1);
+			} else {
+				_overallLastPick = Number(_currentPick) - 1;
+			}
+			if(_overallLastPick === _controller.getLeague().getTotalPicks()) {
+				//draft is over
+				_controller.setDraftIsLive(false);
+				_controller.dispatchEvent(botEnums.SET_CLOCK_HEADER, [ "DRAFT IS OVER" ]);
+				_controller.dispatchEvent(botEnums.SHOW_POST_DRAFT_DIALOG);
+			}
 		}
 	}
 	
@@ -113,6 +122,14 @@ define("model/Drafted", function( require, exports, module ) {
 
 	exports.getCurrentPick = function() {
 		return _currentPick;
+	};
+
+	exports.getManagerOnTheClock = function() {
+		return _managerOnTheClock;
+	};
+
+	exports.setManagerOnTheClock = function(managerID) {
+		_managerOnTheClock = managerID;
 	};
 
 	exports.getOverallLastPick = function(formatted) {
@@ -149,9 +166,22 @@ define("model/Drafted", function( require, exports, module ) {
 		return _lastPlayerDrafted;
 	};
 
-	exports.setPlayerDrafted = function(pid, pos, owner, round, pick) {
+	exports.getPickDataByOverallPickNum = function(overallPickNum) {
+		var managers = _controller.getLeague().getManagers();
+		var round = Math.ceil(overallPickNum/managers.length);
+		var pick = overallPickNum%managers.length;
+		if(pick === 0) pick = managers.length;
+		if(round % 2 === 0) {
+			return {managerID: managers.reverse()[pick-1].getID(), round: round, pick: pick};
+		} else {
+			return {managerID: managers[pick-1].getID(), round: round, pick: pick};
+		}
+	};
+
+	window.setPlayerDrafted = exports.setPlayerDrafted = function(pid, pos, owner, round, pick, botUpdated) {
 		//do the actual adding of the drafted player by creating a DraftedPlayerVO and appending him to our internal array
-		handleIndividualPlayerDrafted({round: round, pick: pick, owner: owner, pid: pid, pos: pos}, _dataArray.length);
+		var index = ((_numManagers * (+round-1)) + (+pick)) - 1;
+		handleIndividualPlayerDrafted({round: round, pick: pick, owner: owner, pid: pid, pos: pos}, index, botUpdated);
 
 		//dispatch player drafted event so views can update themselves
 		_controller.dispatchEvent(eventEnums.PLAYER_DRAFTED, [ _dataArray[_playerIndices[pid]] ]);

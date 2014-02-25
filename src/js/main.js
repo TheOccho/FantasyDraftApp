@@ -1,4 +1,4 @@
-define("main", function( require, exports, module ) {
+define(function( require, exports, module ) {
 
 	var _leagueID,
 		_managerID,

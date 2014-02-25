@@ -10,6 +10,7 @@ function getUrlVars() {
     });
     return vars;
 }
+
 // KICKOFF THE APP
 require(["main"], function(main) {
 	var leagueID = getUrlVars()["leagueID"];

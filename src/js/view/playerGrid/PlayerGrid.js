@@ -32,6 +32,15 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					return "p";
 			}
 		},
+		getFilterRegEx: function() {
+			switch(this.currentFilter) {
+				case "all":
+				case "search":
+					return "c|1b|2b|ss|3b|of|u";
+				default:
+					return this.currentFilter;
+			}
+		},
 		adjustColumnHeaders: function() {
 			var b_or_p = this.getBatterOrPitcher();
 			var columnHeaders = (b_or_p === "b") ? _hitterColumnHeaders : _pitcherColumnHeaders;
@@ -111,6 +120,8 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				if(filterClicked.attr("data-id") === that.currentFilter) {
 					return false;
 				}
+
+				//check if we're coming from or going to a P tab
 				if(that.currentFilter === "p" || filterClicked.attr("data-id") === "p") {
 					sortByRank = true;
 					that.currentFilter = filterClicked.attr("data-id");
@@ -138,11 +149,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					//force table to sort by first column ("rank")
 					oTable.fnSort( [ [0, 'asc'] ] );
 				}
-				if(that.currentFilter === "all" || that.currentFilter === "search") {
-					oTable.fnFilter( "c|1b|2b|ss|3b|of", 24, true );
-				} else {
-					oTable.fnFilter( that.currentFilter, 24 );
-				}
+				oTable.fnFilter( that.getFilterRegEx(), 24, true );
 			});
 
 			//ranking filter clicks and stats filter click
@@ -171,8 +178,13 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					}
 				}
 			});
-
+			
 			//player row clicks
+			$(document).on("click", this.__targetDiv + " tr td img.icon", function(e) {
+				var selectedPlayerRow = $(this).parent().parent();
+				controller.dispatchEvent(eventEnums.SHOW_PLAYER_CARD_DIALOG_NOTES, [ {playerID: selectedPlayerRow.attr("data-pid") } ]);
+			});
+
 			$(document).on("click", this.__targetDiv + " table tbody tr", function(e) {
 				var selectedPlayerRow = $(this);
 				var imageInRow = selectedPlayerRow.find("img");
@@ -194,7 +206,9 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 				//force filter of drafted players
 				$(".hide-drafted input").prop("checked", $(this).prop("checked"));
 				_hideDraftedChecked = $(this).prop("checked");
-				oTable.fnDraw();
+				var scrollPos = $(".dataTables_scrollBody").scrollTop();
+				oTable.fnFilter( that.getFilterRegEx(), 24, true );
+				$(".dataTables_scrollBody").scrollTop(scrollPos);
 			});
 
 			//search for player listener
@@ -250,7 +264,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					player.push(players[i].getLastYearStats().getERA());
 					player.push(players[i].getPlayerID());
 					player.push(players[i].getIsDrafted());
-					player.push(players[i].getPrimaryPosition().toLowerCase());
+					player.push(players[i].getQualifiedPositions());
 					rows.push(player);
 				} else {
 					player.push(players[i].getRank());
@@ -277,7 +291,7 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					player.push("b2");
 					player.push(players[i].getPlayerID());
 					player.push(players[i].getIsDrafted());
-					player.push(players[i].getPrimaryPosition().toLowerCase());
+					player.push(players[i].getQualifiedPositions());
 					rows.push(player);
 				}
 			}
@@ -314,18 +328,19 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 					{ "bVisible": false },
 					{ "bVisible": false }
 				],
-				
 				"fnRowCallback": function(nRow, aData) {
-					$(nRow).attr("data-pid", aData[22]);
-					$(nRow, "td:eq(1)").addClass("player-name");
-					if(aData[23]) {
-						$(nRow).addClass("drafted");
+					nRow = $(nRow);
+					if(!nRow.attr("data-pid")) {
+						nRow.attr("data-pid", aData[22]);
+						nRow.find("td:eq(1)").addClass("player-name");
 					}
-				},	
+					if(aData[23]) {
+						nRow.removeClass("selected").addClass("drafted");
+					}
+				},
 				"fnDrawCallback": function( oSettings ) {
 					$("#player-grid-table_wrapper th.player-name").width(160);
 					$("#player-grid-table_wrapper th:not(.player-name)").width(30);
-					$("#player-grid-table").removeClass("proj last").addClass(that.currentStatsFilter);
 				},
 				"sDom": "tSr",
 				"bDeferRender": true
@@ -333,19 +348,31 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 			//set custom filtering for showing/hiding drafted players
 			$.fn.dataTableExt.afnFiltering.push(
 				function( oSettings, aData, iDataIndex ) {
-					var nTr = oSettings.aoData[iDataIndex].nTr;
-					if(nTr === null) {
-						return true;
-					}
-					if(_hideDraftedChecked && nTr.className.match("drafted")) {
-						return false;
+					if(that.currentFilter === "all" || that.currentFilter === "search") {
+						if(oSettings.aoData[iDataIndex]._aData[24].indexOf("P") === -1) {
+							if(_hideDraftedChecked && oSettings.aoData[iDataIndex]._aData[23]) {
+								return false;
+							} else {
+								return true;
+							}
+						} else {
+							return false;
+						}
 					} else {
-						return true;
+						if(oSettings.aoData[iDataIndex]._aData[24].indexOf(that.currentFilter.toUpperCase()) !== -1) {
+							if(_hideDraftedChecked && oSettings.aoData[iDataIndex]._aData[23]) {
+								return false;
+							} else {
+								return true;
+							}
+						} else {
+							return false;
+						}
 					}
 				}
 			);
 			//filter out pitchers since we know we default to the "all hitters" tab
-			oTable.fnFilter( "c|1b|2b|ss|3b|of", 24, true );
+			oTable.fnFilter( this.getFilterRegEx(), 24, true );
 		},
 		handleDraftedDataLoaded: function(evt, args) {
 			this.renderPlayerGrid(this.element.find("table tbody"), controller.getPlayerRoster().getAllPlayers());
@@ -357,10 +384,11 @@ define("view/playerGrid/PlayerGrid", function( require, exports, module ) {
 			var playerDraftedID = args.getPlayerID();
 			//mark player as drafted in table via updating internal aoData
 			oTable.fnUpdate(true, controller.getPlayerRoster().getPlayerIndexByPID(playerDraftedID), 23, false);
-			//unselect row
-			this.element.find("table tbody tr[data-pid="+playerDraftedID+"]").removeClass("selected");
-			//redraw table (forces afnFiltering)
-			oTable.fnDraw();
+			//scroll back to where the user was
+			var scrollPos = $(".dataTables_scrollBody").scrollTop();
+			//filter to hide recently drafted player
+			oTable.fnFilter( this.getFilterRegEx(), 24, true);
+			$(".dataTables_scrollBody").scrollTop(scrollPos);
 		},
 		init: function(div, template) {
 			this._super(div, template);

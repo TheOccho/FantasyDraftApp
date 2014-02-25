@@ -1,7 +1,9 @@
 define("bot/FantasyDraftBot", function( require, exports, module ) {
 	var instance = null,
-		BOSH_SERVICE = "http://d1engbuild01.dev.mlbam.com:7070/http-bind/",
+		_jabberServer = (window.location.hostname.indexOf("localhost") !== -1 || window.location.hostname.indexOf("qa") !== -1) ? "qawsfb-jabber.mlb.com" : "wsfb-jabber.mlb.com",
+		BOSH_SERVICE = "http://"+_jabberServer+":7070/http-bind/",
 		botMessageVO = require("bot/vo/BotMessageVO"),
+		eventEnums = require("enums/EventEnums"),
 		botEnums = require("enums/BotCommandEnums"),
 		controller = require("controller/FantasyDraftController"),
 		_connection = null,
@@ -18,7 +20,6 @@ define("bot/FantasyDraftBot", function( require, exports, module ) {
 	}
 
 	function rawInput(data) {
-		//console.log("rawInput: "+data);
 		var messages = $.ensureArray($.xml2json(data).message);
 		for(var i=0,l=messages.length;i<l;i++) {
 			var messageVO = new botMessageVO();
@@ -31,8 +32,6 @@ define("bot/FantasyDraftBot", function( require, exports, module ) {
 				var msgParams = messageVO.getBody().split(" ");
 				var commandName = msgParams.shift();
 				switch(commandName) {
-					case "start-draft":
-						break;
 					case "q-set":
 						//q-set ok/failed
 						//check if q-set failed
@@ -51,14 +50,30 @@ define("bot/FantasyDraftBot", function( require, exports, module ) {
 					case "autopick-on":
 						//autopick-on 1245 [managerID] 0 [pickSecs]
 						var teamID = msgParams[0];
-						var from = msgParams[1];
+						var pickSecs = +msgParams[1];
 						controller.dispatchEvent(botEnums.SET_AUTO_PICK_ON, [ teamID ]);
+						//if draft is live and manager is on the clock
+						if(controller.getDraftIsLive() && !isNaN(pickSecs)) {
+							if(pickSecs < 0) {
+								controller.dispatchEvent(botEnums.SET_CLOCK, [ 0 ]);
+							} else {
+								controller.dispatchEvent(botEnums.SET_CLOCK, [ pickSecs ]);
+							}
+						}
 						break;
 					case "autopick-off":
 						//autopick-off 1245 [managerID] 0 [pickSecs]
 						var teamID = msgParams[0];
-						var from = msgParams[1];
+						var pickSecs = +msgParams[1];
 						controller.dispatchEvent(botEnums.SET_AUTO_PICK_OFF, [ teamID ]);
+						//if draft is live and manager is on the clock
+						if(controller.getDraftIsLive() && !isNaN(pickSecs)) {
+							if(pickSecs < 0) {
+								controller.dispatchEvent(botEnums.SET_CLOCK, [ 0 ]);
+							} else {
+								controller.dispatchEvent(botEnums.SET_CLOCK, [ pickSecs ]);
+							}
+						}
 						break;
 					case "time-to-start":
 						//time-to-start 1209 [seconds until draft starts (or 0 if draft is live)]
@@ -66,30 +81,55 @@ define("bot/FantasyDraftBot", function( require, exports, module ) {
 						if(secondsUntilDraftStart > 0) {
 							//pre-draft
 							controller.setDraftIsLive(false);
+							controller.dispatchEvent(eventEnums.SHOW_DRAFT_ORDER_DIALOG);
 							controller.dispatchEvent(botEnums.SET_CLOCK_HEADER, [ "DRAFT BEGINS IN:" ]);
 							controller.dispatchEvent(botEnums.SET_CLOCK, [ secondsUntilDraftStart ]);
 						} else {
 							//live
 							controller.setDraftIsLive(true);
+							//check to see if we've missed any picks since loading drafted lookup
+							var lastOverallPick = controller.getDrafted().getOverallLastPick();
+							if(lastOverallPick !== -1) {
+								var numPicksToFetch = 4;
+								if(lastOverallPick >= (numPicksToFetch+1)) {
+									instance.sendBotMessage("picks-since-position "+(lastOverallPick-numPicksToFetch));
+								} else {
+									instance.sendBotMessage("picks-since-position 1");
+								}
+							}
+							//find out how much time current manager on the clock has
 							instance.sendBotMessage("time-to-pick");
 						}
 						controller.dispatchEvent(botEnums.TIME_TO_START_RECEIVED);
+						break;
+					case "picks-since-position":
+						//picks-since-position 35 461314 OF 446334 3B 516782 OF 452254 OF 493316 OF 457763 C
+						var overallPick = +msgParams.shift();
+						for(var i=0,l=msgParams.length;i<l;i++) {
+							if(i%2!==0) {
+								continue;
+							}
+							var draftPickData = controller.getDrafted().getPickDataByOverallPickNum(overallPick);
+							//check if the player hasn't been drafted yet before adding him
+							if(typeof controller.getDrafted().getDraftedPlayerByPlayerID(msgParams[i]) === "undefined") {
+								controller.getDrafted().setPlayerDrafted(msgParams[i], msgParams[i+1], draftPickData.managerID, draftPickData.round, draftPickData.pick, true);
+							}
+							overallPick++;
+						}
 						break;
 					case "time-to-pick":
 						//time-to-pick 30
 						controller.dispatchEvent(botEnums.SET_CLOCK_HEADER, [ "ON THE CLOCK:" ]);
 						controller.dispatchEvent(botEnums.SET_CLOCK, [ +msgParams[0] ]);
 						break;
-					case "current-pick-number":
-						break;
-					case "current-pick-team":
-						break;
 					case "pick-start":
 						//pick-start 1239 [managerID] 5 [seconds to pick] 1237 [managerID on deck] 1 [round] 4 [pick]
 						controller.setDraftIsLive(true);
 						controller.dispatchEvent(botEnums.SET_CLOCK_HEADER, [ "ON THE CLOCK:" ]);
 						controller.dispatchEvent(botEnums.SET_CLOCK, [ +msgParams[1] ]);
-						controller.dispatchEvent(botEnums.MANAGER_ON_THE_CLOCK, [ msgParams[0], msgParams[1], msgParams[2], +msgParams[3], +msgParams[4]]);
+						//set manager on the clock
+						controller.getDrafted().setManagerOnTheClock(msgParams[0]);
+						controller.dispatchEvent(botEnums.MANAGER_ON_THE_CLOCK, [ msgParams[0] ]);
 						break;
 					case "pick-made":
 						//pick-made 151 [overall pick] 1256 [managerID] 451594 [playerID] Bn [position on manager's roster] OF [primary position]
@@ -98,37 +138,30 @@ define("bot/FantasyDraftBot", function( require, exports, module ) {
 						var round = Math.ceil(Number(msgParams[0])/numManagers);
 						var pick = Number(msgParams[0])%numManagers;
 						if(pick === 0) pick = numManagers;
-						controller.getDrafted().setPlayerDrafted(msgParams[2], msgParams[4], msgParams[1], round, pick);
+						controller.getDrafted().setPlayerDrafted(msgParams[2], msgParams[3], msgParams[1], round, pick);
 						break;
 					case "end-draft":
 						controller.setDraftIsLive(false);
 						controller.dispatchEvent(botEnums.SET_CLOCK_HEADER, [ "DRAFT IS OVER" ]);
 						controller.dispatchEvent(botEnums.SHOW_POST_DRAFT_DIALOG);
+						//kill the connection (in 15 minutes)
+						setTimeout(function(){
+							_connection.disconnect();
+						}, 15 * 60 * 1000);
 						break;
 				}
 			}
 		}
 	}
 
-	function rawOutput(data) {
-		//console.log("rawOuput: "+data);
-	}
+	function rawOutput(data) {}
 
 	function connectToChatRoom() {
 		_connection.muc.join(_connections["chat"], "guest"+_managerID, null, null, null, _password);
 	}
 
 	function onConnect(status) {
-		if (status == Strophe.Status.CONNECTING) {
-			//console.log('Strophe is connecting.');
-	    } else if (status == Strophe.Status.CONNFAIL) {
-			//console.log('Strophe failed to connect.');
-	    } else if (status == Strophe.Status.DISCONNECTING) {
-			//console.log('Strophe is disconnecting.');
-	    } else if (status == Strophe.Status.DISCONNECTED) {
-			//console.log('Strophe is disconnected.');
-	    } else if (status == Strophe.Status.CONNECTED) {
-	    	//console.log('Strophe is connected.');
+		if (status == Strophe.Status.CONNECTED) {
 	    	//send presence to jabber to mark as "online/available"
 	    	var presence = $pres();
 			_connection.send(presence);
@@ -148,15 +181,15 @@ define("bot/FantasyDraftBot", function( require, exports, module ) {
 	    _connection.rawInput = rawInput;
 	    _connection.rawOutput = rawOutput;
 
-	    _connection.connect("m"+_managerID+"@d1engbuild01.dev.mlbam.com/"+_jidResource, _password, onConnect);
+	    _connection.connect("m"+_managerID+"@"+_jabberServer+"/"+_jidResource, _password, onConnect);
 	}
 
 	FantasyDraftBot.prototype = {
 		init: function(leagueID, managerID) {
 			_leagueID = leagueID;
 			_managerID = managerID;
-			_connections["chat"] = "c"+leagueID+"@conference.d1engbuild01.dev.mlbam.com";
-			_connections["bot"] = "b"+leagueID+"@d1engbuild01.dev.mlbam.com/"+_jidResource;
+			_connections["chat"] = "c"+leagueID+"@conference."+_jabberServer;
+			_connections["bot"] = "b"+leagueID+"@"+_jabberServer+"/"+_jidResource;
 
 			connect();
 		},

@@ -10,6 +10,7 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 	return AbstractFantasyDraftView.extend({
 		label: "draft results",
 		currentFilter: "team",
+		userSelectedRound: false,
 		positions: ["c","1b","2b","ss","3b","of","of","of","u","p","bn","bn","bn","bn","bn","bn"],
 		addViewListeners: function() {
 			var that = this;
@@ -62,6 +63,11 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 			//change filter by round drop-down
 			$(document).on("change", this.__targetDiv + " #round-view select", function(e) {
 				var selectedRound = $(this).val();
+				if(+selectedRound === controller.getDrafted().getCurrentRound()) {
+					that.userSelectedRound = false;
+				} else {
+					that.userSelectedRound = true;
+				}
 				that.renderRoundTable(selectedRound);
 			});
 
@@ -142,8 +148,8 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 			tbody.append('<tr class="totals-row empty"><td>Totals</td><td>'+totalTally["c"]+'</td><td>'+totalTally["1b"]+'</td><td>'+totalTally["2b"]+'</td><td>'+totalTally["ss"]+'</td><td>'+totalTally["3b"]+'</td><td>'+totalTally["of"]+'</td><td>'+totalTally["u"]+'</td><td>'+totalTally["p"]+'</td></tr>');
 		},
 		getFormattedPlayerCell: function(player) {
-			if(player.getPrimaryPosition() === "P") {
-				return player.getFirstName() + " " + player.getLastName()+'<br/><span class="player-team-pos">'+player.getTeamAbbrev().toUpperCase()+" - P</span>";
+			if(player.getType() === "pitcher") {
+				return player.getLastName()+'<br/><span class="player-team-pos">'+player.getTeamAbbrev().toUpperCase()+" - P</span>";
 			} else {
 				return player.getFirstName().charAt(0) + ". " + player.getLastName()+'<br/><span class="player-team-pos">'+player.getTeamAbbrev().toUpperCase()+" - "+player.getQualifiedPositions().join(", ")+"</span>";
 			}
@@ -179,16 +185,21 @@ define("view/draftResults/DraftResults", function( require, exports, module ) {
 			switch(this.currentFilter) {
 				case "team":
 					var selectedManagerID = $("#team-view select").val();
+					var scrollPos = $("#team-view .table-wrapper").scrollTop();
 					this.renderTeamTableByOwnerID(selectedManagerID);
+					$("#team-view .table-wrapper").scrollTop(scrollPos);
 					break;
 				case "round":
 					var lastRound = controller.getDrafted().getLastRound();
 					//add the current round option (if it isn't there)
 					if($("#round-view select option[value="+lastRound+"]").length === 0) {
 						$("#round-view select").append('<option value="'+lastRound+'">Round '+lastRound+'</option>');
+						if(!this.userSelectedRound) {
+							$("#round-view select").val(lastRound);
+						}
 					}
-					//only re-render the table if the incoming round is being viewed
-					if(+$("#round-view select").val() === lastRound) {
+					//only re-render the table if the user hasn't jumped back to view a prior round
+					if(!this.userSelectedRound) {
 						this.renderRoundTable(lastRound, true);
 					}
 					break;
