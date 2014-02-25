@@ -178,7 +178,7 @@ define("model/Drafted", function( require, exports, module ) {
 		}
 	};
 
-	window.setPlayerDrafted = exports.setPlayerDrafted = function(pid, pos, owner, round, pick, botUpdated) {
+	exports.setPlayerDrafted = function(pid, pos, owner, round, pick, botUpdated) {
 		//do the actual adding of the drafted player by creating a DraftedPlayerVO and appending him to our internal array
 		var index = ((_numManagers * (+round-1)) + (+pick)) - 1;
 		handleIndividualPlayerDrafted({round: round, pick: pick, owner: owner, pid: pid, pos: pos}, index, botUpdated);

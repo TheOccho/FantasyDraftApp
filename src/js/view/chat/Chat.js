@@ -39,10 +39,12 @@ define("view/chat/Chat", function( require, exports, module ) {
 		},
 		sendChatMessage: function() {
 			var msg = this.element.find("#chat-input").val();
-			bot.sendChatMessage(msg);
-			//clear out send message field and disable send button
-			this.element.find("#chat-btn").addClass("disabled");
-			this.element.find("#chat-input").val("").blur();
+			if(msg !== "") {
+				bot.sendChatMessage(msg);
+				//clear out send message field and disable send button
+				this.element.find("#chat-btn").addClass("disabled");
+				this.element.find("#chat-input").val("").blur();
+			}
 		},
 		renderChatMessage: function(msg) {
 			var chatBoxElement = this.element.find("#chatbox");

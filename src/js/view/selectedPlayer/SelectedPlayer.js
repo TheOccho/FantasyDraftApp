@@ -50,6 +50,8 @@ define("view/selectedPlayer/SelectedPlayer", function( require, exports, module 
 			var playerData = controller.getPlayerRoster().getPlayerByID(this.currentlySelectedPlayerID);
 			if(!playerData.getIsDrafted() && _managerOnTheClock === controller.getManagerID()) {
 				this.element.find("#draft-btn").removeClass("disabled");
+			} else {
+				this.element.find("#draft-btn").addClass("disabled");
 			}
 		},
 		handlePlayerSelected: function(evt, args) {

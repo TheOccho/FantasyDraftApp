@@ -87,6 +87,9 @@ define("model/vo/HitterVO", function( require, exports, module ) {
 			return this._data.age || "";
 		},
 		getPrimaryPosition: function() {
+			if(this._data.pos === "Util") {
+				return "U";
+			}
 			return this._data.pos || "";
 		},
 		getQualifiedPositions: function() {
