@@ -5,7 +5,7 @@
 <span class="player-name">No Player Selected</span>
 <span class="team-name"><b>Team:</b> --</span>
 <span class="positions"><b>Qualifies at:</b> --</span>
-<span data-pid="" class="playercard-link">View Playercard >></span>
+<span data-pid="" class="playercard-link">View Player Card >></span>
 <table>
 <thead>
 	<th>Last Year</th>

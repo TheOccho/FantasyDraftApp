@@ -59,9 +59,21 @@ define("model/vo/HitterStatsVO", function( require, exports, module ) {
 		getAVG: function() {
 			//check if we're modeling stats from a named lookup
 			if(typeof this._data.avg !== "undefined") {
-				return this._data.avg;
+				if(this._data.ab && +this._data.ab === 0) {
+					return "-.---";
+				} else {
+					return this._data.avg;
+				}
 			}
-			return this._data.b_avg || "--";
+			if(this._data.b_avg) {
+				if(this._data.b_ab && +this._data.b_ab === 0) {
+					return "-.---";
+				} else {
+					return this._data.b_avg;
+				}
+			} else {
+				return "-.---";
+			}
 		},
 		getRuns: function() {
 			return this._data.r_r || "--";

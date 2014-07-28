@@ -136,7 +136,7 @@
 <span class="player-name">No Player Selected</span>
 <span class="team-name"><b>Team:</b> --</span>
 <span class="positions"><b>Qualifies at:</b> --</span>
-<span data-pid="" class="playercard-link">View Playercard >></span>
+<span data-pid="" class="playercard-link">View Player Card >></span>
 <table>
 <thead>
 	<th>Last Year</th>
@@ -236,12 +236,12 @@
 		<li data-id="preview" class="tab selected">2014 Preview</li>
 		<li data-id="fantasy" class="tab">Notes</li>
 	</ul>
-	<div id="preview-notes" class="notes">{%= preview.preview %}{% if(typeof preview.one_liner !== "undefined" && preview.one_liner !== "") { %}</br></br><b>Fantasy Bottom Line:</b> {%= preview.one_liner %}{% } %}</div>
+	<div id="preview-notes" class="notes">{% if(typeof preview.preview !== "undefined") { %}{%= preview.preview %}{% if(typeof preview.one_liner !== "undefined" && preview.one_liner !== "") { %}</br></br><b>Fantasy Bottom Line:</b> {%= preview.one_liner %}{% } %}{% } else { %}<p>There is no Fantasy Preview for this player.</p>{% } %}</div>
 	<div id="fantasy-notes" class="notes">
 		<h3>Fantasy Notes:</h3>
 			{% if(news.length > 0) { %}
 				{% for(var i=0,l=news.length;i<l;i++) { %}
-					<div><b>{%= news[i].display_ts %}</b> - {%= news[i].spin %}</div>
+					<div><b>{%= news[i].display_ts %}</b> - {%= news[i].story %}</br></br>{%= news[i].spin %}</div>
 					{% if(i!==l-1) { %}</br>{% } %}
 				{% } %}
 			{% } else { %}
@@ -250,7 +250,7 @@
 		<h3 style="margin-top:10px;">Injury Updates:</h3>
 			{% if(injury.length > 0) { %}
 				{% for(var i=0,l=injury.length;i<l;i++) { %}
-					<div><b>{%= injury[i].display_ts %}</b> - Injury Status: {%= injury[i].injury_status %}. {%= injury[i].injury_update %} Due Back: {%= injury[i].due_back %}.</div>
+					<div><b>{%= injury[i].display_ts %}</b> - {%= injury[i].injury_desc %}, Injury Status: {%= injury[i].injury_status %}. {%= injury[i].injury_update %} Due Back: {%= injury[i].due_back %}.</div>
 					{% if(i!==l-1) { %}</br>{% } %}
 				{% } %}
 			{% } else { %}

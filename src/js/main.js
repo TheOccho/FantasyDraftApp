@@ -1,5 +1,15 @@
 define(function( require, exports, module ) {
 
+	//preloader stuff
+	var preloaderDeferred = $.Deferred();
+	var preloader = require("view/preloader/AppPreloader");
+	//5 dependencies
+	preloader.add( 5 );
+	preloader.init(function() {
+		$("#fantasyDraft").show();
+		preloaderDeferred.resolve();
+	});
+
 	var _leagueID,
 		_managerID,
 		templateEnums = require("enums/TemplateEnums"),
@@ -26,35 +36,40 @@ define(function( require, exports, module ) {
 		controller.setLeagueID(_leagueID);
 		controller.setManagerID(_managerID);
 
-		//load data sequentially
-		controller.bind(eventEnums.TEMPLATE_DATA_LOADED, function(e) {
+		preloaderDeferred.done(function(){
+			//load data sequentially
+			controller.bind(eventEnums.TEMPLATE_DATA_LOADED, function(e) {
+				preloader.remove(1);
+				//init the view modules by passing them their respective element IDs
+				dialogBox.init("#dialog-box", templateEnums.DIALOG_BOX);
+				headerStrip.init("#header-strip", templateEnums.HEADER_STRIP);
+				pickCarousel.init("#pick-carousel", templateEnums.PICK_CAROUSEL);
+				selectedPlayer.init("#selected-player", templateEnums.SELECTED_PLAYER);
+				playerQueue.init("#player-queue", templateEnums.PLAYER_QUEUE);
+				playerGrid.init("#player-grid", templateEnums.PLAYER_GRID);
+				draftResults.init("#draft-results", templateEnums.DRAFT_RESULTS);
+				chat.init("#chat", templateEnums.CHAT);
 
-			//init the view modules by passing them their respective element IDs
-			dialogBox.init("#dialog-box", templateEnums.DIALOG_BOX);
-			headerStrip.init("#header-strip", templateEnums.HEADER_STRIP);
-			pickCarousel.init("#pick-carousel", templateEnums.PICK_CAROUSEL);
-			selectedPlayer.init("#selected-player", templateEnums.SELECTED_PLAYER);
-			playerQueue.init("#player-queue", templateEnums.PLAYER_QUEUE);
-			playerGrid.init("#player-grid", templateEnums.PLAYER_GRID);
-			draftResults.init("#draft-results", templateEnums.DRAFT_RESULTS);
-			chat.init("#chat", templateEnums.CHAT);
-
-			controller.loadLeague(_leagueID);
+				controller.loadLeague(_leagueID);
+			});
+			controller.bind(eventEnums.LEAGUE_DATA_LOADED, function(e) {
+				preloader.remove(1);
+				controller.loadManager(_managerID);
+			});
+			controller.bind(eventEnums.MANAGER_DATA_LOADED, function(e) {
+				preloader.remove(1);
+				controller.loadPlayerRoster();
+			});
+			controller.bind(eventEnums.PLAYER_ROSTER_DATA_LOADED, function(e) {
+				preloader.remove(1);
+				controller.loadDrafted(_leagueID);
+			});
+			controller.bind(eventEnums.DRAFTED_DATA_LOADED, function(e) {
+				preloader.remove(1);
+				//init bot
+				bot.init(_leagueID, _managerID);
+			});
+			controller.loadTemplates();
 		});
-		controller.bind(eventEnums.LEAGUE_DATA_LOADED, function(e) {
-			controller.loadManager(_managerID);
-		});
-		controller.bind(eventEnums.MANAGER_DATA_LOADED, function(e) {
-			controller.loadPlayerRoster();
-		});
-		controller.bind(eventEnums.PLAYER_ROSTER_DATA_LOADED, function(e) {
-			controller.loadDrafted(_leagueID);
-		});
-		controller.bind(eventEnums.DRAFTED_DATA_LOADED, function(e) {
-			
-			//init bot
-			bot.init(_leagueID, _managerID);
-		});
-		controller.loadTemplates();
 	}
 });

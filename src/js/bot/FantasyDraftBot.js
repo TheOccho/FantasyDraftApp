@@ -156,18 +156,15 @@ define("bot/FantasyDraftBot", function( require, exports, module ) {
 
 	function rawOutput(data) {}
 
-	function connectToChatRoom() {
-		_connection.muc.join(_connections["chat"], "guest"+_managerID, null, null, null, _password);
-	}
-
 	function onConnect(status) {
 		if (status == Strophe.Status.CONNECTED) {
 	    	//send presence to jabber to mark as "online/available"
-	    	var presence = $pres();
-			_connection.send(presence);
+			_connection.send($pres());
+			_connection.send($pres({to: _connections["bot"], type: "subscribed"}));
+			_connection.send($pres({to: _connections["bot"]}));
 
 			//join the chat room so we can talk to the bot
-			connectToChatRoom();
+			_connection.muc.join(_connections["chat"], "guest"+_managerID, null, null, null, _password);
 
 			//fire initial commands to figure out draft state
 			instance.sendBotMessage("time-to-start");
